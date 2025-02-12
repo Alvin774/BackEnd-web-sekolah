@@ -1,0 +1,109 @@
+body {
+  min-height: 100vh;
+  background-color: #ebedeb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: "Poppins", sans-serif;
+}
+
+.kontainer-register {
+  padding: 40px;
+  box-sizing: border-box;
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Icon Glow Animation */
+@keyframes glow {
+  from {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+      0 0 20px rgba(255, 255, 255, 0.6);
+  }
+  to {
+    text-shadow: 0 0 15px rgba(255, 255, 255, 1),
+      0 0 30px rgba(255, 255, 255, 0.9);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 576px) {
+  .alert-box {
+    font-size: 0.9rem;
+    padding: 10px 20px;
+    gap: 10px;
+  }
+}
+
+.form-register {
+  background: linear-gradient(to bottom, #228b22, #092509);
+  border-top-right-radius: 25px;
+  box-shadow: 0px 2px 7px 0px rgb(24, 24, 24);
+}
+
+.form-register label {
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.register-title {
+  font-family: "Roboto", serif;
+  font-size: 2.7rem; /* Ukuran font */
+  font-weight: bolder;
+  background: linear-gradient(to right, #228b22, #001f07);
+  -webkit-background-clip: text; /* Agar gradient hanya berlaku pada teks */
+  -webkit-text-fill-color: transparent; /* Membuat teks transparan sehingga gradien terlihat */
+  text-shadow: 0px 10px 6px 0px #a5a5a5;
+}
+
+.register-subtittle {
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  color: black;
+  text-shadow: 0 1px 3px rgba(255, 255, 255, 0.5);
+  opacity: 1;
+  animation: fadeInText 2s ease-in-out forwards;
+  animation-delay: 0.5s;
+}
+
+.btn {
+  background-color: #1c1d1c;
+  font-size: 1.2em;
+  color: white;
+  font-weight: 500;
+
+  transition: 0.5s;
+}
+.back {
+}
+
+.back a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.btn:hover {
+  box-shadow: 0px 0px 8px #fff;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 2px 4px rgba(255, 126, 95, 0.4),
+      0 0 10px rgba(255, 126, 95, 0.2), 0 0 20px rgba(255, 126, 95, 0.1);
+  }
+  to {
+    text-shadow: 0 2px 4px rgba(255, 126, 95, 0.6),
+      0 0 15px rgba(255, 126, 95, 0.4), 0 0 30px rgba(255, 126, 95, 0.3);
+  }
+}
+
+@keyframes fadeInText {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

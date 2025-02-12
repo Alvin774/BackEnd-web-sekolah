@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bootstrap demo</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="admincss/admin-berita-artikel.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Biryani:wght@200;300;400;600;700;800;900&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Candal&family=Capriola&family=Lexend+Deca:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rethink+Sans:ital,wght@0,400..800;1,400..800&family=Roboto+Slab:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Trocchi&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary-green: #2ecc71;
+        --dark-green: #27ae60;
+        --bg-light: #ecf9f1;
+        --text-dark: #2c3e50;
+      }
+      body {
+        background-color: var(--bg-light);
+        color: var(--text-dark);
+        font-family: 'Poppins', sans-serif;
+      }
+      .container {
+        max-width: 800px;
+        margin: 40px auto;
+        background: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      }
+      h2 {
+        color: var(--dark-green);
+        margin-bottom: 20px;
+      }
+      .banner-item {
+        border: 1px solid var(--primary-green);
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .banner-item img {
+        max-width: 150px;
+        border-radius: 5px;
+      }
+      .btn-delete {
+        background-color: #e74c3c;
+        border-color: #e74c3c;
+        color: #fff;
+      }
+      .btn-delete:hover {
+        background-color: #c0392b;
+        border-color: #c0392b;
+      }
+      .btn-add {
+        background-color: var(--primary-green);
+        border-color: var(--primary-green);
+        color: #fff;
+      }
+      .btn-add:hover {
+        background-color: var(--dark-green);
+        border-color: var(--dark-green);
+      }
+      .form-section {
+        margin-top: 30px;
+        border-top: 1px solid #ddd;
+        padding-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <!-- Sidebar Start -->
+        <nav
+          class="col-md-3 col-lg-2 d-md-block sidebar d-none d-md-flex flex-column p-3"
+        >
+          <div class="text-center logo">
+            <img src="img/logo SMP.png" alt="Logo Sekolah" class="img-fluid" />
+            <h5>Admin SMP Islam Sa'adatuddarain NW Majuet</h5>
+          </div>
+          <a href="admin-dashbord.html" class="nav-item"
+            ><i class="fas fa-home"></i> Dashboard</a
+          >
+          <a href="admin-berita-artikel.html" class="nav-item"
+            ><i class="fas fa-newspaper"></i> Berita/Artikel</a
+          >
+          <a href="admin-pengumuman.html" class="nav-item"
+            ><i class="fas fa-bullhorn"></i> Pengumuman</a
+          >
+          <a href="admin-guru.html" class="nav-item"
+            ><i class="fas fa-user-tie"></i> Guru</a
+          >
+          <a href="#" class="nav-item logout"
+            ><i class="fas fa-sign-out-alt"></i> Logout</a
+          >
+        </nav>
+        <!-- Sidebar End -->
+
+        <!-- Offcanvas Sidebar untuk Mobile Start -->
+        <div class="d-md-none">
+          <button
+            class="btn btn-pro m-3"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasSidebar"
+          >
+            ☰ Menu
+          </button>
+          <div class="offcanvas offcanvas-start sidebar" id="offcanvasSidebar">
+            <div class="offcanvas-header">
+              <h5 class="text-white">Menu</h5>
+              <button
+                type="button"
+                class="btn-close btn-close-white"
+                data-bs-dismiss="offcanvas"
+              ></button>
+            </div>
+            <div class="text-center logo">
+              <img
+                src="img/logo SMP.png"
+                alt="Logo Sekolah"
+                class="img-fluid"
+              />
+              <h5>Admin SMP Islam Sa'adatuddarain NW Majuet</h5>
+            </div>
+            <div class="offcanvas-body">
+              <a href="admin-dashbord.html" class="nav-item"
+                ><i class="fas fa-home"></i> Dashboard</a
+              >
+              <a href="admin-berita-artikel.html" class="nav-item"
+                ><i class="fas fa-newspaper"></i> Berita/Artikel</a
+              >
+              <a href="admin-pengumuman.html" class="nav-item"
+                ><i class="fas fa-bullhorn"></i> Pengumuman</a
+              >
+              <a href="admin-guru.html" class="nav-item"
+                ><i class="fas fa-user-tie"></i> Guru</a
+              >
+              <a href="login.html" class="nav-item logout"
+                ><i class="fas fa-sign-out-alt"></i> Logout</a
+              >
+            </div>
+          </div>
+        </div>
+        <!-- Offcanvas Sidebar untuk Mobile End -->
+
+        <!-- Main Content -->
+        <main class="col-md-9 col-lg-10 ms-sm-auto px-md-2">
+          <div class="header">PENGUMUMAN / AGENDA</div>
+          <button class="btn btn-add mb-3 mt-3">
+            <a href="admin-add-pengumuman.html" class="add">
+              <i class="fas fa-plus"></i> Tambah Pengumuman/Agenda
+            </a>
+          </button>
+          <!-- Tabel -->
+          <div class="table-responsive">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Judul</th>
+                  <th>Isi</th>
+                  <th>Tanggal Pengumuman</th>
+                  <th>Waktu Acara</th>
+                  <th>Waktu Pembuatan</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1.</td>
+                  <td><strong>Class Meeting</strong></td>
+                  <td>.......</td>
+                  <td><strong>2025-01-13</strong></td>
+                  <td><strong>16:30</strong></td>
+                  <td><strong>2025-02-04 15:45:30 </strong></td>
+                  <td>
+                    <a
+                      href="admin-edit-pengumuman.html"
+                      class="btn btn-edit btn-sm mb-2 mb-sm-0"
+                    >
+                      <i class="fas fa-edit"></i> Edit
+                    </a>
+                    <button class="btn btn-delete btn-sm">
+                      <i class="fas fa-trash-alt"></i> Hapus
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </main>
+      </div>
+    </div>
+
+  <div class="container">
+    <h2 class="text-center">Manage Banners</h2>
+    
+    <!-- Section: List of Banners -->
+    <div id="bannerList">
+      <!-- Banner items akan dimuat di sini secara dinamis -->
+    </div>
+    
+    <!-- Section: Add New Banner -->
+    <div class="form-section">
+      <h4>Add New Banner</h4>
+      <form id="addBannerForm">
+        <div class="mb-3">
+          <label for="newBannerFile" class="form-label">Banner Image</label>
+          <input type="file" class="form-control" id="newBannerFile" name="image" required>
+        </div>
+        <div class="mb-3">
+          <label for="newBannerLink" class="form-label">Link URL (optional)</label>
+          <input type="text" class="form-control" id="newBannerLink" name="linkUrl" placeholder="Enter link URL">
+        </div>
+        <button type="submit" class="btn btn-add">Add Banner</button>
+      </form>
+    </div>
+  </div>
+  
+  <script>
+    // Fungsi untuk memuat semua banner dari API
+    async function loadBanners() {
+      try {
+        const response = await fetch('http://127.0.0.1:3000/api/banner');
+        if (!response.ok) throw new Error('Failed to fetch banners');
+        const banners = await response.json();
+        const bannerListDiv = document.getElementById('bannerList');
+        bannerListDiv.innerHTML = ''; // Kosongkan kontainer
+      
+        if (banners.length === 0) {
+          bannerListDiv.innerHTML = '<p class="text-center">No banners found.</p>';
+          return;
+        }
+        
+        banners.forEach(banner => {
+          const div = document.createElement('div');
+          div.className = 'banner-item';
+          div.innerHTML = `
+            <div>
+              <img src="${banner.imageUrl}" alt="Banner">
+              <p class="mt-2">${banner.linkUrl ? `<a href="${banner.linkUrl}" target="_blank">${banner.linkUrl}</a>` : 'No link'}</p>
+            </div>
+            <div>
+              <button class="btn btn-delete btn-sm" onclick="deleteBanner(${banner.id})">Delete</button>
+            </div>
+          `;
+          bannerListDiv.appendChild(div);
+        });
+      } catch (error) {
+        console.error('Error loading banners:', error);
+        alert('Error loading banners');
+      }
+    }
+    
+    // Fungsi untuk menambahkan banner baru
+    async function addBanner(event) {
+      event.preventDefault();
+      const form = document.getElementById('addBannerForm');
+      const formData = new FormData(form);
+      try {
+        const response = await fetch('http://127.0.0.1:3000/api/banner', {
+          method: 'POST',
+          body: formData
+        });
+        const result = await response.json();
+        if (response.ok) {
+          alert(result.message);
+          form.reset();
+          loadBanners();
+        } else {
+          alert(result.message || 'Failed to add banner');
+        }
+      } catch (error) {
+        console.error('Error adding banner:', error);
+        alert('Error adding banner');
+      }
+    }
+    
+    // Fungsi untuk menghapus banner berdasarkan ID
+    async function deleteBanner(id) {
+      if (!confirm('Are you sure you want to delete this banner?')) return;
+      try {
+        const response = await fetch(`http://127.0.0.1:3000/api/banner/${id}`, {
+          method: 'DELETE'
+        });
+        const result = await response.json();
+        if (response.ok) {
+          alert(result.message);
+          loadBanners();
+        } else {
+          alert(result.message || 'Failed to delete banner');
+        }
+      } catch (error) {
+        console.error('Error deleting banner:', error);
+        alert('Error deleting banner');
+      }
+    }
+    
+    // Event listener untuk form penambahan banner
+    document.getElementById('addBannerForm').addEventListener('submit', addBanner);
+    
+    // Panggil loadBanners saat halaman selesai dimuat
+    document.addEventListener('DOMContentLoaded', loadBanners);
+  </script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" 
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" 
+    crossorigin="anonymous"></script>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin - Kelola Pengumuman & Agenda</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+    crossorigin="anonymous"
+  />
+  <style>
+    :root {
+      --primary-green: #2ecc71;
+      --dark-green: #27ae60;
+      --bg-light: #ecf9f1;
+      --text-dark: #2c3e50;
+    }
+    body {
+      background-color: var(--bg-light);
+      font-family: 'Poppins', sans-serif;
+      color: var(--text-dark);
+    }
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h2, h4 {
+      color: var(--dark-green);
+    }
+    .announcement-card {
+      border: 1px solid var(--primary-green);
+      border-radius: 5px;
+      margin-bottom: 20px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .announcement-date {
+      background-color: var(--primary-green);
+      color: #fff;
+      padding: 15px;
+      text-align: center;
+      width: 100px;
+      flex-shrink: 0;
+    }
+    .announcement-date span {
+      display: block;
+    }
+    .announcement-content {
+      background: #fff;
+      padding: 15px;
+      flex-grow: 1;
+    }
+    .announcement-actions button {
+      margin-right: 5px;
+    }
+    /* Form styling */
+    .form-section {
+      border-top: 1px solid #ddd;
+      padding-top: 20px;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2 class="text-center mb-4">Kelola Pengumuman & Agenda</h2>
+
+    <!-- Daftar Pengumuman -->
+    <div id="announcementsList" class="mb-4">
+      <!-- Card pengumuman akan dimuat secara dinamis di sini -->
+    </div>
+
+    <!-- Form Tambah / Edit Pengumuman -->
+    <div class="form-section">
+      <h4 id="formTitle">Tambah Pengumuman</h4>
+      <form id="announcementForm">
+        <!-- Input tersembunyi untuk menyimpan ID (jika mode edit) -->
+        <input type="hidden" id="announcementId" name="announcementId" />
+        <div class="mb-3">
+          <label for="announcementTitle" class="form-label">Judul</label>
+          <input type="text" class="form-control" id="announcementTitle" name="title" required />
+        </div>
+        <div class="mb-3">
+          <label for="announcementContent" class="form-label">Konten</label>
+          <textarea class="form-control" id="announcementContent" name="content" rows="4" required></textarea>
+        </div>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="announcementDate" class="form-label">Tanggal Acara</label>
+            <input type="date" class="form-control" id="announcementDate" name="eventDate" required />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="announcementTime" class="form-label">Waktu Acara (opsional)</label>
+            <input type="text" class="form-control" id="announcementTime" name="eventTime" placeholder="Contoh: 16:30 WITA" />
+          </div>
+        </div>
+        <div class="d-flex">
+          <button type="submit" class="btn btn-success me-2" id="submitBtn">Tambah Pengumuman</button>
+          <button type="button" class="btn btn-secondary" id="cancelEditBtn" style="display:none;">Batal Edit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Fungsi untuk memuat semua pengumuman dari API
+    async function loadAnnouncements() {
+      try {
+        const response = await fetch('http://127.0.0.1:3000/api/announcements');
+        if (!response.ok) throw new Error('Gagal mengambil data pengumuman');
+        const announcements = await response.json();
+        const container = document.getElementById('announcementsList');
+        container.innerHTML = '';
+
+        if (announcements.length === 0) {
+          container.innerHTML = '<p class="text-center">Tidak ada pengumuman.</p>';
+          return;
+        }
+
+        // Array nama bulan dalam bahasa Indonesia
+        const monthNames = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu", "Sep", "Okt", "Nov", "Des"];
+
+        announcements.forEach(announcement => {
+          // Parse eventDate (format YYYY-MM-DD)
+          const d = new Date(announcement.eventDate);
+          const day = d.getDate();
+          const month = monthNames[d.getMonth()];
+          const year = d.getFullYear();
+
+          const card = document.createElement('div');
+          card.className = 'announcement-card d-flex';
+
+          card.innerHTML = `
+            <div class="announcement-date">
+              <span class="fs-3 fw-bold">${day}</span>
+              <span>${month}</span>
+              <span>${year}</span>
+            </div>
+            <div class="announcement-content">
+              <h5>${announcement.title}</h5>
+              <p>${announcement.content}</p>
+              <p class="mb-1"><i class="bi bi-calendar-event"></i> ${new Date(announcement.eventDate).toLocaleDateString('id-ID')}</p>
+              ${announcement.eventTime ? `<p><i class="bi bi-clock"></i> ${announcement.eventTime}</p>` : ''}
+              <div class="announcement-actions mt-2">
+                <button class="btn btn-sm btn-primary" onclick="editAnnouncement(${announcement.id})">Edit</button>
+                <button class="btn btn-sm btn-danger" onclick="deleteAnnouncement(${announcement.id})">Hapus</button>
+              </div>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      } catch (error) {
+        console.error('Error loading announcements:', error);
+        alert('Terjadi kesalahan saat memuat pengumuman.');
+      }
+    }
+
+    // Fungsi untuk mengirim data form (add atau update)
+    async function submitAnnouncementForm(e) {
+      e.preventDefault();
+      const id = document.getElementById('announcementId').value;
+      const title = document.getElementById('announcementTitle').value.trim();
+      const content = document.getElementById('announcementContent').value.trim();
+      const eventDate = document.getElementById('announcementDate').value;
+      const eventTime = document.getElementById('announcementTime').value.trim();
+
+      if (!title || !content || !eventDate) {
+        alert('Judul, Konten, dan Tanggal Acara harus diisi.');
+        return;
+      }
+
+      const payload = { title, content, eventDate, eventTime };
+
+      try {
+        let response, result;
+        if (id) {
+          // Update (PUT)
+          response = await fetch(`http://127.0.0.1:3000/api/announcements/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+        } else {
+          // Add (POST)
+          response = await fetch('http://127.0.0.1:3000/api/announcements', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+        }
+        result = await response.json();
+        if (response.ok) {
+          alert(result.message);
+          resetAnnouncementForm();
+          loadAnnouncements();
+        } else {
+          alert(result.message || 'Gagal menyimpan pengumuman.');
+        }
+      } catch (error) {
+        console.error('Error submitting announcement:', error);
+        alert('Terjadi kesalahan saat mengirim data.');
+      }
+    }
+
+    // Fungsi untuk mengisi form dengan data pengumuman untuk edit
+    async function editAnnouncement(id) {
+      try {
+        // Ambil data pengumuman berdasarkan id
+        const response = await fetch(`http://127.0.0.1:3000/api/announcements`);
+        if (!response.ok) throw new Error('Gagal mengambil data pengumuman');
+        const announcements = await response.json();
+        const announcement = announcements.find(a => a.id === id);
+        if (!announcement) {
+          alert('Pengumuman tidak ditemukan.');
+          return;
+        }
+        // Isi form dengan data
+        document.getElementById('announcementId').value = announcement.id;
+        document.getElementById('announcementTitle').value = announcement.title;
+        document.getElementById('announcementContent').value = announcement.content;
+        document.getElementById('announcementDate').value = announcement.eventDate;
+        document.getElementById('announcementTime').value = announcement.eventTime || '';
+        // Ubah judul form dan tombol submit
+        document.getElementById('formTitle').innerText = 'Edit Pengumuman';
+        document.getElementById('submitBtn').innerText = 'Update Pengumuman';
+        // Tampilkan tombol batal edit
+        document.getElementById('cancelEditBtn').style.display = 'inline-block';
+      } catch (error) {
+        console.error('Error editing announcement:', error);
+        alert('Terjadi kesalahan saat mengambil data untuk edit.');
+      }
+    }
+
+    // Fungsi untuk menghapus pengumuman
+    async function deleteAnnouncement(id) {
+      if (!confirm('Apakah Anda yakin ingin menghapus pengumuman ini?')) return;
+      try {
+        const response = await fetch(`http://127.0.0.1:3000/api/announcements/${id}`, {
+          method: 'DELETE'
+        });
+        const result = await response.json();
+        if (response.ok) {
+          alert(result.message);
+          loadAnnouncements();
+        } else {
+          alert(result.message || 'Gagal menghapus pengumuman.');
+        }
+      } catch (error) {
+        console.error('Error deleting announcement:', error);
+        alert('Terjadi kesalahan saat menghapus pengumuman.');
+      }
+    }
+
+    // Fungsi untuk mereset form ke mode tambah
+    function resetAnnouncementForm() {
+      document.getElementById('announcementForm').reset();
+      document.getElementById('announcementId').value = '';
+      document.getElementById('formTitle').innerText = 'Tambah Pengumuman';
+      document.getElementById('submitBtn').innerText = 'Tambah Pengumuman';
+      document.getElementById('cancelEditBtn').style.display = 'none';
+    }
+
+    // Event listener untuk form submission
+    document.getElementById('announcementForm').addEventListener('submit', submitAnnouncementForm);
+    // Event listener untuk tombol batal edit
+    document.getElementById('cancelEditBtn').addEventListener('click', resetAnnouncementForm);
+
+    // Panggil loadAnnouncements ketika halaman selesai dimuat
+    document.addEventListener('DOMContentLoaded', loadAnnouncements);
+  </script>
+
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+    crossorigin="anonymous"
+  ></script>
+</body>
+</html>

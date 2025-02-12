@@ -1,0 +1,221 @@
+body {
+  background-color: #ebedeb;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Style Nav Start */
+.bg-green-gradient {
+  background: linear-gradient(to left, #228b22, #001f07);
+}
+
+.navbar-brand span {
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.navbar-nav .nav-link {
+  color: white !important;
+  font-weight: 500;
+  margin: 0 10px;
+  transition: color 0.3s ease;
+  font-family: "Poppins", sans-serif;
+  letter-spacing: 1.3px;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #ffcc00 !important; /* Highlight kuning */
+}
+
+.navbar-nav .nav-link.active {
+  font-weight: 700;
+  color: #ffcc00 !important; /* Highlight kuning */
+  text-decoration: underline;
+}
+
+.btn-profile {
+  background-color: white;
+  color: green;
+  border-radius: 20px;
+  padding: 5px 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-profile:hover {
+  background-color: #f0f0f0;
+}
+
+.dropdown-menu-custom {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  transform: translateY(5px);
+  border-radius: 12px;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+  background: #ffffff;
+}
+
+.dropdown-menu-custom a {
+  color: #005f00 !important;
+  font-weight: 500;
+  padding: 10px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.dropdown-menu-custom a:hover {
+  background-color: #e6ffe6;
+}
+
+@media (max-width: 768px) {
+  .dropdown-menu-custom {
+    width: auto;
+    left: auto;
+    right: auto;
+  }
+}
+/* Nav Style Ends */
+
+/* Style Form Start  */
+
+/* Menghilangkan jarak antar kolom */
+
+.row.box-form {
+  margin: 0;
+  display: flex; /* Tambahkan flex untuk memastikan elemen anak mengikuti tinggi parent */
+  min-height: 100vh; /* Pastikan tingginya penuh sesuai dengan viewport */
+}
+
+.row.box-form input {
+  border-radius: 0;
+  border: 1px solid #ccc;
+}
+
+.row.box-form select {
+  border-radius: 0;
+  border: 1px solid #ccc;
+}
+
+.row.box-form .wajib {
+  border-radius: 5px;
+  padding: 2px 12px;
+  background: linear-gradient(to top, #228b22, #001f07);
+  color: white;
+  font-size: 12px;
+}
+
+/* Header dengan garis hijau dan teks berjalan */
+.header-row {
+  width: 100%;
+  background: linear-gradient(to top, #228b22, #001f07);
+  padding: 0px 0; /* Spasi vertikal */
+  text-align: center;
+  position: relative;
+}
+
+.header-row .marquee-text {
+  color: #ffffff; /* Warna teks putih */
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.header-row .marquee-text {
+  overflow: hidden;
+  white-space: nowrap;
+  display: inline-block;
+  animation: scrollText 10s linear infinite; /* Animasi teks berjalan */
+}
+
+.col-md-4 {
+  padding: 0;
+  border-right: 2px dashed #2d6a4f; /* Garis dashed warna hijau di kanan */
+  height: 100%; /* Pastikan tinggi kolom sesuai */
+  display: flex; /* Buat konten kolom memanjang */
+  flex-direction: column;
+}
+
+.col-md-4:last-child {
+  border-right: none; /* Menghilangkan garis pada kolom terakhir */
+}
+
+.row.box-form h5 {
+  text-align: center;
+  color: black;
+  font-weight: bold;
+}
+
+.form-title {
+  text-align: center;
+  font-size: 35px;
+  font-weight: bold;
+  background: linear-gradient(to right, #228b22, #001f07); /* Gradient warna */
+  -webkit-background-clip: text; /* Menjadikan gradien klip ke teks */
+  -webkit-text-fill-color: transparent; /* Membuat warna isi teks transparan */
+  text-align: center;
+  font-weight: bold;
+  margin-top: 20px;
+}
+.form-subtitle {
+  text-align: center;
+  font-size: 32px;
+  font-weight: bold;
+  background: linear-gradient(to right, #228b22, #001f07); /* Gradient warna */
+  -webkit-background-clip: text; /* Menjadikan gradien klip ke teks */
+  -webkit-text-fill-color: transparent; /* Membuat warna isi teks transparan */
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-section {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+.form-section h5 {
+  color: #2d6a4f;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+.form-section label {
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+.form-section .form-control {
+  margin-bottom: 10px;
+}
+
+.form-section .form-select {
+  margin-bottom: 10px;
+}
+
+.form-section .btn-primary {
+  border-radius: 0px;
+}
+.form-section .btn-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+  border-radius: 0px;
+}
+.form-section .alert {
+  background: linear-gradient(to top, #228b22, #001f07);
+  color: #ffffff;
+  border: none;
+}
+
+.alert .omter {
+  color: red;
+}
+
+/* Footer Style */
+footer p {
+  margin-top: 20px;
+  border-top: 1px solid #e0e0e0;
+  padding-top: 10px;
+  color: black;
+}
+
+/* Style Form Start  */

@@ -1,0 +1,119 @@
+body {
+  background-color: #228b22;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+/* Style Nav Start */
+.bg-green-gradient {
+  background: linear-gradient(to left, #228b22, #001f07);
+}
+
+.navbar-brand span {
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.navbar-nav .nav-link {
+  color: white !important;
+  font-weight: 500;
+  margin: 0 10px;
+  transition: color 0.3s ease;
+  font-family: "Poppins", sans-serif;
+  letter-spacing: 1.3px;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #ffcc00 !important; /* Highlight kuning */
+}
+
+.navbar-nav .nav-link.active {
+  font-weight: 700;
+  color: #ffcc00 !important; /* Highlight kuning */
+  text-decoration: underline;
+}
+
+.btn-profile {
+  background-color: white;
+  color: green;
+  border-radius: 20px;
+  padding: 5px 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-profile:hover {
+  background-color: #f0f0f0;
+}
+
+.dropdown-menu-custom {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  transform: translateY(5px);
+  border-radius: 12px;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+  background: #ffffff;
+}
+
+.dropdown-menu-custom a {
+  color: #005f00 !important;
+  font-weight: 500;
+  padding: 10px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.dropdown-menu-custom a:hover {
+  background-color: #e6ffe6;
+}
+
+@media (max-width: 768px) {
+  .dropdown-menu-custom {
+    width: auto;
+    left: auto;
+    right: auto;
+  }
+}
+/* Nav Style Ends */
+
+/* Contact Start */
+.contact-section {
+  text-align: center;
+  padding: 30px 15px;
+}
+
+.contact-section h1 {
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.card {
+  background-color: #228b22;
+  border: 1px solid white;
+  border-radius: 0px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.card h5 {
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.card .icon {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.footer {
+  text-align: center;
+  font-size: 19px;
+  color: white;
+  border-top: 1px solid white;
+  padding-top: 10px;
+  margin-top: 20px;
+}
+
+/* Contact End */

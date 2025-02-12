@@ -1,0 +1,131 @@
+body {
+  background-color: #ebedeb;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Style Nav Start */
+.bg-green-gradient {
+  background: linear-gradient(to left, #228b22, #001f07);
+}
+
+.navbar-brand span {
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.navbar-nav .nav-link {
+  color: white !important;
+  font-weight: 500;
+  margin: 0 10px;
+  transition: color 0.3s ease;
+  font-family: "Poppins", sans-serif;
+  letter-spacing: 1.3px;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #ffcc00 !important; /* Highlight kuning */
+}
+
+.navbar-nav .nav-link.active {
+  font-weight: 700;
+  color: #ffcc00 !important; /* Highlight kuning */
+  text-decoration: underline;
+}
+
+.btn-profile {
+  background-color: white;
+  color: green;
+  border-radius: 20px;
+  padding: 5px 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-profile:hover {
+  background-color: #f0f0f0;
+}
+
+.dropdown-menu-custom {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  transform: translateY(5px);
+  border-radius: 12px;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+  background: #ffffff;
+}
+
+.dropdown-menu-custom a {
+  color: #005f00 !important;
+  font-weight: 500;
+  padding: 10px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.dropdown-menu-custom a:hover {
+  background-color: #e6ffe6;
+}
+
+@media (max-width: 768px) {
+  .dropdown-menu-custom {
+    width: auto;
+    left: auto;
+    right: auto;
+  }
+}
+/* Nav Style Ends */
+
+/* Style Profile Akun Siswa Start */
+
+.card {
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+  background: linear-gradient(to bottom, #228b22, #001f07);
+  margin: 30px auto;
+  border-radius: 0px;
+  border: none;
+}
+
+.card form label {
+  font-weight: 700;
+  color: #fff;
+}
+
+.card form input {
+  border-radius: 0px;
+}
+
+.card form select {
+  border-radius: 0px;
+}
+
+.card form textarea {
+  border-radius: 0px;
+}
+
+.profile-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+.btn-primary {
+  background-color: #0056d4;
+  border-color: #0056d4;
+  border-radius: 0px;
+}
+.btn-secondary {
+  background-color: #6c757d;
+  border-radius: 0px;
+}
+
+/* Footer Style */
+footer p {
+  margin-top: 20px;
+  border-top: 1px solid #e0e0e0;
+  padding-top: 10px;
+  color: black;
+}
+/* Style Profile Akun Siswa End */

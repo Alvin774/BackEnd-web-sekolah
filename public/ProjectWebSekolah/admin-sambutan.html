@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin - Kelola Sambutan Kepala Sekolah</title>
+  <!-- Bootstrap CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+    crossorigin="anonymous"
+  />
+  <!-- Custom Styles -->
+  <style>
+    :root {
+      --primary-green: #2ecc71;
+      --dark-green: #27ae60;
+      --bg-light: #ecf9f1;
+      --text-dark: #2c3e50;
+    }
+    body {
+      background-color: var(--bg-light);
+      font-family: 'Poppins', sans-serif;
+      color: var(--text-dark);
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h2, h4 {
+      color: var(--dark-green);
+    }
+    /* Preview Card Style */
+    .preview-card {
+      border: 1px solid var(--primary-green);
+      border-radius: 5px;
+      padding: 20px;
+      margin-top: 20px;
+      background: #f9f9f9;
+    }
+    .preview-card img {
+      max-width: 100%;
+      border-radius: 5px;
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2 class="text-center mb-4">Kelola Sambutan Kepala Sekolah</h2>
+    
+    <!-- Form Sambutan -->
+    <div class="mb-5">
+      <h4 id="formTitle">Tambah Sambutan</h4>
+      <form id="sambutanForm">
+        <!-- Input tersembunyi untuk ID (jika mode edit) -->
+        <input type="hidden" id="sambutanId" name="sambutanId">
+        <div class="mb-3">
+          <label for="title" class="form-label">Judul Sambutan</label>
+          <input type="text" class="form-control" id="title" name="title" value="Sambutan Kepala Sekolah" required>
+        </div>
+        <div class="mb-3">
+          <label for="content" class="form-label">Isi Sambutan</label>
+          <textarea class="form-control" id="content" name="content" rows="6" placeholder="Tulis sambutan di sini..." required></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="principalName" class="form-label">Nama Kepala Sekolah</label>
+          <input type="text" class="form-control" id="principalName" name="principalName" placeholder="Contoh: Fathullah S.Pd" required>
+        </div>
+        <div class="mb-3">
+          <label for="principalTitle" class="form-label">Jabatan Kepala Sekolah</label>
+          <input type="text" class="form-control" id="principalTitle" name="principalTitle" placeholder="Contoh: Kepala Sekolah" required>
+        </div>
+        <div class="mb-3">
+          <label for="sambutanImage" class="form-label">Upload Foto (Opsional)</label>
+          <input type="file" class="form-control" id="sambutanImage" name="image">
+        </div>
+        <div class="d-flex">
+          <button type="submit" class="btn btn-success me-2" id="submitBtn">Simpan Sambutan</button>
+          <button type="button" class="btn btn-secondary" id="cancelEditBtn" style="display: none;">Batal Edit</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Preview Sambutan -->
+    <div id="sambutanPreview" class="preview-card">
+      <!-- Data sambutan yang sudah tersimpan akan ditampilkan di sini -->
+      <h4 id="previewTitle"></h4>
+      <p id="previewContent"></p>
+      <p><strong id="previewPrincipalName"></strong> (<span id="previewPrincipalTitle"></span>)</p>
+      <div id="previewImageContainer"></div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // Fungsi untuk memuat data sambutan dari API dan mengisi preview & form
+    async function loadSambutan() {
+      try {
+        const response = await fetch('http://127.0.0.1:3000/api/sambutans');
+        if (!response.ok) {
+          throw new Error('Gagal mengambil data sambutan');
+        }
+        const sambutan = await response.json();
+        // Jika data sambutan ditemukan, tampilkan di preview dan isi form (mode edit)
+        if (sambutan) {
+          document.getElementById('sambutanId').value = sambutan.id;
+          document.getElementById('title').value = sambutan.title || "";
+          document.getElementById('content').value = sambutan.content || "";
+          document.getElementById('principalName').value = sambutan.principalName || "";
+          document.getElementById('principalTitle').value = sambutan.principalTitle || "";
+          
+          // Tampilkan di preview
+          document.getElementById('previewTitle').innerText = sambutan.title;
+          document.getElementById('previewContent').innerText = sambutan.content;
+          document.getElementById('previewPrincipalName').innerText = sambutan.principalName;
+          document.getElementById('previewPrincipalTitle').innerText = sambutan.principalTitle;
+          const previewImageContainer = document.getElementById('previewImageContainer');
+          previewImageContainer.innerHTML = "";
+          if (sambutan.imageUrl) {
+            const img = document.createElement('img');
+            img.src = sambutan.imageUrl;
+            img.alt = "Foto Kepala Sekolah";
+            img.style.maxWidth = "100%";
+            previewImageContainer.appendChild(img);
+          }
+          
+          // Ubah mode form ke edit
+          document.getElementById('formTitle').innerText = "Edit Sambutan";
+          document.getElementById('submitBtn').innerText = "Update Sambutan";
+          document.getElementById('cancelEditBtn').style.display = "inline-block";
+        } else {
+          // Jika tidak ada data, reset form dan preview
+          resetSambutanForm();
+        }
+      } catch (error) {
+        console.error("Error loading sambutan:", error);
+        alert("Terjadi kesalahan saat memuat data sambutan.");
+      }
+    }
+
+    // Fungsi untuk mengirim data form (tambah atau update)
+    async function submitSambutanForm(e) {
+      e.preventDefault();
+      const sambutanId = document.getElementById('sambutanId').value;
+      const form = document.getElementById('sambutanForm');
+      const formData = new FormData(form);
+      try {
+        let response;
+        if (sambutanId) {
+          // Update (PUT)
+          response = await fetch(`http://127.0.0.1:3000/api/sambutans/${sambutanId}`, {
+            method: 'PUT',
+            body: formData
+          });
+        } else {
+          // Tambah (POST)
+          response = await fetch('http://127.0.0.1:3000/api/sambutans', {
+            method: 'POST',
+            body: formData
+          });
+        }
+        const result = await response.json();
+        if (response.ok) {
+          alert(result.message);
+          loadSambutan();
+        } else {
+          alert(result.message || "Gagal menyimpan data sambutan.");
+        }
+      } catch (error) {
+        console.error("Error submitting sambutan form:", error);
+        alert("Terjadi kesalahan saat mengirim data.");
+      }
+    }
+
+    // Fungsi untuk mereset form ke mode tambah
+    function resetSambutanForm() {
+      document.getElementById('sambutanForm').reset();
+      document.getElementById('sambutanId').value = "";
+      document.getElementById('formTitle').innerText = "Tambah Sambutan";
+      document.getElementById('submitBtn').innerText = "Simpan Sambutan";
+      document.getElementById('cancelEditBtn').style.display = "none";
+      // Reset preview
+      document.getElementById('previewTitle').innerText = "";
+      document.getElementById('previewContent').innerText = "";
+      document.getElementById('previewPrincipalName').innerText = "";
+      document.getElementById('previewPrincipalTitle').innerText = "";
+      document.getElementById('previewImageContainer').innerHTML = "";
+    }
+
+    document.getElementById('sambutanForm').addEventListener('submit', submitSambutanForm);
+    document.getElementById('cancelEditBtn').addEventListener('click', resetSambutanForm);
+    document.addEventListener("DOMContentLoaded", loadSambutan);
+  </script>
+
+  <!-- Bootstrap JS Bundle -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"
+  ></script>
+</body>
+</html>

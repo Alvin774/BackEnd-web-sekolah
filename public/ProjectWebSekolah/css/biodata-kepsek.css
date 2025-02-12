@@ -1,0 +1,302 @@
+/* === NAVBAR === */
+.navbar {
+  background: linear-gradient(to left, #006600, #003300);
+  /* box-shadow: 0 4px 10px rgba(0, 0, 0); */
+  font-family: "Poppins", sans-serif;
+  /* border-bottom-right-radius: 15px;
+    border-bottom-left-radius: 15px; */
+  text-transform: uppercase;
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+}
+
+.navbar-brand {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: white !important;
+}
+
+.navbar-nav .nav-link {
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-left: 10px;
+  color: white !important;
+  transition: color 0.3s;
+  letter-spacing: 1.5px;
+}
+
+.navbar-nav .nav-link:hover {
+  color: black !important;
+}
+
+/* === DROPDOWN MENU === */
+/* === DROPDOWN MENU === */
+.dropdown-menu {
+  border: none;
+  /* border-radius: 12px; */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  /* background-color: rgba(34, 139, 34, 0.88); */
+  background: linear-gradient(
+    to bottom,
+    rgba(34, 139, 34, 0.88),
+    rgba(7, 26, 7, 0.88)
+  );
+  overflow: hidden;
+  padding: 10px 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* Animasi Dropdown Saat Hover */
+.nav-item.dropdown:hover .dropdown-menu {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Item Dropdown */
+.dropdown-item {
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 500;
+  padding: 12px 20px;
+  transition: all 0.3s ease;
+  border-radius: 6px;
+  margin: 5px;
+  text-transform: capitalize;
+  font-family: "Trocchi", serif;
+  letter-spacing: 1.4px;
+}
+
+/* Efek Hover pada Item Dropdown */
+.dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #c8e6c9;
+}
+
+/* Garis Pembatas (Opsional) */
+.dropdown-divider {
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  margin: 8px 0;
+}
+
+/* Efek untuk Dropdown dari Navbar */
+.navbar-nav .nav-link {
+  position: relative;
+  color: #fff !important;
+  transition: all 0.3s ease-in-out;
+}
+
+.navbar-nav .nav-link:hover::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  background-color: #c8e6c9;
+  bottom: 0;
+  left: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Efek Hover Navbar */
+.navbar-nav .nav-link:hover {
+  color: #c8e6c9 !important;
+  /* transform: scale(1.05); */
+}
+
+/* === CUSTOM TOGGLER BUTTON === */
+.custom-toggler {
+  border: 1px solid white;
+  outline: none;
+  padding: 8px;
+  background: linear-gradient(to right, #228b22, #165016);
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.custom-toggler:hover {
+  background: linear-gradient(to right, #228b22, #165016);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* === ICON TOGGLER === */
+.custom-toggler .navbar-toggler-icon {
+  background-image: none; /* Hilangkan ikon default Bootstrap */
+  width: 25px;
+  height: 2px;
+  background-color: white;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+}
+
+.custom-toggler .navbar-toggler-icon::before,
+.custom-toggler .navbar-toggler-icon::after {
+  content: "";
+  width: 25px;
+  height: 2px;
+  background-color: white;
+  position: absolute;
+  left: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.custom-toggler .navbar-toggler-icon::before {
+  top: -8px;
+}
+
+.custom-toggler .navbar-toggler-icon::after {
+  top: 8px;
+}
+
+/* === ANIMASI TOGGLER AKTIF === */
+.custom-toggler[aria-expanded="true"] .navbar-toggler-icon {
+  background-color: transparent;
+}
+
+.custom-toggler[aria-expanded="true"] .navbar-toggler-icon::before {
+  transform: rotate(45deg);
+  top: 0;
+}
+
+.custom-toggler[aria-expanded="true"] .navbar-toggler-icon::after {
+  transform: rotate(-45deg);
+  top: 0;
+}
+
+/* Style Biodata Sekolah Start */
+
+.biodata {
+}
+
+.biodata .box-sambutan {
+  width: 85%;
+  height: 165px;
+  background-color: #ffffff;
+  box-shadow: 12px 11px 11px rgba(174, 174, 174, 0.4);
+}
+
+.biodata .box-sambutan h5 {
+  background: linear-gradient(to right, rgb(34, 139, 34), rgb(9, 37, 9));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 1.9em;
+}
+
+/* .biodata .text-justify {
+  text-align: justify;
+  font-size: 1em;
+  letter-spacing: 1.2px;
+  font-family: "Roboto", serif;
+} */
+
+/* .biodata .card {
+  border: none;
+  border-radius: 8px;
+} */
+
+/* .biodata .card-img-top {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+} */
+
+/* .biodata .card-body .btn-sekolah {
+  background: linear-gradient(to bottom, rgb(34, 139, 34), rgb(9, 37, 9));
+  padding-left: 20px;
+  padding-right: 20px;
+  letter-spacing: 1.2px;
+  font-family: "Roboto", serif;
+  font-size: 15px;
+  border: none;
+  color: white;
+  border-radius: 0px;
+} */
+
+hr.garis {
+  border: none; /* Hilangkan gaya default */
+  border-bottom: 2px solid green; /* Terapkan gaya khusus */
+  width: 70%;
+  /* margin: auto;
+  line-height: 1px; */
+  margin: 5px auto;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+table thead th {
+  text-align: center;
+  background: linear-gradient(135deg, #004d00, #0f8010);
+  color: white;
+  font-weight: bold;
+}
+
+table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+table tbody tr:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+/* a:hover {
+  transform: scale(1.1);
+  transition: transform 0.3s ease-in-out;
+} */
+
+.biodata img {
+  border-radius: 8px;
+  border: 3px solid #0f8010;
+}
+
+/* Style Biodata Sekolah End */
+
+/* Style Footer Start */
+
+.footer {
+  background: linear-gradient(
+    to left,
+    #006600,
+    #003300
+  ); /* Background hijau gradien */
+  font-family: "Roboto", serif;
+}
+
+.footer h5 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  letter-spacing: 1.2px;
+}
+
+.footer p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  letter-spacing: 1.2px;
+}
+
+.footer ul li {
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  letter-spacing: 1.2px;
+}
+
+.footer .copy-right {
+  font-size: 1.1em;
+  font-family: "Roboto", serif;
+  letter-spacing: 1.3px;
+}
+
+iframe {
+  width: 100%;
+  height: 200px;
+  border: none;
+}
+
+/* Style Footer End */

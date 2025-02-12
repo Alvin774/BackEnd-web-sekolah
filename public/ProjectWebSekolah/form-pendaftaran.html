@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bootstrap demo</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+      crossorigin="anonymous"
+    />
+    <!-- link icon -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <!-- link googel font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton+SC&family=Archivo:ital,wght@0,100..900;1,100..900&family=Fira+Sans+Extra+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat+Underline:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Pacifico&family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quattrocento:wght@400;700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Schibsted+Grotesk:ital,wght@0,400..900;1,400..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- link Font Awesome -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <!-- link home.css -->
+    <link rel="stylesheet" href="css/form-pendaftaran.css" />
+  </head>
+  <body>
+    <!-- Nav Start -->
+    <nav
+      class="navbar navbar-expand-lg navbar-dark bg-green-gradient shadow-sm"
+    >
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="#">
+          <img
+            src="img/LOGO-SMP-PASS-removebg-preview.png"
+            alt="Logo"
+            height="60"
+            class="me-2"
+          />
+        </a>
+        <button
+          class="navbar-toggler border-2"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+          class="collapse navbar-collapse justify-content-between"
+          id="navbarNav"
+        >
+          <ul class="navbar-nav mx-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="pengumuman-akun-berhasil.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="form-pendaftaran.html">Pendaftaran</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="status-verivikasi.html"
+                >Status Verifikasi</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contact Us</a>
+            </li>
+          </ul>
+          <div class="dropdown position-relative">
+            <button
+              class="btn btn-profile d-flex align-items-center dropdown-toggle"
+              type="button"
+              id="profileDropdown"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <i class="bi bi-person-circle fs-4"></i>
+            </button>
+            <ul
+              class="dropdown-menu dropdown-menu-custom text-center"
+              aria-labelledby="profileDropdown"
+            >
+              <li>
+                <a
+                  class="dropdown-item d-flex align-items-center justify-content-center"
+                  href="profile.html"
+                >
+                  <i class="bi bi-person-fill me-2"></i> Profile
+                </a>
+              </li>
+              <li>
+                <a
+                  class="dropdown-item d-flex align-items-center justify-content-center"
+                  href="logout.html"
+                >
+                  <i class="bi bi-box-arrow-right me-2"></i> Logout
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Nav End -->
+
+    <!-- Form Pendaftaran Start -->
+
+    <div class="container">
+      <h2 class="form-title">Form Pendaftaran Peserta Didik Baru</h2>
+      <h4 class="form-subtitle">SMP Islam Sa’adatuddarain NW Majuwet</h4>
+      <hr />
+
+      <div class="row box-form mt-5">
+        <div class="header-row">
+          <marquee direction="left" class="marquee-text">
+            Silahkan isi form di bawah ini secara lengkap dan benar sesuai
+            dengan berkas pendukung, yaitu akte kelahiran dan kartu keluarga.
+          </marquee>
+        </div>
+        <div class="col-md-4">
+          <div class="form-section">
+            <h5>Pendaftaran</h5>
+            <form>
+              <label for="taPendaftaran">TA Pendaftaran</label>
+              <input
+                type="text"
+                class="form-control"
+                id="taPendaftaran"
+                value="2025/2026"
+              />
+
+              <label for="jalurPendaftaran">Jenjang PPDB</label>
+              <input
+                type="text"
+                class="form-control"
+                id="jalurPendaftaran"
+                value="SMP Islam Sa'datuddarain NW Majuwet"
+              />
+
+              <label for="program">Program</label>
+              <input
+                type="text"
+                class="form-control"
+                id="program"
+                value="Reguler"
+              />
+
+              <h5>Data Siswa</h5>
+              <label for="namaLengkap">Nama Lengkap</label>
+              <span class="wajib">Wajib</span>
+              <input
+                type="text"
+                class="form-control"
+                id="namaLengkap"
+                placeholder="Nama Siswa"
+              />
+
+              <label for="namaPanggilan">Nama Panggilan</label>
+              <span class="wajib">Wajib</span>
+              <input
+                type="text"
+                class="form-control"
+                id="namaPanggilan"
+                placeholder="Nama Panggilan"
+              />
+
+              <label for="nisn">NISN</label>
+              <input
+                type="text"
+                class="form-control"
+                id="nisn"
+                placeholder="NISN Jika Punya"
+              />
+
+              <label for="nisn">NIS</label>
+              <input
+                type="text"
+                class="form-control"
+                id="nisn"
+                placeholder="NIS Jika Punya"
+              />
+
+              <label for="nik">NIK/No. KIA</label>
+              <span class="wajib">Wajib</span>
+              <input
+                type="text"
+                class="form-control"
+                id="nik"
+                placeholder="NIS Jika Punya"
+              />
+
+              <label for="tempatLahir">Tempat Lahir</label>
+              <span class="wajib">Wajib</span>
+              <input
+                type="text"
+                class="form-control"
+                id="tempatLahir"
+                placeholder="Tempat kelahiran"
+              />
+
+              <label for="tanggalLahir">Tanggal Lahir</label>
+              <span class="wajib">Wajib</span>
+              <input type="date" class="form-control" id="tanggalLahir" />
+
+              <label for="jenisKelamin">Jenis Kelamin</label>
+              <span class="wajib">Wajib</span>
+
+              <select
+                class="form-select"
+                aria-label="Default select example"
+                id="jenisKelamin"
+              >
+                <option selected>Pilih</option>
+                <option>Laki-laki</option>
+                <option>Perempuan</option>
+              </select>
+
+              <label for="agama">Agama</label>
+              <span class="wajib">Wajib</span>
+              <select
+                class="form-select"
+                aria-label="Default select example"
+                id="agama"
+              >
+                <option selected>Pilih</option>
+                <option>Islam</option>
+                <option>Kristen</option>
+                <option>Katolik</option>
+                <option>Hindu</option>
+                <option>Buddha</option>
+                <option>Konghucu</option>
+                <option>Lainnya</option>
+              </select>
+
+              <label for="alamatSiswa">Alamat Siswa</label>
+              <span class="wajib">Wajib</span>
+              <input
+                type="text"
+                class="form-control"
+                id="alamatSiswa"
+                placeholder="Alamat Siswa"
+              />
+
+              <label for="rt">RT</label>
+              <span class="wajib">Wajib</span>
+              <input
+                type="text"
+                class="form-control"
+                id="rt"
+                placeholder="RT"
+              />
+
+              <label for="rw">RW</label>
+              <span class="wajib">Wajib</span>
+              <input
+                type="text"
+                class="form-control"
+                id="rw"
+                placeholder="RW"
+              />
+
+              <label for="desa">Desa</label>
+              <span class="wajib">Wajib</span>
+              <input
+                type="text"
+                class="form-control"
+                id="desa"
+                placeholder="Desa"
+              />
+
+              <label for="kecamatan">Kecamatan</label>
+              <span class="wajib">Wajib</span>
+              <input
+                type="text"
+                class="form-control"
+                id="kecamatan"
+                placeholder="Kecamatan"
+              />
+
+              <label for="kabupaten">Kabupaten</label>
+              <span class="wajib">Wajib</span>
+              <input
+                type="text"
+                class="form-control"
+                id="kabupaten"
+                placeholder="Kabupaten"
+              />
+
+              <label for="kabupaten">Provinsi</label>
+              <span class="wajib">Wajib</span>
+              <input
+                type="text"
+                class="form-control"
+                id="kabupaten"
+                placeholder="Provinsi"
+              />
+
+              <label for="kodePos">Kode Pos</label>
+              <span class="wajib">Wajib</span>
+              <input
+                type="text"
+                class="form-control"
+                id="kodePos"
+                placeholder="Kode Pos"
+              />
+            </form>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-section">
+            <h5>Data Ayah Dan Ibu</h5>
+            <form>
+              <label for="namaAyah">Nama Ayah</label>
+              <span class="wajib">Wajib</span>
+              <input
+                type="text"
+                class="form-control"
+                id="namaAyah"
+                placeholder="Nama Ayah"
+              />
+
+              <label for="pekerjaanAyah">Pekerjaan Ayah</label>
+              <span class="wajib">Wajib</span>
+              <select class="form-select" id="pekerjaanAyah">
+                <option>Pilih</option>
+                <option>Petani</option>
+                <option>Peternak</option>
+                <option>PNS</option>
+                <option>Polri</option>
+                <option>TNI</option>
+                <option>Swasta</option>
+                <option>Wiraswasta</option>
+                <option>Lainnya</option>
+              </select>
+
+              <label for="pendidikanAyah">Pendidikan Ayah</label>
+              <span class="wajib">Wajib</span>
+              <select class="form-select" id="pendidikanAyah">
+                <option>Pilih</option>
+                <option>SD</option>
+                <option>SMP</option>
+                <option>SMA</option>
+                <option>S1</option>
+                <option>S2</option>
+                <option>S3</option>
+                <option>Lainnya</option>
+              </select>
+
+              <label class="" for="namaIbu">Nama Ibu</label>
+              <span class="wajib">Wajib</span>
+              <input
+                type="text"
+                class="form-control"
+                id="namaIbu"
+                placeholder="Nama Ibu"
+              />
+
+              <label for="pekerjaanIbu">Pekerjaan Ibu</label>
+              <span class="wajib">Wajib</span>
+              <select class="form-select" id="pekerjaanIbu">
+                <option>Pilih</option>
+                <option>Petani</option>
+                <option>Peternak</option>
+                <option>PNS</option>
+                <option>Polri</option>
+                <option>TNI</option>
+                <option>Swasta</option>
+                <option>Wiraswasta</option>
+                <option>Ibu Rumah Tangga</option>
+                <option>Lainnya</option>
+              </select>
+
+              <label for="pendidikanIbu">Pendidikan Ibu</label>
+              <span class="wajib">Wajib</span>
+              <select class="form-select" id="pendidikanIbu">
+                <option>Pilih</option>
+                <option>SD</option>
+                <option>SMP</option>
+                <option>SMA</option>
+                <option>S1</option>
+                <option>S2</option>
+                <option>S3</option>
+                <option>Lainnya</option>
+              </select>
+
+              <h5>Data Wali</h5>
+              <h6>Jika Orang Tua Tidak Ada/Meninggal</h6>
+
+              <label for="hubunganWali">Hubungan Dengan Siswa</label>
+              <select class="form-select" id="hubunganWali">
+                <option>Pilih</option>
+                <option>Kakek</option>
+                <option>Nenek</option>
+                <option>Kakak</option>
+                <option>Paman</option>
+                <option>Bibi</option>
+                <option>Om</option>
+                <option>Teman</option>
+                <option>Lainnya</option>
+              </select>
+
+              <label for="namaWali">Nama Wali</label>
+              <input
+                type="text"
+                class="form-control"
+                id="namaWali"
+                placeholder="Nama Wali"
+              />
+
+              <label for="pekerjaanWali">Pekerjaan Wali</label>
+              <select class="form-select" id="pekerjaanWali">
+                <option>Pilih</option>
+                <option>Petani</option>
+                <option>Peternak</option>
+                <option>PNS</option>
+                <option>Polri</option>
+                <option>TNI</option>
+                <option>Swasta</option>
+                <option>Wiraswasta</option>
+                <option>Ibu Rumah Tangga</option>
+                <option>Lainnya</option>
+              </select>
+
+              <label for="pendidikanWali">Pendidikan Wali</label>
+              <select class="form-select" id="pendidikanWali">
+                <option>Pilih</option>
+                <option>SD</option>
+                <option>SMP</option>
+                <option>SMA</option>
+                <option>S1</option>
+                <option>S2</option>
+                <option>S3</option>
+                <option>Lainnya</option>
+              </select>
+            </form>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-section">
+            <h5>Data Sekolah Asal</h5>
+            <form>
+              <label for="jenisPendaftaran">Jenis Pendaftaran</label>
+              <span class="wajib">Wajib</span>
+              <select class="form-select" id="jenisPendaftaran">
+                <option>Pilih</option>
+                <option>Pesertaa Didik Baru</option>
+                <option>Peserta Didik Pindahan</option>
+              </select>
+
+              <h5>Siswa Pindahan</h5>
+
+              <label for="namaSekolah">Nama Sekolah</label>
+              <input
+                type="text"
+                class="form-control"
+                id="namaSekolah"
+                placeholder="Nama Sekolah Pindahan"
+              />
+
+              <label for="alamatSekolah">Alamat Sekolah</label>
+              <input
+                type="text"
+                class="form-control"
+                id="alamatSekolah"
+                placeholder="Alamat Sekolah Pindahan"
+              />
+
+              <label for="pindahanKelas">Pindahan Dari Kelas</label>
+              <input
+                type="text"
+                class="form-control"
+                id="pindahanKelas"
+                placeholder="Pindahan Dari Kelas"
+              />
+
+              <h5>Kontak Yang Bisa dihubungi</h5>
+
+              <label for="noHp">No HP / WA</label>
+              <span class="wajib">Wajib</span>
+              <input
+                type="text"
+                class="form-control"
+                id="noHp"
+                placeholder="No HP / WA"
+              />
+
+              <div class="alert">
+                Pastikan Nomor HP di atas adalah benar dan
+                <span style="color: red">valid</span> serta terhubung dengan
+                aplikasi <span style="color: red">Whatsapp</span>,karena melalui
+                nomor tersebut kami akan mengkonfirmasi terkait dengan status
+                pendaftaran
+              </div>
+
+              <label for="email">Email</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                placeholder="Masukkan Email"
+              />
+
+              <div class="d-flex justify-content-end gap-2">
+                <button type="submit" class="btn btn-primary">Daftar</button>
+                <button type="reset" class="btn btn-secondary">
+                  Kosongkan
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!-- Footer Section -->
+      <footer class="mt-4">
+        <p class="text-center fs-5">
+          PPDB Online &copy; SMP Islam Sa'adatuddarain NW Majuwet
+        </p>
+      </footer>
+    </div>
+
+    <!-- Form Pendaftaran End -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

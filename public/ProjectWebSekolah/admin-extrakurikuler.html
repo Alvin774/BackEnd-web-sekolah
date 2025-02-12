@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin - Kelola Ekstrakurikuler</title>
+  <!-- Bootstrap CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+    crossorigin="anonymous"
+  />
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Anton+SC&family=Montserrat:ital,wght@0,100;0,400;0,700&display=swap"
+    rel="stylesheet"
+  />
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <!-- Custom CSS (optional inline styling) -->
+  <style>
+    :root {
+      --primary-green: #2ecc71;
+      --dark-green: #27ae60;
+      --bg-light: #f5f5f5;
+      --text-dark: #2c3e50;
+    }
+    body {
+      background-color: var(--bg-light);
+      font-family: 'Montserrat', sans-serif;
+      color: var(--text-dark);
+      padding: 20px;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: var(--dark-green);
+    }
+    .form-label {
+      font-weight: 600;
+    }
+    .btn-success {
+      background-color: var(--primary-green);
+      border-color: var(--primary-green);
+    }
+    .btn-success:hover {
+      background-color: var(--dark-green);
+      border-color: var(--dark-green);
+    }
+    .btn-danger {
+      background-color: #e74c3c;
+      border-color: #e74c3c;
+      color: #fff;
+    }
+    .btn-danger:hover {
+      background-color: #c0392b;
+      border-color: #c0392b;
+    }
+    /* Preview card styling */
+    .preview-card {
+      border: 1px solid var(--primary-green);
+      border-radius: 5px;
+      padding: 15px;
+      background: #f9f9f9;
+      text-align: center;
+      margin-top: 30px;
+    }
+    .preview-card img {
+      width: 100%;
+      max-height: 200px;
+      object-fit: cover;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+    /* Daftar kartu ekstrakurikuler */
+    .extra-card {
+      border: 0;
+    }
+    .extra-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+    .extra-card .card-body {
+      padding: 0.5rem;
+    }
+    .extra-card .card-text {
+      font-weight: 700;
+      margin-bottom: 0;
+    }
+    /* Tombol edit/hapus pada list */
+    .list-extra .btn {
+      font-size: 0.8rem;
+      padding: 0.25rem 0.5rem;
+      margin-right: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Kelola Data Ekstrakurikuler</h2>
+
+    <!-- Form untuk Tambah / Edit Ekstrakurikuler -->
+    <form id="extracurricularForm" enctype="multipart/form-data" class="mb-4">
+      <!-- Input tersembunyi untuk ID (mode edit) -->
+      <input type="hidden" id="extraId" name="extraId">
+      <div class="mb-3">
+        <label for="extraName" class="form-label">Nama Ekstrakurikuler</label>
+        <input type="text" class="form-control" id="extraName" name="name" required>
+      </div>
+      <div class="mb-3">
+        <label for="extraDescription" class="form-label">Deskripsi (Opsional)</label>
+        <textarea class="form-control" id="extraDescription" name="description" rows="3"></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="extraImage" class="form-label">Upload Gambar</label>
+        <input type="file" class="form-control" id="extraImage" name="image">
+      </div>
+      <div class="d-flex">
+        <button type="submit" class="btn btn-success me-2" id="submitExtraBtn">Simpan Ekstrakurikuler</button>
+        <button type="button" class="btn btn-secondary" id="resetExtraBtn">Reset Form</button>
+      </div>
+    </form>
+
+    <!-- Preview Ekstrakurikuler -->
+    <hr class="my-4">
+    <h4 class="mb-3">Preview Ekstrakurikuler</h4>
+    <div class="preview-card" id="extraPreview">
+      <img src="img/default-extrakurikuler.jpg" alt="Preview Gambar" id="previewImage">
+      <h5 id="previewName">Nama Ekstrakurikuler</h5>
+      <p id="previewDescription">Deskripsi akan tampil di sini.</p>
+    </div>
+
+    <!-- Daftar Ekstrakurikuler (List dengan opsi Edit dan Hapus) -->
+    <hr class="my-4">
+    <h4 class="mb-3">Daftar Ekstrakurikuler</h4>
+    <div class="row" id="extraList">
+      <!-- Kartu ekstrakurikuler akan dimuat secara dinamis di sini -->
+    </div>
+  </div>
+
+  <script>
+    // Fungsi untuk mengupdate preview secara real time
+    function updatePreview() {
+      const name = document.getElementById('extraName').value;
+      const description = document.getElementById('extraDescription').value;
+      document.getElementById('previewName').innerText = name || 'Nama Ekstrakurikuler';
+      document.getElementById('previewDescription').innerText = description || 'Deskripsi akan tampil di sini.';
+    }
+
+    // Update preview ketika input berubah
+    document.getElementById('extraName').addEventListener('input', updatePreview);
+    document.getElementById('extraDescription').addEventListener('input', updatePreview);
+
+    // Update preview gambar ketika file diupload
+    document.getElementById('extraImage').addEventListener('change', function() {
+      const file = this.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          document.getElementById('previewImage').src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      } else {
+        document.getElementById('previewImage').src = 'img/default-extrakurikuler.jpg';
+      }
+    });
+
+    // Reset form dan preview
+    document.getElementById('resetExtraBtn').addEventListener('click', function() {
+      document.getElementById('extracurricularForm').reset();
+      updatePreview();
+      document.getElementById('previewImage').src = 'img/default-extrakurikuler.jpg';
+    });
+
+    // Form submission (Tambah/Update Ekstrakurikuler)
+    document.getElementById('extracurricularForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      try {
+        let response;
+        const extraId = document.getElementById('extraId').value;
+        if (extraId) {
+          // Update data (PUT)
+          response = await fetch(`http://127.0.0.1:3000/api/extracurriculars/${extraId}`, {
+            method: 'PUT',
+            body: formData
+          });
+        } else {
+          // Tambah data baru (POST)
+          response = await fetch('http://127.0.0.1:3000/api/extracurriculars', {
+            method: 'POST',
+            body: formData
+          });
+        }
+        const result = await response.json();
+        if (response.ok) {
+          alert(result.message);
+          document.getElementById('extracurricularForm').reset();
+          updatePreview();
+          document.getElementById('previewImage').src = 'img/default-extrakurikuler.jpg';
+          loadExtracurriculars();
+        } else {
+          alert(result.message || "Gagal menyimpan data ekstrakurikuler.");
+        }
+      } catch (error) {
+        console.error("Error submitting extracurricular form:", error);
+        alert("Terjadi kesalahan saat mengirim data.");
+      }
+    });
+
+    // Fungsi untuk memuat daftar ekstrakurikuler dari API dan menampilkannya di #extraList
+    async function loadExtracurriculars() {
+      try {
+        const response = await fetch('http://127.0.0.1:3000/api/extracurriculars');
+        if (!response.ok) throw new Error('Failed to fetch extracurricular data');
+        const extracurriculars = await response.json();
+        const container = document.getElementById('extraList');
+        container.innerHTML = ""; // Kosongkan container
+
+        if (extracurriculars.length === 0) {
+          container.innerHTML = '<p class="text-center">Tidak ada data ekstrakurikuler.</p>';
+          return;
+        }
+
+        extracurriculars.forEach(item => {
+          const colDiv = document.createElement('div');
+          colDiv.className = "col-6 col-sm-4 col-md-3";
+          colDiv.innerHTML = `
+            <div class="card extra-card">
+              <img src="${item.imageUrl ? item.imageUrl : 'img/default-extrakurikuler.jpg'}" class="card-img-top" alt="${item.name}">
+              <div class="card-body p-2">
+                <p class="card-text fw-bold mb-0">${item.name}</p>
+                <div class="mt-2">
+                  <button class="btn btn-primary btn-sm" onclick="editExtra(${item.id})">Edit</button>
+                  <button class="btn btn-danger btn-sm" onclick="deleteExtra(${item.id})">Hapus</button>
+                </div>
+              </div>
+            </div>
+          `;
+          container.appendChild(colDiv);
+        });
+      } catch (error) {
+        console.error("Error loading extracurriculars:", error);
+        alert("Terjadi kesalahan saat memuat data ekstrakurikuler.");
+      }
+    }
+
+    // Fungsi untuk mengisi form dengan data ekstrakurikuler (mode edit)
+    async function editExtra(id) {
+      try {
+        const response = await fetch('http://127.0.0.1:3000/api/extracurriculars');
+        if (!response.ok) throw new Error("Failed to fetch extracurricular data");
+        const extracurriculars = await response.json();
+        const extra = extracurriculars.find(item => item.id === id);
+        if (!extra) {
+          alert("Data ekstrakurikuler tidak ditemukan.");
+          return;
+        }
+        document.getElementById('extraId').value = extra.id;
+        document.getElementById('extraName').value = extra.name;
+        document.getElementById('extraDescription').value = extra.description || "";
+        // Tidak dapat mengisi otomatis input file; biarkan admin memilih gambar baru jika diperlukan
+        updatePreview();
+      } catch (error) {
+        console.error("Error editing extracurricular:", error);
+        alert("Terjadi kesalahan saat mengambil data untuk edit.");
+      }
+    }
+
+    // Fungsi untuk menghapus data ekstrakurikuler
+    async function deleteExtra(id) {
+      if (!confirm("Apakah Anda yakin ingin menghapus data ekstrakurikuler ini?")) return;
+      try {
+        const response = await fetch(`http://127.0.0.1:3000/api/extracurriculars/${id}`, {
+          method: 'DELETE'
+        });
+        const result = await response.json();
+        if (response.ok) {
+          alert(result.message);
+          loadExtracurriculars();
+        } else {
+          alert(result.message || "Gagal menghapus data ekstrakurikuler.");
+        }
+      } catch (error) {
+        console.error("Error deleting extracurricular:", error);
+        alert("Terjadi kesalahan saat menghapus data ekstrakurikuler.");
+      }
+    }
+
+    // Panggil loadExtracurriculars saat DOM selesai dimuat
+    document.addEventListener("DOMContentLoaded", loadExtracurriculars);
+  </script>
+
+  <!-- Bootstrap JS Bundle -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"
+  ></script>
+</body>
+</html>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bootstrap demo</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+      crossorigin="anonymous"
+    />
+    <!-- link icon -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <!-- link googel font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton+SC&family=Archivo:ital,wght@0,100..900;1,100..900&family=Fira+Sans+Extra+Condensed:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat+Underline:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Pacifico&family=Playfair:ital,opsz,wght@0,5..1200,300..900;1,5..1200,300..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quattrocento:wght@400;700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Schibsted+Grotesk:ital,wght@0,400..900;1,400..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- link Font Awesome -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <!-- link home.css -->
+    <link rel="stylesheet" href="css/fasilitas.css" />
+  </head>
+  <body>
+    <!-- navigasi 2 start -->
+    <nav class="navbar navbar-expand-lg">
+      <div class="container">
+        <a class="navbar-brand text-white" href="#">
+          <img
+            src="img/YEKA-removebg-preview.png"
+            alt="Logo"
+            width=""
+            height="60"
+            class="d-inline-block align-text-center mb-2"
+          />
+        </a>
+        <button
+          class="navbar-toggler custom-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNavDropdown"
+          aria-controls="navbarNavDropdown"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Profile
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" href="sambutan.html"
+                    >Sambutan Kepala Sekolah</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="data-sekolah.html"
+                    >Data Sekolah</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="sejarah.html">Sejarah</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="visi-misi-tujuan.html"
+                    >Visi Dan Misi</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">Struktur Organisasi</a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="guru.html">Guru</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="fasilitas.html">Fasilitas</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="ekstrakurikuler.html"
+                >Ekstrakulikuler</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Prestasi</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="ppdb.html">PPDB</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- Header End -->
+
+    <!-- Fasilitas Start -->
+
+    <section
+      class="fasilitas-section position-relative overflow-hidden text-white text-start"
+    >
+      <div class="overlay"></div>
+      <div class="container position-relative">
+        <h1 class="display-4 fw-bold ms-4 animated-text">Fasilitas</h1>
+      </div>
+    </section>
+
+    <section class="fasilitas-gambar text-center py-5">
+      <div class="container">
+        <!-- Header -->
+        <div class="mb-4">
+          <img
+            src="icon/chalkboard-user-solid.png"
+            alt="Icon"
+            class="mb-4"
+            style="width: 70px"
+          />
+          <h3 class="fw-bold">Fasilitas</h3>
+          <p class="text-muted">
+            Fasilitas SMP Islam Sa'adatuddarain NW Majuwet
+          </p>
+          <div class="d-flex justify-content-center">
+            <hr class="mx-auto" style="width: 31.25em" />
+            <i class="bi bi-star" style="font-size: 24px; color: black"></i>
+            <hr class="mx-auto" style="width: 31.25em" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card-fasilitas py-5">
+      <div class="container">
+        <div class="row d-flex justify-content-center g-4" id="fasilitasContainer">
+      </div>
+    </section>
+
+    <!-- Fasilitas End -->
+
+    <!-- Follow Us Start -->
+
+    <section class="follow-us py-5">
+      <div class="container d-flex justify-content-center">
+        <div class="card text-center shadow-lg p-4">
+          <h3 class="text-white mb-4 fw-bold">Follow Us</h3>
+          <div class="d-flex justify-content-around align-items-center">
+            <a href="#" class="text-white fs-1 mx-2"
+              ><i class="bi bi-facebook"></i
+            ></a>
+            <a href="#" class="text-white fs-1 mx-2"
+              ><i class="bi bi-instagram"></i
+            ></a>
+            <a href="#" class="text-white fs-1 mx-2"
+              ><i class="bi bi-youtube"></i
+            ></a>
+            <a href="#" class="text-white fs-1 mx-2"
+              ><i class="bi bi-twitter"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Follow Us End -->
+
+    <!-- Footer Start -->
+    <section class="footer py-5 text-white" style="background: #004d00">
+      <div class="container">
+        <div class="row d-flex justify-content-center">
+          <!-- Informasi Sekolah -->
+          <div class="col-md-4 mb-4">
+            <h5 class="fw-bold">SMP ISLAM SA'DATUDDARAIN NW MAJUWET</h5>
+            <p>
+              Alamat: Jln.Kud.Tiga<br />
+              Serangkai Majuwet Bintang Rinjani Kec.Suralaga<br />
+              Kab.Lombok Timur Prov.NTB
+            </p>
+            <p>
+              <i class="bi bi-envelope"></i> smpinwmajuwet@gmail.com<br />
+              <i class="bi bi-telephone"></i> (123) 763-275<br />
+              <i class="bi bi-whatsapp"></i> +62-838-5534-934
+            </p>
+          </div>
+
+          <!-- Information Links -->
+          <div class="col-md-4 mb-4">
+            <h5 class="fw-bold">INFORMATION</h5>
+            <ul class="list-unstyled">
+              <li><i class="bi bi-circle-fill text-white me-2"></i> Home</li>
+              <li>
+                <i class="bi bi-circle-fill text-white me-2"></i>
+                Ekstrakulikuler
+              </li>
+              <li>
+                <i class="bi bi-circle-fill text-white me-2"></i> Fasilitas
+              </li>
+              <li><i class="bi bi-circle-fill text-white me-2"></i> PPDB</li>
+            </ul>
+          </div>
+
+          <!-- Location -->
+          <div class="col-md-4 mb-4">
+            <h5 class="fw-bold">LOCATION</h5>
+            <!-- Google Maps Embed -->
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3944.832087562659!2d116.51998077382025!3d-8.612114487489311!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dcc496689b27cd7%3A0x955b906a85c54b8d!2sSMP%20Islam%20Sa&#39;adatuddarain%20NW%20Majuwet!5e0!3m2!1sid!2sid!4v1736651272738!5m2!1sid!2sid"
+              width="300"
+              height="250"
+              style="border: 0"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
+        </div>
+        <div class="text-center mt-4">
+          <hr class="border-white" />
+          <p class="copy-right mb-0">
+            Copy Right 2025 | Developer Redi Elwaji Aspan
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer End -->
+    <script>
+      async function loadFasilitas() {
+        try {
+          const response = await fetch('http://127.0.0.1:3000/api/fasilitas');
+          if (!response.ok) {
+            throw new Error('Gagal mengambil data fasilitas');
+          }
+          const fasilitasList = await response.json();
+          const container = document.getElementById('fasilitasContainer');
+          container.innerHTML = ''; // Bersihkan container
+    
+          if (fasilitasList.length === 0) {
+            container.innerHTML = '<p class="text-center">Tidak ada data fasilitas.</p>';
+            return;
+          }
+    
+          fasilitasList.forEach(fasilitas => {
+            const colDiv = document.createElement('div');
+            colDiv.className = "col-12 col-sm-6 col-md-4";
+            colDiv.innerHTML = `
+              <div class="card">
+                <img src="${fasilitas.imageUrl}" class="card-img-top" alt="${fasilitas.name}">
+                <div class="card-body text-center">
+                  <p class="card-text fw-bold fs-4">${fasilitas.name}</p>
+                </div>
+              </div>
+            `;
+            container.appendChild(colDiv);
+          });
+        } catch (error) {
+          console.error("Error loading fasilitas:", error);
+          alert("Terjadi kesalahan saat memuat data fasilitas.");
+        }
+      }
+    
+      document.addEventListener("DOMContentLoaded", loadFasilitas);
+    </script>
+    
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

@@ -1,0 +1,95 @@
+body {
+  background-color: #f8f9fa;
+  font-family: "Poppins", serif;
+  letter-spacing: 1px;
+}
+
+/* Sidebar */
+
+.sidebar {
+  background: linear-gradient(to left, #006400, #001f07);
+  color: white;
+  min-height: 100vh;
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 1);
+}
+.sidebar .logo img {
+  width: 80px;
+  margin-bottom: 10px;
+}
+.sidebar .nav-item {
+  color: white;
+  text-decoration: none;
+  padding: 10px;
+  display: block;
+  font-size: 16px;
+}
+.sidebar .nav-item:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 5px;
+}
+.sidebar .logout {
+  /* margin-top: auto; */
+  color: #fff;
+}
+
+/* Offcanvas Sidebar */
+.offcanvas.sidebar {
+  background: linear-gradient(to top, #006400, #001f07);
+}
+.offcanvas .nav-item {
+  color: white;
+  display: block;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.btn-pro {
+  background: linear-gradient(to top, #006400, #001f07);
+  color: white;
+}
+
+.btn-pro:hover {
+  color: white;
+}
+
+/* Header */
+
+main {
+  box-shadow: 0px 7px 4px 0px rgba(0, 0, 0, 0.7);
+}
+
+.header {
+  background: linear-gradient(to right, #006400, #003300);
+  color: white;
+  text-align: center;
+  padding: 20px;
+  font-weight: bold;
+  font-size: 20px;
+  /* border-radius: 8px; */
+}
+
+.header a {
+}
+
+/* Card */
+.card {
+  background: linear-gradient(to bottom, #008000, #004d00);
+  color: white;
+  text-align: center;
+  border: none;
+  border-radius: 0px;
+  padding: 40px;
+  transition: 0.3s ease-in-out;
+}
+.card:hover {
+}
+.card a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+.card-icon {
+  font-size: 40px;
+  margin-bottom: 10px;
+  color: #fff;
+}

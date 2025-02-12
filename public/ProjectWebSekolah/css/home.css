@@ -1,0 +1,878 @@
+/* === GLOBAL STYLES === */
+body {
+  line-height: 1.6;
+  /* height: 6000px; */
+}
+
+/* === NAVIGASI ATAS (INFO BAR) === */
+.navigasi1 {
+  /* background: linear-gradient(to top, #228b22, #092509); */
+  background-color: #f3f3f3;
+  color: #228b22;
+  height: 50px;
+  /* font-size: 1.2rem; */
+  font-family: "Faculty Glyphic", serif;
+  font-weight: 800;
+  font-style: normal;
+  /* letter-spacing: 1.2px; */
+  /* position: static; */
+}
+
+.navigasi1 i {
+  margin-right: 5px;
+  font-size: 1.8rem;
+}
+
+.navigasi1 .social-icons i {
+  margin-left: 10px;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.navigasi1 .social-icons i:hover {
+  transform: scale(1.2);
+}
+
+.navigasi1 marquee {
+  font-family: "Roboto", serif;
+  /* letter-spacing: 1.7px; */
+  font-size: 1.3rem;
+  letter-spacing: 1.3px;
+}
+
+/* === NAVBAR === */
+.navbar {
+  background: linear-gradient(to left, #006600, #003300);
+  /* box-shadow: 0 4px 10px rgba(0, 0, 0); */
+  font-family: "Poppins", sans-serif;
+  /* border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px; */
+  text-transform: uppercase;
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+}
+
+.navbar-brand {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: white !important;
+}
+
+.navbar-nav .nav-link {
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-left: 10px;
+  color: white !important;
+  transition: color 0.3s;
+  letter-spacing: 1.5px;
+}
+
+.navbar-nav .nav-link:hover {
+  color: black !important;
+}
+
+/* === DROPDOWN MENU === */
+/* === DROPDOWN MENU === */
+.dropdown-menu {
+  border: none;
+  /* border-radius: 12px; */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  /* background-color: rgba(34, 139, 34, 0.88); */
+  background: linear-gradient(
+    to bottom,
+    rgba(34, 139, 34, 0.88),
+    rgba(7, 26, 7, 0.88)
+  );
+  overflow: hidden;
+  padding: 10px 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* Animasi Dropdown Saat Hover */
+.nav-item.dropdown:hover .dropdown-menu {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Item Dropdown */
+.dropdown-item {
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 500;
+  padding: 12px 20px;
+  transition: all 0.3s ease;
+  border-radius: 6px;
+  margin: 5px;
+  text-transform: capitalize;
+  font-family: "Trocchi", serif;
+  letter-spacing: 1.4px;
+}
+
+/* Efek Hover pada Item Dropdown */
+.dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #c8e6c9;
+}
+
+/* Garis Pembatas (Opsional) */
+.dropdown-divider {
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  margin: 8px 0;
+}
+
+/* Efek untuk Dropdown dari Navbar */
+.navbar-nav .nav-link {
+  position: relative;
+  color: #fff !important;
+  transition: all 0.3s ease-in-out;
+}
+
+.navbar-nav .nav-link:hover::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  background-color: #c8e6c9;
+  bottom: 0;
+  left: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Efek Hover Navbar */
+.navbar-nav .nav-link:hover {
+  color: #c8e6c9 !important;
+  /* transform: scale(1.05); */
+}
+
+/* === CUSTOM TOGGLER BUTTON === */
+.custom-toggler {
+  border: 1px solid white;
+  outline: none;
+  padding: 8px;
+  background: linear-gradient(to right, #228b22, #165016);
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.custom-toggler:hover {
+  background: linear-gradient(to right, #228b22, #165016);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* === ICON TOGGLER === */
+.custom-toggler .navbar-toggler-icon {
+  background-image: none; /* Hilangkan ikon default Bootstrap */
+  width: 25px;
+  height: 2px;
+  background-color: white;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+}
+
+.custom-toggler .navbar-toggler-icon::before,
+.custom-toggler .navbar-toggler-icon::after {
+  content: "";
+  width: 25px;
+  height: 2px;
+  background-color: white;
+  position: absolute;
+  left: 0;
+  transition: all 0.3s ease-in-out;
+}
+
+.custom-toggler .navbar-toggler-icon::before {
+  top: -8px;
+}
+
+.custom-toggler .navbar-toggler-icon::after {
+  top: 8px;
+}
+
+/* === ANIMASI TOGGLER AKTIF === */
+.custom-toggler[aria-expanded="true"] .navbar-toggler-icon {
+  background-color: transparent;
+}
+
+.custom-toggler[aria-expanded="true"] .navbar-toggler-icon::before {
+  transform: rotate(45deg);
+  top: 0;
+}
+
+.custom-toggler[aria-expanded="true"] .navbar-toggler-icon::after {
+  transform: rotate(-45deg);
+  top: 0;
+}
+
+/* Style Banner Home Start */
+
+#home-banner {
+  position: relative;
+  background-image: url("../img/poto-depan-sekolah-smp.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-attachment: fixed;
+  overflow: hidden;
+}
+
+#home-banner .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.7),
+    rgba(0, 0, 0, 0.5)
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+#home-banner .content-wrapper {
+  color: #fff;
+  z-index: 2;
+  text-align: center;
+  animation: fadeInUp 2s ease-in-out;
+}
+
+#animated-text {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #f8f9fa;
+  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+  margin-bottom: 1rem;
+  white-space: pre-wrap;
+  visibility: hidden;
+  font-family: "Poppins", sans-serif;
+}
+
+#animated-subtext {
+  font-size: 1.5rem;
+  font-weight: normal;
+  max-width: 800px;
+  margin: 0 auto 2rem auto;
+  visibility: hidden;
+  font-family: "Roboto", sans-serif;
+  line-height: 1.5;
+}
+
+.btn-explore {
+  background: linear-gradient(to right, #28a745, #218838);
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 10px 30px;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+  display: inline-block;
+  margin-top: 20px;
+}
+
+.btn-explore:hover {
+  background: #218838;
+  transform: scale(1.1);
+  color: #f8f9fa;
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  #animated-text {
+    font-size: 2rem;
+  }
+  #animated-subtext {
+    font-size: 1rem;
+  }
+  .btn-explore {
+    font-size: 1rem;
+    padding: 8px 20px;
+  }
+}
+
+/* Style Banner Home End */
+
+/* Style Berita Dan Artikel Start */
+
+.berita-artikel {
+  background-color: rgba(244, 242, 242, 0.5);
+}
+.berita-artikel h2 {
+  font-size: 3rem;
+  background: linear-gradient(to right, rgb(34, 139, 34), rgb(9, 37, 9));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: "Biryani", serif;
+  font-weight: bold;
+}
+
+hr.garis {
+  border: none; /* Hilangkan gaya default */
+  border-bottom: 2px solid green; /* Terapkan gaya khusus */
+}
+
+.berita-artikel .card {
+  /* border: 1px solid #ddd; */
+  background-color: rgba(244, 242, 242, 0.5);
+  /* border-radius: 8px; */
+  transform: translateY(-5px);
+  box-shadow: 0 4px 15px rgba(75, 74, 74, 0.5);
+  font-family: "Biryani", serif;
+  padding-bottom: 20px;
+  /* box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); */
+}
+
+.berita-artikel .card-text {
+  font-family: "Roboto", serif;
+  font-weight: bold;
+  border: none;
+}
+
+.berita-artikel .card-footer {
+  background-color: rgba(244, 242, 242, 0.5);
+}
+
+.berita-artikel .card-footer a {
+  background: linear-gradient(to bottom, rgb(34, 139, 34), rgb(9, 37, 9));
+  padding-left: 20px;
+  padding-right: 20px;
+  letter-spacing: 1.2px;
+  /* font-family: "Rethink Sans", serif; */
+  font-family: "Roboto", serif;
+  font-size: 15px;
+}
+
+.berita-artikel .card:hover {
+}
+
+.berita-artikel .card-footer {
+  border-top: none;
+}
+
+.berita-artikel .card.border-primary {
+  border: 2px solid #007bff;
+}
+
+/* Tambahkan animasi untuk masuk dari kiri dan bounce */
+@keyframes slideInBounce {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  80% {
+    transform: translateX(10%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Terapkan animasi ke card */
+.berita-artikel .card {
+  opacity: 0; /* Awalnya disembunyikan */
+  animation: slideInBounce 1s ease-out forwards;
+}
+
+/* Tambahkan delay agar muncul satu per satu */
+.berita-artikel .card:nth-child(1) {
+  animation-delay: 0.2s;
+}
+.berita-artikel .card:nth-child(2) {
+  animation-delay: 0.4s;
+}
+.berita-artikel .card:nth-child(3) {
+  animation-delay: 0.6s;
+}
+.berita-artikel .card:nth-child(4) {
+  animation-delay: 0.8s;
+}
+.berita-artikel .card:nth-child(5) {
+  animation-delay: 1s;
+}
+
+/* Style Berita Dan Artikel End */
+
+/* Style Banner PPDB Home Start */
+
+/* Style Banner PPDB Home End */
+
+/* Style Mengapa Memilih SMPI NW Majuwet Start */
+.mengapa-pilih h2 {
+  color: #1a8917;
+  font-size: 3rem;
+  background: linear-gradient(to right, rgb(34, 139, 34), rgb(9, 37, 9));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: "Biryani", serif;
+  font-weight: bold;
+}
+
+/* .mengapa-pilih .row {
+  border: 2px solid red;
+} */
+
+.mengapa-pilih {
+  background-color: #fefefe;
+}
+
+.mengapa-pilih .garis {
+  border: none; /* Hilangkan gaya default */
+  border-bottom: 2px solid green; /* Terapkan gaya khusus */
+}
+
+.mengapa-pilih .card {
+  border: none;
+  border-radius: 12px;
+  background-color: #ffffff;
+  transition: transform 0.3s, box-shadow 0.3s;
+  /* width: 500px; */
+  height: 300px;
+  transform: translateY(-5px);
+  /* box-shadow: 0px 0px 12px 6px rgb(247, 247, 247); */
+  box-shadow: 0 0px 15px rgb(15, 15, 15, 1);
+}
+
+.mengapa-pilih .card:hover {
+  /* transform: translateY(-5px); */
+  box-shadow: 0 0px 15px rgb(15, 15, 15, 1);
+}
+
+.mengapa-pilih .icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3.4em;
+  color: #228b22;
+}
+
+.mengapa-pilih h2 {
+  font-weight: 700;
+  color: #333;
+}
+
+.mengapa-pilih .card-title {
+  font-weight: bold;
+  color: #228b22;
+  font-size: 1.9em;
+  /* font-size: 2.4em; */
+}
+
+.mengapa-pilih .card-text {
+  color: #414141;
+  font-size: 1.16em;
+}
+
+.mengapa-pilih .row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* Animasi fade-in dengan efek scale */
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Default state sebelum terlihat */
+.mengapa-pilih .card {
+  opacity: 0; /* Tidak terlihat */
+  transform: translateY(30px) scale(0.9); /* Posisi awal */
+}
+
+/* Mulai animasi ketika kelas 'show' ditambahkan */
+.mengapa-pilih .card.show {
+  animation: fadeInScale 0.5s ease-out forwards;
+  animation-delay: var(--delay, 0s); /* Delay ditentukan oleh JS */
+}
+
+/* Style Mengapa Memilih SMPI NW Majuwet End */
+
+/* Style Pengumuman Agenda Start */
+
+.pengumuman-agenda {
+  /* font-family: "Roboto", serif; */
+  background-color: rgba(242, 242, 242, 0.5);
+}
+
+.pengumuman-agenda h2 {
+  color: #1a8917;
+  font-size: 3rem;
+  background: linear-gradient(to right, rgb(34, 139, 34), rgb(9, 37, 9));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: "Biryani", serif;
+  font-weight: bold;
+}
+
+.pengumuman-agenda .garis {
+  border: none; /* Hilangkan gaya default */
+  border-bottom: 2px solid green; /* Terapkan gaya khusus */
+}
+
+.pengumuman-agenda .card {
+  max-width: 63rem;
+  border: none;
+  background: linear-gradient(
+    to bottom,
+    rgba(245, 245, 245, 0.5),
+    rgba(241, 241, 241, 0.5)
+  );
+
+  /* box-shadow: 0px 0px 13px 0px #858484; */
+}
+
+.date-box {
+  min-width: 200px;
+  min-height: 12.8rem;
+  border-radius: 10px 0 0 10px;
+  /* font-size: 1.2rem; */
+  line-height: 1.2;
+  background: linear-gradient(to left, #228b22, #092509);
+  font-family: "Rethink Sans", serif;
+}
+
+.date-box .ukuran-1 {
+  font-size: 50px;
+}
+.date-box .ukuran-2 {
+  font-size: 20px;
+}
+.date-box .ukuran-3 {
+  font-size: 23px;
+}
+
+/* .date-box span:nth-child(1) {
+  font-size: 100px;
+} */
+
+.date-box span:first-child {
+  /* font-size: 2rem;
+  font-weight: bold; */
+}
+
+.content-box {
+  background: linear-gradient(to bottom, #f5f5f5, #f1f1f1);
+}
+
+.content-box h5 {
+  font-size: 1.56rem;
+  font-family: "Trocchi", serif;
+  letter-spacing: 0.8px;
+  color: #228b22;
+}
+
+.content-box p {
+  margin-bottom: 0.9rem;
+  color: #333;
+  font-family: "Roboto", serif;
+  letter-spacing: 1.2px;
+}
+
+.d-flex.align-items-stretch {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* Pengaturan Dasar */
+.pengumuman-agenda .card {
+  opacity: 0; /* Awalnya tidak terlihat */
+  transform: translateX(-50%); /* Posisi awal dari kiri */
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+/* Ketika elemen terlihat */
+.pengumuman-agenda .card.show {
+  opacity: 1; /* Muncul */
+  transform: translateX(0); /* Posisi normal */
+}
+
+/* Area scroll aman */
+.pengumuman-agenda {
+  overflow-x: hidden;
+}
+
+/* Date box (ukuran hijau diperbesar) */
+.date-box {
+  min-width: 200px; /* Ukuran lebih besar */
+  min-height: 14rem; /* Tinggi lebih besar */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px 0 0 10px;
+  background: linear-gradient(
+    to left,
+    #228b22,
+    #092509
+  ); /* Gradasi hijau lebih terang */
+  color: white;
+  text-align: center;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2); /* Tambahan efek bayangan */
+}
+
+.date-box span {
+  display: block;
+  font-weight: bold;
+}
+
+.date-box .ukuran-1 {
+  font-size: 60px; /* Lebih besar */
+}
+
+.date-box .ukuran-2 {
+  font-size: 25px;
+}
+
+.date-box .ukuran-3 {
+  font-size: 30px; /* Font lebih besar */
+}
+
+/* Content box */
+.content-box {
+  padding: 20px;
+  background: #fff;
+  border-radius: 0 10px 10px 0;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); /* Efek bayangan */
+}
+
+.content-box h5 {
+  font-size: 20px; /* Font lebih besar */
+  font-weight: bold;
+  color: #228b22;
+}
+
+.content-box p {
+  margin-bottom: 5px;
+  color: #333;
+}
+
+/* Animasi tambahan */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Style  Pengumuman Agenda End*/
+
+/* Style Statistik Start */
+.statistik {
+  background-image: url(../img/potbar-smpi-nw-majuwet.jpg);
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.statistik::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Overlay dengan transparansi */
+  z-index: 1; /* Overlay di atas background */
+}
+
+.statistik .container {
+  position: relative;
+  z-index: 2; /* Konten di atas overlay */
+}
+
+.statistik-item i {
+  color: #ffffff; /* Warna ikon putih */
+}
+
+.statistik-item h3 {
+  font-size: 2.5rem; /* Ukuran angka */
+  color: #ffffff; /* Warna angka putih */
+}
+
+.statistik-item p {
+  font-size: 1.2rem; /* Ukuran teks deskripsi */
+  margin-top: -5px;
+  color: #ffffff; /* Warna teks putih */
+}
+/* Style Statistik End */
+
+/* Style Review Alumni Start */
+
+/* Alumni Reviews Start */
+.alumni-reviews {
+  background-color: #ffffff;
+  padding: 2rem 1rem;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.alumni-reviews h2 {
+  color: #1a8917;
+  font-size: 3rem;
+  background: linear-gradient(to right, #34a853, #0b6623);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: "Poppins", sans-serif;
+  font-weight: bold;
+}
+
+.alumni-reviews .divider {
+  border-top: 3px solid #28a745;
+  width: 60%;
+  margin: 0 auto 2rem auto;
+}
+
+.review-card {
+  background: linear-gradient(135deg, #f9f9f9, #ffffff);
+  border: 1px solid #eee;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  transition: transform 0.3s ease-in-out;
+}
+
+.review-card:hover {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.review-card .text-content {
+  font-family: "Roboto", serif;
+  font-size: 1.2rem;
+  line-height: 1.8;
+  text-align: justify;
+  color: #333;
+}
+
+.review-card .alumni-photo {
+  width: 90px;
+  height: 90px;
+  border: 3px solid #28a745;
+}
+
+.review-card .alumni-name {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #0b6623;
+}
+
+.review-card .alumni-year {
+  font-size: 1.1rem;
+  color: #6c757d;
+}
+
+/* Carousel Styling */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: rgba(200, 200, 200, 0.2);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.carousel-control-prev-icon:hover,
+.carousel-control-next-icon:hover {
+  background-color: rgba(200, 200, 200, 0.8);
+}
+
+@media (max-width: 768px) {
+  .review-card {
+    padding: 1.5rem;
+  }
+
+  .alumni-reviews h2 {
+    font-size: 2rem;
+  }
+
+  .alumni-reviews .divider {
+    width: 70%;
+  }
+
+  .review-card .text-content {
+    font-size: 1rem;
+  }
+}
+
+/* Alumni Reviews End */
+
+/* Style Footer Start */
+
+.footer {
+  background: linear-gradient(
+    to left,
+    #006600,
+    #003300
+  ); /* Background hijau gradien */
+  font-family: "Roboto", serif;
+}
+
+.footer h5 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  letter-spacing: 1.2px;
+}
+
+.footer p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  letter-spacing: 1.2px;
+}
+
+.footer ul li {
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  letter-spacing: 1.2px;
+}
+
+.footer .copy-right {
+  font-size: 1.1em;
+  font-family: "Roboto", serif;
+  letter-spacing: 1.3px;
+}
+
+iframe {
+  width: 100%;
+  height: 200px;
+  border: none;
+}
+
+/* Style Footer End */

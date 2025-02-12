@@ -1,0 +1,112 @@
+body {
+  background-color: #ebedeb;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Style Nav Start */
+.bg-green-gradient {
+  background: linear-gradient(to left, #228b22, #001f07);
+}
+
+.navbar-brand span {
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.navbar-nav .nav-link {
+  color: white !important;
+  font-weight: 500;
+  margin: 0 10px;
+  transition: color 0.3s ease;
+  font-family: "Poppins", sans-serif;
+  letter-spacing: 1.3px;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #ffcc00 !important; /* Highlight kuning */
+}
+
+.navbar-nav .nav-link.active {
+  font-weight: 700;
+  color: #ffcc00 !important; /* Highlight kuning */
+  text-decoration: underline;
+}
+
+.btn-profile {
+  background-color: white;
+  color: green;
+  border-radius: 20px;
+  padding: 5px 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-profile:hover {
+  background-color: #f0f0f0;
+}
+
+.dropdown-menu-custom {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  transform: translateY(5px);
+  border-radius: 12px;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+  background: #ffffff;
+}
+
+.dropdown-menu-custom a {
+  color: #005f00 !important;
+  font-weight: 500;
+  padding: 10px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.dropdown-menu-custom a:hover {
+  background-color: #e6ffe6;
+}
+
+@media (max-width: 768px) {
+  .dropdown-menu-custom {
+    width: auto;
+    left: auto;
+    right: auto;
+  }
+}
+/* Nav Style Ends */
+
+/* Style Pengumuman Akun Berhasi Start */
+
+.bg-green-gradient {
+  background: linear-gradient(to bottom, #005f00, #228b22);
+}
+
+/* Inner White Box */
+.inner-box {
+  background: white;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.pengumuman .inner-box p {
+}
+
+/* Shadow for Outer Box */
+.shadow-lg {
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Text Customization */
+.text-success {
+  color: #228b22 !important;
+}
+
+/* Footer Style */
+footer p {
+  margin-top: 20px;
+  border-top: 1px solid #e0e0e0;
+  padding-top: 10px;
+  color: black;
+}
+
+/* Style Pengumuman Akun Berhasi End */
