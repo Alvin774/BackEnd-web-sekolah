@@ -266,13 +266,13 @@
         </div>
 
         <!-- Informasi Penting -->
-        <div class="info-section">
-          <marquee class="text-success fw-bold fs-5" id="infoMarquee">[Informasi Penting]</marquee>
-
-          <marquee class="fs-6" id="registrationMarquee">
-            Pendaftaran Siswa/i Baru akan dimulai dari Tanggal <span class="fw-bold">-</span> s/d <span class="fw-bold">-</span>
-          </marquee>
-        </div>
+<!-- Informasi Penting -->
+<div class="info-section">
+  <marquee class="text-success fw-bold fs-5" id="infoMarquee">[Informasi Penting]</marquee>
+  <marquee class="fs-6" id="registrationMarquee">
+    Pendaftaran Siswa/i Baru akan dimulai dari Tanggal <span class="fw-bold">12-Februari 2025</span> s/d <span class="fw-bold">30-Juni 2025</span>
+  </marquee>
+</div>
       </div>
     </section>
     <!-- PPDB Selamat Datang Di PPDB Online End -->
@@ -293,8 +293,8 @@
       <div class="container">
         <h2 class="text-center fw-bold">Alur Pendaftaran Siswa/i Baru</h2>
         <hr class="mx-auto divider" />
-        <div class="row justify-content-center text-center mt-4 gap-3">
-          <div class="col-4 col-lg-2" id="alurContainer">
+        <div class="row justify-content-center text-center mt-4 gap-3" id="alurContainer">
+          <div class="col-4 col-lg-2">
             <button
               class="btn btn-light w-100 mb-2 p-0 shadow-hover"
               type="button"
@@ -518,33 +518,16 @@
 
   <!-- JavaScript untuk memuat data preview -->
   <script>
-    // Fungsi untuk memuat PPDB Info (Informasi Penting & Periode Pendaftaran)
-    async function loadPPDBInfo() {
-      try {
-        const response = await fetch('http://127.0.0.1:3000/api/ppdbinfo');
-        if (!response.ok) throw new Error('Gagal mengambil data PPDB Info');
-        // Jika API mengembalikan array, ambil record pertama; jika tidak, asumsikan objek tunggal
-        const data = Array.isArray(await response.json()) ? (await response.json())[0] : await response.json();
-        // Update marquee informasi
-        document.getElementById('infoMarquee').innerText = data.infoText || "[Informasi Penting]";
-        // Format tanggal (misalnya, gunakan toLocaleDateString)
-        const startDate = data.registrationStart ? new Date(data.registrationStart).toLocaleDateString() : "-";
-        const endDate = data.registrationEnd ? new Date(data.registrationEnd).toLocaleDateString() : "-";
-        document.getElementById('registrationMarquee').innerHTML =
-          `Pendaftaran Siswa/i Baru akan dimulai dari Tanggal <span class="fw-bold">${startDate}</span> s/d <span class="fw-bold">${endDate}</span>`;
-      } catch (error) {
-        console.error("Error loading PPDB Info:", error);
-      }
-    }
-
     // Fungsi untuk memuat PPDB Brosur
     async function loadPPDBBrosur() {
       try {
         const response = await fetch('http://127.0.0.1:3000/api/ppdbbrosur');
         if (!response.ok) throw new Error('Gagal mengambil data PPDB Brosur');
-        // Jika API mengembalikan array, ambil record pertama
-        const brosurData = Array.isArray(await response.json()) ? (await response.json())[0] : await response.json();
-        document.getElementById('brosurImage').src = brosurData.imageUrl || "img/default-ppdb.jpg";
+        const jsonData = await response.json();
+        const data = Array.isArray(jsonData) ? jsonData[0] : jsonData;
+        if (data) {
+          document.getElementById('brosurImage').src = data.imageUrl || "img/default-ppdb.jpg";
+        }
       } catch (error) {
         console.error("Error loading PPDB Brosur:", error);
       }
@@ -585,6 +568,26 @@
         alert("Terjadi kesalahan saat memuat data alur pendaftaran.");
       }
     }
+
+        // Contoh fungsi load (jika API tersedia, gunakan fetch API)
+        async function loadPPDBInfo() {
+      try {
+        const response = await fetch('http://127.0.0.1:3000/api/ppdbinfo');
+        if (!response.ok) throw new Error('Gagal mengambil data PPDB Info');
+        const jsonData = await response.json();
+        const data = Array.isArray(jsonData) ? jsonData[0] : jsonData;
+        if (data) {
+          document.getElementById('infoMarquee').innerText = data.infoText || "[Informasi Penting]";
+          const startDate = data.registrationStart ? new Date(data.registrationStart).toLocaleDateString() : "-";
+          const endDate = data.registrationEnd ? new Date(data.registrationEnd).toLocaleDateString() : "-";
+          document.getElementById('registrationMarquee').innerHTML =
+            `Pendaftaran Siswa/i Baru akan dimulai dari Tanggal <span class="fw-bold">${startDate}</span> s/d <span class="fw-bold">${endDate}</span>`;
+        }
+      } catch (error) {
+        console.error("Error loading PPDB Info:", error);
+      }
+    }
+
 
     // Panggil semua fungsi load saat DOM selesai dimuat
     document.addEventListener("DOMContentLoaded", function() {
