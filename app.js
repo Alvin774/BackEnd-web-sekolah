@@ -14,17 +14,19 @@ app.use(express.json());
 app.use(morgan('dev'));
 
 // Menetapkan folder static yang berisi file index.html
-app.use(express.static(path.join(__dirname, './public/ProjectWebSekolah')));
+app.use(express.static(path.join(__dirname, 'public/ProjectWebSekolah')));
 
+
+app.use(express.json());
+app.use(cors());
 // Opsional: Jika kamu ingin memastikan saat akses root ('/')
 // mengirim file index.html, kamu bisa menambahkan route berikut:
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, './public/ProjectWebSekolah', 'index.html'));
+app.use('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/ProjectWebSekolah', 'index.html'));
 });
 
 // Menyajikan file statis dari folder "public"
-app.use(express.json());
-app.use(cors());
+
 
 const uploadRoutes = require('./routes/uploadRoutes');
 app.use('/api', uploadRoutes);
