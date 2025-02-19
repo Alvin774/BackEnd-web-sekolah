@@ -5,9 +5,9 @@
   "license": "ISC",
   "author": "alvin agustiar",
   "type": "commonjs",
-  "main": "app.js",
+  "main": "./public/ProjectWebSekolah/index.html",
   "scripts": {
-        "start": "cd ../../ && node app.js"
+        "start": "node app.js"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
