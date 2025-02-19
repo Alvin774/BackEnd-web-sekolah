@@ -183,7 +183,7 @@
       const formData = new FormData(this);
       try {
         // Karena untuk halaman admin, kita fokus pada penambahan (tambah) slide.
-        const response = await fetch('http://127.0.0.1:3000/api/ppdbcarousel', {
+        const response = await fetch('http://127.0.0.1:3307/api/ppdbcarousel', {
           method: 'POST',
           body: formData
         });
@@ -206,7 +206,7 @@
     // Fungsi untuk memuat daftar slide dari API
     async function loadCarousel() {
       try {
-        const response = await fetch('http://127.0.0.1:3000/api/ppdbcarousel');
+        const response = await fetch('http://127.0.0.1:3307/api/ppdbcarousel');
         if (!response.ok) {
           throw new Error('Gagal mengambil data PPDB Carousel');
         }
@@ -247,7 +247,7 @@
     async function deleteSlide(id) {
       if (!confirm("Apakah Anda yakin ingin menghapus slide ini?")) return;
       try {
-        const response = await fetch(`http://127.0.0.1:3000/api/ppdbcarousel/${id}`, {
+        const response = await fetch(`http://127.0.0.1:3307/api/ppdbcarousel/${id}`, {
           method: 'DELETE'
         });
         const result = await response.json();
@@ -496,7 +496,7 @@
     /* ---------- PPDB Info ---------- */
     async function loadPPDBInfo() {
       try {
-        const response = await fetch('http://127.0.0.1:3000/api/ppdbinfo');
+        const response = await fetch('http://127.0.0.1:3307/api/ppdbinfo');
         if (!response.ok) throw new Error('Gagal mengambil data PPDB Info');
         // Jika API mengembalikan array, ambil record pertama (asumsi hanya ada satu data)
         const data = Array.isArray(await response.json()) ? (await response.json())[0] : await response.json();
@@ -533,14 +533,14 @@
         const id = document.getElementById('ppdbInfoId').value;
         if (id) {
           // Update (PUT) – (untuk saat ini kita fokus pada tambah dan hapus; update bisa ditambahkan jika diperlukan)
-          response = await fetch(`http://127.0.0.1:3000/api/ppdbinfo/${id}`, {
+          response = await fetch(`http://127.0.0.1:3307/api/ppdbinfo/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
           });
         } else {
           // Tambah (POST)
-          response = await fetch('http://127.0.0.1:3000/api/ppdbinfo', {
+          response = await fetch('http://127.0.0.1:3307/api/ppdbinfo', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
@@ -563,7 +563,7 @@
       if (!confirm("Apakah Anda yakin ingin menghapus data PPDB Info ini?")) return;
       try {
         const id = document.getElementById('ppdbInfoId').value;
-        const response = await fetch(`http://127.0.0.1:3000/api/ppdbinfo/${id}`, { method: 'DELETE' });
+        const response = await fetch(`http://127.0.0.1:3307/api/ppdbinfo/${id}`, { method: 'DELETE' });
         const result = await response.json();
         if (response.ok) {
           alert(result.message);
@@ -583,7 +583,7 @@
     /* ---------- PPDB Brosur ---------- */
     async function loadPPDBBrosur() {
       try {
-        const response = await fetch('http://127.0.0.1:3000/api/ppdbbrosur');
+        const response = await fetch('http://127.0.0.1:3307/api/ppdbbrosur');
         if (!response.ok) throw new Error('Gagal mengambil data PPDB Brosur');
         // Ambil record pertama jika API mengembalikan array
         const data = Array.isArray(await response.json()) ? (await response.json())[0] : await response.json();
@@ -605,12 +605,12 @@
         let response;
         const id = document.getElementById('ppdbBrosurId').value;
         if (id) {
-          response = await fetch(`http://127.0.0.1:3000/api/ppdbbrosur/${id}`, {
+          response = await fetch(`http://127.0.0.1:3307/api/ppdbbrosur/${id}`, {
             method: 'PUT',
             body: formData
           });
         } else {
-          response = await fetch('http://127.0.0.1:3000/api/ppdbbrosur', {
+          response = await fetch('http://127.0.0.1:3307/api/ppdbbrosur', {
             method: 'POST',
             body: formData
           });
@@ -633,7 +633,7 @@
       if (!confirm("Apakah Anda yakin ingin menghapus data PPDB Brosur ini?")) return;
       try {
         const id = document.getElementById('ppdbBrosurId').value;
-        const response = await fetch(`http://127.0.0.1:3000/api/ppdbbrosur/${id}`, {
+        const response = await fetch(`http://127.0.0.1:3307/api/ppdbbrosur/${id}`, {
           method: 'DELETE'
         });
         const result = await response.json();
@@ -654,7 +654,7 @@
     /* ---------- Alur Pendaftaran ---------- */
     async function loadAlurPendaftaran() {
       try {
-        const response = await fetch('http://127.0.0.1:3000/api/alurpendaftaran');
+        const response = await fetch('http://127.0.0.1:3307/api/alurpendaftaran');
         if (!response.ok) throw new Error('Gagal mengambil data alur pendaftaran');
         const steps = await response.json();
         const container = document.getElementById('alurList');
@@ -695,12 +695,12 @@
         let response;
         const id = document.getElementById('alurId').value;
         if (id) {
-          response = await fetch(`http://127.0.0.1:3000/api/alurpendaftaran/${id}`, {
+          response = await fetch(`http://127.0.0.1:3307/api/alurpendaftaran/${id}`, {
             method: 'PUT',
             body: formData
           });
         } else {
-          response = await fetch('http://127.0.0.1:3000/api/alurpendaftaran', {
+          response = await fetch('http://127.0.0.1:3307/api/alurpendaftaran', {
             method: 'POST',
             body: formData
           });
@@ -723,7 +723,7 @@
     async function deleteAlur(id) {
       if (!confirm("Apakah Anda yakin ingin menghapus langkah pendaftaran ini?")) return;
       try {
-        const response = await fetch(`http://127.0.0.1:3000/api/alurpendaftaran/${id}`, {
+        const response = await fetch(`http://127.0.0.1:3307/api/alurpendaftaran/${id}`, {
           method: 'DELETE'
         });
         const result = await response.json();

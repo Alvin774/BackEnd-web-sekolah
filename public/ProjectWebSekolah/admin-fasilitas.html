@@ -166,7 +166,7 @@
     // Fungsi untuk load data fasilitas dari API dan tampilkan di grid
     async function loadFasilitas() {
       try {
-        const response = await fetch('http://127.0.0.1:3000/api/fasilitas');
+        const response = await fetch('http://127.0.0.1:3307/api/fasilitas');
         if (!response.ok) throw new Error('Gagal mengambil data fasilitas');
         const fasilitasList = await response.json();
         const container = document.getElementById('fasilitasContainer');
@@ -208,13 +208,13 @@
         const fasilitasId = document.getElementById('fasilitasId').value;
         if (fasilitasId) {
           // Update data (PUT)
-          response = await fetch(`http://127.0.0.1:3000/api/fasilitas/${fasilitasId}`, {
+          response = await fetch(`http://127.0.0.1:3307/api/fasilitas/${fasilitasId}`, {
             method: 'PUT',
             body: formData
           });
         } else {
           // Tambah data baru (POST)
-          response = await fetch('http://127.0.0.1:3000/api/fasilitas', {
+          response = await fetch('http://127.0.0.1:3307/api/fasilitas', {
             method: 'POST',
             body: formData
           });
@@ -239,7 +239,7 @@
     async function deleteFasilitas(id) {
       if (!confirm("Apakah Anda yakin ingin menghapus data fasilitas ini?")) return;
       try {
-        const response = await fetch(`http://127.0.0.1:3000/api/fasilitas/${id}`, {
+        const response = await fetch(`http://127.0.0.1:3307/api/fasilitas/${id}`, {
           method: 'DELETE'
         });
         const result = await response.json();

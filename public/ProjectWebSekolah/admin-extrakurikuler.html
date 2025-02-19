@@ -196,13 +196,13 @@
         const extraId = document.getElementById('extraId').value;
         if (extraId) {
           // Update data (PUT)
-          response = await fetch(`http://127.0.0.1:3000/api/extracurriculars/${extraId}`, {
+          response = await fetch(`http://127.0.0.1:3307/api/extracurriculars/${extraId}`, {
             method: 'PUT',
             body: formData
           });
         } else {
           // Tambah data baru (POST)
-          response = await fetch('http://127.0.0.1:3000/api/extracurriculars', {
+          response = await fetch('http://127.0.0.1:3307/api/extracurriculars', {
             method: 'POST',
             body: formData
           });
@@ -226,7 +226,7 @@
     // Fungsi untuk memuat daftar ekstrakurikuler dari API dan menampilkannya di #extraList
     async function loadExtracurriculars() {
       try {
-        const response = await fetch('http://127.0.0.1:3000/api/extracurriculars');
+        const response = await fetch('http://127.0.0.1:3307/api/extracurriculars');
         if (!response.ok) throw new Error('Failed to fetch extracurricular data');
         const extracurriculars = await response.json();
         const container = document.getElementById('extraList');
@@ -263,7 +263,7 @@
     // Fungsi untuk mengisi form dengan data ekstrakurikuler (mode edit)
     async function editExtra(id) {
       try {
-        const response = await fetch('http://127.0.0.1:3000/api/extracurriculars');
+        const response = await fetch('http://127.0.0.1:3307/api/extracurriculars');
         if (!response.ok) throw new Error("Failed to fetch extracurricular data");
         const extracurriculars = await response.json();
         const extra = extracurriculars.find(item => item.id === id);
@@ -286,7 +286,7 @@
     async function deleteExtra(id) {
       if (!confirm("Apakah Anda yakin ingin menghapus data ekstrakurikuler ini?")) return;
       try {
-        const response = await fetch(`http://127.0.0.1:3000/api/extracurriculars/${id}`, {
+        const response = await fetch(`http://127.0.0.1:3307/api/extracurriculars/${id}`, {
           method: 'DELETE'
         });
         const result = await response.json();

@@ -145,7 +145,7 @@
       const payload = { name, email, password };
       
       try {
-        const response = await fetch("http://127.0.0.1:3000/api/auth/register", {
+        const response = await fetch("http://127.0.0.1:3307/api/auth/register", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload)
