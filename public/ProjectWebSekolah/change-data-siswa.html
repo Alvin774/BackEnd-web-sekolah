@@ -1,0 +1,280 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Data Siswa Lengkap</title>
+  <!-- Bootstrap CSS -->
+  <link 
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" 
+    rel="stylesheet" 
+    crossorigin="anonymous"
+  />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link 
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" 
+    rel="stylesheet" 
+  />
+  <style>
+    body {
+      background-color: #f5f5f5;
+      font-family: 'Poppins', sans-serif;
+      padding: 20px;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #27ae60;
+    }
+    .form-section {
+      margin-bottom: 20px;
+    }
+    .btn-group {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Detail Data Siswa</h2>
+    <form id="updateForm">
+      <!-- Hidden input untuk ID -->
+      <input type="hidden" id="id" name="id">
+      
+      <!-- Data Siswa -->
+      <div class="form-section">
+        <h4>Data Siswa</h4>
+        <div class="mb-3">
+          <label for="namaLengkap" class="form-label">Nama Lengkap</label>
+          <input type="text" id="namaLengkap" name="namaLengkap" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="namaPanggilan" class="form-label">Nama Panggilan</label>
+          <input type="text" id="namaPanggilan" name="namaPanggilan" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="nik" class="form-label">NIK/No. KIA</label>
+          <input type="text" id="nik" name="nik" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="tempatLahir" class="form-label">Tempat Lahir</label>
+          <input type="text" id="tempatLahir" name="tempatLahir" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="tanggalLahir" class="form-label">Tanggal Lahir</label>
+          <input type="date" id="tanggalLahir" name="tanggalLahir" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="jenisKelamin" class="form-label">Jenis Kelamin</label>
+          <select id="jenisKelamin" name="jenisKelamin" class="form-select" required>
+            <option value="">Pilih</option>
+            <option value="Laki-laki">Laki-laki</option>
+            <option value="Perempuan">Perempuan</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="agama" class="form-label">Agama</label>
+          <select id="agama" name="agama" class="form-select" required>
+            <option value="">Pilih</option>
+            <option value="Islam">Islam</option>
+            <option value="Kristen">Kristen</option>
+            <option value="Katolik">Katolik</option>
+            <option value="Hindu">Hindu</option>
+            <option value="Buddha">Buddha</option>
+            <option value="Konghucu">Konghucu</option>
+            <option value="Lainnya">Lainnya</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="alamatSiswa" class="form-label">Alamat Siswa</label>
+          <input type="text" id="alamatSiswa" name="alamatSiswa" class="form-control" required>
+        </div>
+      </div>
+
+      <!-- Data Orang Tua & Kontak -->
+      <div class="form-section">
+        <h4>Data Orang Tua & Kontak</h4>
+        <div class="mb-3">
+          <label for="namaAyah" class="form-label">Nama Ayah</label>
+          <input type="text" id="namaAyah" name="namaAyah" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="namaIbu" class="form-label">Nama Ibu</label>
+          <input type="text" id="namaIbu" name="namaIbu" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="noHp" class="form-label">No HP / WA</label>
+          <input type="text" id="noHp" name="noHp" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="kontakEmail" class="form-label">Email</label>
+          <input type="email" id="kontakEmail" name="kontakEmail" class="form-control" required>
+        </div>
+      </div>
+
+      <!-- Tombol Update & Print -->
+      <div class="btn-group d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary me-2">Perbarui Data</button>
+        <button type="button" id="printButton" class="btn btn-warning me-2">Print PDF</button>
+        <a href="admin-data-siswa.html" class="btn btn-secondary">Kembali ke Daftar</a>
+      </div>
+    </form>
+  </div>
+
+  <!-- jsPDF dan AutoTable -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+  <script>
+    // Fungsi untuk mengambil parameter dari URL
+    function getParameterByName(name, url = window.location.href) {
+      name = name.replace(/[\[\]]/g, '\\$&');
+      const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+            results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+
+    // Fungsi untuk memuat data siswa berdasarkan ID dari query string
+    async function loadDataSiswa() {
+      const id = getParameterByName('id');
+      if (!id) {
+        alert('ID pendaftar tidak ditemukan.');
+        return;
+      }
+      try {
+        const response = await fetch(`http://127.0.0.1:3000/api/pendaftaran/${id}`);
+        if (!response.ok) throw new Error('Gagal mengambil data pendaftaran');
+        const data = await response.json();
+        // Isi form dengan data yang diambil
+        document.getElementById('id').value = data.id;
+        document.getElementById('namaLengkap').value = data.namaLengkap;
+        document.getElementById('namaPanggilan').value = data.namaPanggilan;
+        document.getElementById('nik').value = data.nik;
+        document.getElementById('tempatLahir').value = data.tempatLahir;
+        document.getElementById('tanggalLahir').value = data.tanggalLahir;
+        document.getElementById('jenisKelamin').value = data.jenisKelamin;
+        document.getElementById('agama').value = data.agama;
+        document.getElementById('alamatSiswa').value = data.alamatSiswa;
+        document.getElementById('namaAyah').value = data.namaAyah;
+        document.getElementById('namaIbu').value = data.namaIbu;
+        document.getElementById('noHp').value = data.noHp;
+        document.getElementById('kontakEmail').value = data.kontakEmail;
+      } catch (error) {
+        console.error("Error loading data siswa:", error);
+        alert("Terjadi kesalahan saat memuat data siswa.");
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", loadDataSiswa);
+
+    // Handle submit update data siswa
+    document.getElementById('updateForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const id = document.getElementById('id').value;
+      const formData = {
+        namaLengkap: document.getElementById('namaLengkap').value,
+        namaPanggilan: document.getElementById('namaPanggilan').value,
+        nik: document.getElementById('nik').value,
+        tempatLahir: document.getElementById('tempatLahir').value,
+        tanggalLahir: document.getElementById('tanggalLahir').value,
+        jenisKelamin: document.getElementById('jenisKelamin').value,
+        agama: document.getElementById('agama').value,
+        alamatSiswa: document.getElementById('alamatSiswa').value,
+        namaAyah: document.getElementById('namaAyah').value,
+        namaIbu: document.getElementById('namaIbu').value,
+        noHp: document.getElementById('noHp').value,
+        kontakEmail: document.getElementById('kontakEmail').value,
+      };
+
+      try {
+        const response = await fetch(`http://127.0.0.1:3000/api/pendaftaran/${id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+        const result = await response.json();
+        if (response.ok) {
+          alert(result.message);
+        } else {
+          alert(result.message || "Gagal memperbarui data.");
+        }
+      } catch (error) {
+        console.error("Error updating data siswa:", error);
+        alert("Terjadi kesalahan saat mengirim data.");
+      }
+    });
+
+    // Tombol Print PDF untuk detail data siswa
+    document.getElementById('printButton').addEventListener('click', function() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      
+      doc.setFontSize(16);
+      doc.setFont("helvetica", "bold");
+      doc.text("Detail Data Siswa", 14, 20);
+      
+      // Siapkan data untuk dicetak
+      const fields = [
+        ["Nama Lengkap", document.getElementById("namaLengkap").value],
+        ["Nama Panggilan", document.getElementById("namaPanggilan").value],
+        ["NIK/No. KIA", document.getElementById("nik").value],
+        ["Tempat Lahir", document.getElementById("tempatLahir").value],
+        ["Tanggal Lahir", document.getElementById("tanggalLahir").value],
+        ["Jenis Kelamin", document.getElementById("jenisKelamin").value],
+        ["Agama", document.getElementById("agama").value],
+        ["Alamat Siswa", document.getElementById("alamatSiswa").value],
+        ["Nama Ayah", document.getElementById("namaAyah").value],
+        ["Nama Ibu", document.getElementById("namaIbu").value],
+        ["No HP", document.getElementById("noHp").value],
+        ["Email", document.getElementById("kontakEmail").value],
+      ];
+      
+      // Gunakan AutoTable untuk membuat tabel PDF
+      doc.autoTable({
+        head: [["Field", "Value"]],
+        body: fields,
+        startY: 30,
+        theme: 'grid',
+        headStyles: { fillColor: [46, 204, 113] },
+        styles: { fontSize: 10 }
+      });
+      
+      doc.save("DetailDataSiswa.pdf");
+    });
+  </script>
+</body>
+</html>

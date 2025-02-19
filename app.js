@@ -18,6 +18,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(cors());
 
+
+// Daftarkan routes prestasi
+const prestasiRoutes = require('./routes/prestasiRoutes');
+app.use('/api/prestasi', prestasiRoutes);
+
 //index
 const newsRoutes = require('./routes/newsRoutes');
 app.use('/api/news', newsRoutes);
@@ -30,10 +35,9 @@ app.use('/api/announcements', announcementRoutes);
 
 const alumniReviewRoutes = require('./routes/alumniReviewRoutes');
 app.use('/api/alumniReview', alumniReviewRoutes);
-
-// Routing API
 const authRoutes = require('./routes/authRoutes');
 app.use('/api/auth', authRoutes);
+
 
 const guruRoutes = require('./routes/guruRoutes');
 app.use('/api/guru', guruRoutes);
@@ -64,11 +68,16 @@ app.use('/api/ppdbbrosur', ppdbBrosurRoutes);
 const alurPendaftaranRoutes = require('./routes/alurPendaftaranRoutes');
 app.use('/api/alurpendaftaran', alurPendaftaranRoutes);
 
+const strukturOrganisasiRoutes = require('./routes/strukturOrganisasiRoutes');
+app.use('/api/strukturorganisasi', strukturOrganisasiRoutes);
 
 // Daftarkan routes data sekolah
 // Daftarkan routes data sekolah
 const dataSekolahRoutes = require('./routes/dataSekolahRoutes');
 app.use('/api/data-sekolah', dataSekolahRoutes);
+
+const pendaftaranRoutes = require('./routes/pendaftaranRoutes');
+app.use('/api/pendaftaran', pendaftaranRoutes);
 
 // Endpoint dasar (bisa diarahkan ke front-end utama)
 app.get('/', (req, res) => {

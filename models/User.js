@@ -1,29 +1,40 @@
 // models/User.js
+
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
 const User = sequelize.define('User', {
   id: {
     type: DataTypes.INTEGER,
-    autoIncrement: true,
     primaryKey: true,
+    autoIncrement: true,
   },
-  username: {
+  name: {  // Menggunakan 'name' sesuai dengan input register
     type: DataTypes.STRING,
     allowNull: false,
-    unique: true,
   },
   email: {
     type: DataTypes.STRING,
     allowNull: false,
     unique: true,
+    validate: {
+      isEmail: {
+        msg: "Format email tidak valid"
+      }
+    }
   },
   password: {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  role: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    defaultValue: 'user', // Secara default, role adalah 'user'. Admin bisa ditentukan secara manual
+  },
 }, {
-  // Opsi tambahan jika diperlukan
+  tableName: 'users',
+  timestamps: true, // otomatis menambahkan createdAt dan updatedAt
 });
 
 module.exports = User;

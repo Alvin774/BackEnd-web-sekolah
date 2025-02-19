@@ -1,0 +1,171 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin - Data Pendaftaran Siswa</title>
+  <!-- Bootstrap CSS -->
+  <link 
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" 
+    rel="stylesheet" 
+    crossorigin="anonymous">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link 
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" 
+    rel="stylesheet">
+  <style>
+    body {
+      background-color: #f5f5f5;
+      font-family: 'Poppins', sans-serif;
+      padding: 20px;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 20px 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #27ae60;
+    }
+    table {
+      width: 100%;
+      margin-top: 20px;
+    }
+    th, td {
+      text-align: center;
+      vertical-align: middle;
+      padding: 8px;
+    }
+    .btn-print {
+      margin-top: 20px;
+    }
+  </style>
+  <!-- jsPDF and AutoTable -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h2>Data Pendaftaran Siswa</h2>
+    <div class="table-responsive">
+      <table class="table table-bordered" id="pendaftaranTable">
+        <thead class="table-light">
+          <tr>
+            <th>No.</th>
+            <th>Nama Lengkap</th>
+            <th>NIK</th>
+            <th>Tempat, Tanggal Lahir</th>
+            <th>Jenis Kelamin</th>
+            <th>Email</th>
+            <th>No HP</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="pendaftaranBody">
+          <!-- Data akan dimuat secara dinamis -->
+        </tbody>
+      </table>
+    </div>
+    <div class="text-center">
+      <button class="btn btn-warning btn-print" id="printButton">Print PDF</button>
+    </div>
+  </div>
+  
+  <script>
+    // Fungsi untuk memuat data pendaftaran dari API
+    async function loadPendaftaran() {
+      try {
+        const response = await fetch('http://127.0.0.1:3000/api/pendaftaran');
+        if (!response.ok) throw new Error('Gagal mengambil data pendaftaran');
+        const pendaftaranList = await response.json();
+        const tbody = document.getElementById('pendaftaranBody');
+        tbody.innerHTML = '';
+        if (pendaftaranList.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="8">Belum ada data pendaftaran.</td></tr>';
+          return;
+        }
+        pendaftaranList.forEach((item, index) => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${index + 1}</td>
+            <td>${item.namaLengkap}</td>
+            <td>${item.nik}</td>
+            <td>${item.tempatLahir}, ${new Date(item.tanggalLahir).toLocaleDateString()}</td>
+            <td>${item.jenisKelamin}</td>
+            <td>${item.kontakEmail || '-'}</td>
+            <td>${item.noHp}</td>
+            <td>
+              <a href="change-data-siswa.html?id=${item.id}" class="btn btn-primary btn-sm">Selengkapnya</a>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      } catch (error) {
+        console.error("Error loading pendaftaran:", error);
+        document.getElementById('pendaftaranBody').innerHTML =
+          '<tr><td colspan="8" class="text-danger">Terjadi kesalahan saat memuat data.</td></tr>';
+      }
+    }
+
+    // Fungsi untuk membuat PDF dari tabel data pendaftaran
+    function printPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      
+      // Judul PDF
+      doc.setFontSize(16);
+      doc.setFont("helvetica", "bold");
+      doc.text("Data Pendaftaran Siswa", 14, 20);
+      
+      // Mendapatkan data dari tabel
+      const headers = [["No.", "Nama Lengkap", "NIK", "Tempat, Tanggal Lahir", "Jenis Kelamin", "Email", "No HP"]];
+      const rows = [];
+      const tbody = document.getElementById('pendaftaranBody');
+      const trElements = tbody.getElementsByTagName('tr');
+      for (let i = 0; i < trElements.length; i++) {
+        const tdElements = trElements[i].getElementsByTagName('td');
+        // Ambil kolom 0 sampai 6 (abaikan kolom aksi)
+        const row = [
+          tdElements[0].innerText,
+          tdElements[1].innerText,
+          tdElements[2].innerText,
+          tdElements[3].innerText,
+          tdElements[4].innerText,
+          tdElements[5].innerText,
+          tdElements[6].innerText
+        ];
+        rows.push(row);
+      }
+      
+      // Gunakan autoTable untuk membuat tabel PDF
+      doc.autoTable({
+        head: headers,
+        body: rows,
+        startY: 30,
+        theme: 'grid',
+        headStyles: { fillColor: [46, 204, 113] },
+        styles: { fontSize: 10 }
+      });
+      
+      doc.save("DataPendaftaranSiswa.pdf");
+    }
+
+    document.getElementById('printButton').addEventListener('click', printPDF);
+    document.addEventListener("DOMContentLoaded", loadPendaftaran);
+  </script>
+
+  <!-- Bootstrap JS Bundle -->
+  <script 
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" 
+    crossorigin="anonymous">
+  </script>
+</body>
+</html>
