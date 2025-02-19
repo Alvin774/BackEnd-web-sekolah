@@ -1,5 +1,3 @@
-// models/AlumniReview.js
-
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
@@ -25,9 +23,13 @@ const AlumniReview = sequelize.define('AlumniReview', {
     type: DataTypes.STRING,
     allowNull: true,
   },
+  imagePublicId: { // untuk menyimpan public_id dari Cloudinary
+    type: DataTypes.STRING,
+    allowNull: true,
+  }
 }, {
-  tableName: 'alumni_reviews',
-  timestamps: true, // Akan menambahkan createdAt dan updatedAt secara otomatis
+  tableName: 'alumniReviews',
+  timestamps: true,
 });
 
 module.exports = AlumniReview;

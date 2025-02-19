@@ -1,8 +1,25 @@
 // controllers/bannerController.js
 
 const Banner = require('../models/Banner');
-const fs = require('fs');
+const cloudinary = require('../config/cloudinary'); // Pastikan konfigurasi Cloudinary sudah benar
 const path = require('path');
+
+// Helper: Fungsi untuk mengupload file buffer ke Cloudinary
+const uploadFromBuffer = (buffer, folder) => {
+  return new Promise((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      { folder: folder },
+      (error, result) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(result);
+        }
+      }
+    );
+    stream.end(buffer);
+  });
+};
 
 /**
  * GET /api/banner
@@ -21,24 +38,26 @@ exports.getAllBanners = async (req, res) => {
 /**
  * POST /api/banner
  * Menambahkan banner baru.
- * Menggunakan Multer untuk menangani file upload.
- * Jika file diupload, gunakan file tersebut untuk imageUrl;
- * jika tidak, Anda bisa menggunakan imageUrl dari req.body (tapi field ini wajib diisi minimal).
+ * Jika file diupload (field 'image'), upload ke Cloudinary dan simpan URL dan public_id-nya.
  */
 exports.addBanner = async (req, res) => {
   try {
     const { linkUrl } = req.body;
     let imageUrl = null;
+    let imagePublicId = null;
     
     if (req.file) {
-      imageUrl = '/public/uploads/' + req.file.filename;
+      // Upload file ke Cloudinary di folder 'banner'
+      const result = await uploadFromBuffer(req.file.buffer, 'banner');
+      imageUrl = result.secure_url;
+      imagePublicId = result.public_id;
     } else if (req.body.imageUrl) {
       imageUrl = req.body.imageUrl;
     } else {
       return res.status(400).json({ message: "Image URL is required" });
     }
     
-    const banner = await Banner.create({ imageUrl, linkUrl });
+    const banner = await Banner.create({ imageUrl, imagePublicId, linkUrl });
     res.status(201).json({ message: "Banner added successfully", banner });
   } catch (error) {
     console.error("Error adding banner:", error);
@@ -49,7 +68,7 @@ exports.addBanner = async (req, res) => {
 /**
  * PUT /api/banner/:id
  * Memperbarui banner yang sudah ada.
- * Jika ada file baru diupload, banner lama (gambar) akan dihapus dari disk.
+ * Jika ada file baru diupload, gambar lama akan dihapus dari Cloudinary.
  */
 exports.updateBanner = async (req, res) => {
   try {
@@ -60,22 +79,21 @@ exports.updateBanner = async (req, res) => {
       return res.status(404).json({ message: "Banner not found" });
     }
     
-    // Jika ada file baru, hapus file lama dan update imageUrl
     if (req.file) {
-      if (banner.imageUrl) {
-        const oldFilePath = path.join(__dirname, '..', 'public', banner.imageUrl.substring(1));
-        fs.unlink(oldFilePath, (err) => {
-          if (err) {
-            console.error("Error deleting old banner image:", err);
-          } else {
-            console.log("Old banner image deleted:", oldFilePath);
-          }
-        });
+      // Hapus gambar lama dari Cloudinary jika ada
+      if (banner.imagePublicId) {
+        try {
+          await cloudinary.uploader.destroy(banner.imagePublicId);
+          console.log("Old banner image deleted from Cloudinary");
+        } catch (err) {
+          console.error("Error deleting old banner image from Cloudinary:", err);
+        }
       }
-      banner.imageUrl = '/public/uploads/' + req.file.filename;
+      const result = await uploadFromBuffer(req.file.buffer, 'banner');
+      banner.imageUrl = result.secure_url;
+      banner.imagePublicId = result.public_id;
     }
     
-    // Update linkUrl jika disediakan
     if (linkUrl !== undefined) {
       banner.linkUrl = linkUrl;
     }
@@ -90,7 +108,7 @@ exports.updateBanner = async (req, res) => {
 
 /**
  * DELETE /api/banner/:id
- * Menghapus banner beserta file gambarnya (jika ada) dari disk.
+ * Menghapus banner beserta file gambarnya dari Cloudinary (jika ada).
  */
 exports.deleteBanner = async (req, res) => {
   try {
@@ -100,15 +118,13 @@ exports.deleteBanner = async (req, res) => {
       return res.status(404).json({ message: "Banner not found" });
     }
     
-    if (banner.imageUrl) {
-      const filePath = path.join(__dirname, '..', 'public', banner.imageUrl.substring(1));
-      fs.unlink(filePath, (err) => {
-        if (err) {
-          console.error("Error deleting banner image:", err);
-        } else {
-          console.log("Banner image deleted:", filePath);
-        }
-      });
+    if (banner.imagePublicId) {
+      try {
+        await cloudinary.uploader.destroy(banner.imagePublicId);
+        console.log("Banner image deleted from Cloudinary");
+      } catch (err) {
+        console.error("Error deleting banner image from Cloudinary:", err);
+      }
     }
     
     await banner.destroy();

@@ -1,34 +1,24 @@
-// routes/alurPendaftaranRoutes.js
-
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
-const path = require('path');
+
+// Gunakan memoryStorage agar file tersimpan dalam buffer untuk diupload ke Cloudinary
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+
+// Import controller alur pendaftaran
 const alurPendaftaranController = require('../controllers/alurPendaftaranController');
 
-// Konfigurasi Multer untuk file upload (field 'image')
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    // Pastikan folder 'public/uploads/' sudah ada
-    cb(null, 'public/uploads/');
-  },
-  filename: (req, file, cb) => {
-    // Nama file unik dengan timestamp
-    cb(null, Date.now() + '-' + file.originalname);
-  }
-});
-const upload = multer({ storage: storage });
-
-// GET semua data alur pendaftaran (diurutkan berdasarkan stepNumber)
+// GET: Ambil semua data alur pendaftaran (diurutkan berdasarkan stepNumber ascending)
 router.get('/', alurPendaftaranController.getAllAlurPendaftaran);
 
-// POST menambahkan data alur pendaftaran baru (dengan upload file)
+// POST: Tambah data alur pendaftaran baru, dengan opsi upload gambar
 router.post('/', upload.single('image'), alurPendaftaranController.addAlurPendaftaran);
 
-// PUT memperbarui data alur pendaftaran berdasarkan ID (dengan upload file jika ada)
+// PUT: Perbarui data alur pendaftaran berdasarkan ID, dengan opsi upload gambar baru
 router.put('/:id', upload.single('image'), alurPendaftaranController.updateAlurPendaftaran);
 
-// DELETE menghapus data alur pendaftaran berdasarkan ID
+// DELETE: Hapus data alur pendaftaran berdasarkan ID
 router.delete('/:id', alurPendaftaranController.deleteAlurPendaftaran);
 
 module.exports = router;

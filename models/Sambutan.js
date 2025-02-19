@@ -1,5 +1,4 @@
 // models/Sambutan.js
-
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
@@ -11,29 +10,31 @@ const Sambutan = sequelize.define('Sambutan', {
   },
   title: {
     type: DataTypes.STRING,
-    allowNull: false,
-    defaultValue: "Sambutan Kepala Sekolah"
+    allowNull: true, // Opsional, karena controller tidak mewajibkan title
   },
   content: {
     type: DataTypes.TEXT,
-    allowNull: false,
+    allowNull: false, // Wajib diisi
   },
   principalName: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: false, // Wajib diisi
   },
   principalTitle: {
     type: DataTypes.STRING,
-    allowNull: false,
-    defaultValue: "Kepala Sekolah"
+    allowNull: true, // Opsional, bisa kosong
   },
   imageUrl: {
     type: DataTypes.STRING,
     allowNull: true,
+  },
+  imagePublicId: { // Field untuk menyimpan public_id dari Cloudinary
+    type: DataTypes.STRING,
+    allowNull: true,
   }
 }, {
-  tableName: 'sambutans', // Nama tabel di database
-  timestamps: true,      // Menyimpan createdAt dan updatedAt secara otomatis
+  tableName: 'sambutans',
+  timestamps: true,
 });
 
 module.exports = Sambutan;

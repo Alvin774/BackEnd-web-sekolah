@@ -1,8 +1,23 @@
-// controllers/ppdbBrosurController.js
-
 const PPDBBrosur = require('../models/PPDBBrosur');
-const fs = require('fs');
+const cloudinary = require('../config/cloudinary');
 const path = require('path');
+
+// Helper: Fungsi untuk mengupload file buffer ke Cloudinary
+const uploadFromBuffer = (buffer, folder) => {
+  return new Promise((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      { folder: folder },
+      (error, result) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(result);
+        }
+      }
+    );
+    stream.end(buffer);
+  });
+};
 
 /**
  * GET /api/ppdbbrosur
@@ -21,15 +36,19 @@ exports.getAllPPDBBrosur = async (req, res) => {
 /**
  * POST /api/ppdbbrosur
  * Menambahkan data PPDB Brosur baru.
- * Menggunakan multer untuk upload file (field 'image').
+ * Menggunakan multer untuk upload file (field 'image') ke Cloudinary.
  */
 exports.addPPDBBrosur = async (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({ message: "Gambar brosur wajib diupload." });
     }
-    const imageUrl = '/public/uploads/' + req.file.filename;
-    const newBrosur = await PPDBBrosur.create({ imageUrl });
+    // Upload file ke Cloudinary pada folder 'ppdbbrosur'
+    const result = await uploadFromBuffer(req.file.buffer, 'ppdbbrosur');
+    const imageUrl = result.secure_url;
+    const imagePublicId = result.public_id;
+    
+    const newBrosur = await PPDBBrosur.create({ imageUrl, imagePublicId });
     res.status(201).json({ message: "PPDB Brosur berhasil ditambahkan", brosur: newBrosur });
   } catch (error) {
     console.error("Error adding PPDB Brosur:", error);
@@ -40,7 +59,7 @@ exports.addPPDBBrosur = async (req, res) => {
 /**
  * PUT /api/ppdbbrosur/:id
  * Memperbarui data PPDB Brosur berdasarkan ID.
- * Jika ada file baru diupload, gambar lama akan dihapus.
+ * Jika ada file baru diupload, gambar lama akan dihapus dari Cloudinary dan diganti dengan yang baru.
  */
 exports.updatePPDBBrosur = async (req, res) => {
   try {
@@ -49,15 +68,22 @@ exports.updatePPDBBrosur = async (req, res) => {
     if (!brosur) {
       return res.status(404).json({ message: "PPDB Brosur tidak ditemukan" });
     }
+    
     if (req.file) {
-      if (brosur.imageUrl) {
-        const oldFilePath = path.join(__dirname, '..', 'public', brosur.imageUrl.substring(1));
-        fs.unlink(oldFilePath, err => {
-          if (err) console.error("Error deleting old brosur image:", err);
-        });
+      // Jika ada gambar lama, hapus dari Cloudinary
+      if (brosur.imagePublicId) {
+        try {
+          await cloudinary.uploader.destroy(brosur.imagePublicId);
+          console.log("Old brosur image deleted from Cloudinary");
+        } catch (err) {
+          console.error("Error deleting old brosur image from Cloudinary:", err);
+        }
       }
-      brosur.imageUrl = '/public/uploads/' + req.file.filename;
+      const result = await uploadFromBuffer(req.file.buffer, 'ppdbbrosur');
+      brosur.imageUrl = result.secure_url;
+      brosur.imagePublicId = result.public_id;
     }
+    
     await brosur.save();
     res.json({ message: "PPDB Brosur berhasil diperbarui", brosur });
   } catch (error) {
@@ -68,7 +94,7 @@ exports.updatePPDBBrosur = async (req, res) => {
 
 /**
  * DELETE /api/ppdbbrosur/:id
- * Menghapus data PPDB Brosur berdasarkan ID, serta menghapus file gambar terkait jika ada.
+ * Menghapus data PPDB Brosur berdasarkan ID, serta menghapus gambar terkait dari Cloudinary jika ada.
  */
 exports.deletePPDBBrosur = async (req, res) => {
   try {
@@ -77,12 +103,16 @@ exports.deletePPDBBrosur = async (req, res) => {
     if (!brosur) {
       return res.status(404).json({ message: "PPDB Brosur tidak ditemukan" });
     }
-    if (brosur.imageUrl) {
-      const filePath = path.join(__dirname, '..', 'public', brosur.imageUrl.substring(1));
-      fs.unlink(filePath, err => {
-        if (err) console.error("Error deleting brosur image:", err);
-      });
+    
+    if (brosur.imagePublicId) {
+      try {
+        await cloudinary.uploader.destroy(brosur.imagePublicId);
+        console.log("Brosur image deleted from Cloudinary");
+      } catch (err) {
+        console.error("Error deleting brosur image from Cloudinary:", err);
+      }
     }
+    
     await brosur.destroy();
     res.json({ message: "PPDB Brosur berhasil dihapus" });
   } catch (error) {

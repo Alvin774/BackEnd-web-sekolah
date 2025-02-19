@@ -1,5 +1,3 @@
-// models/Fasilitas.js
-
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
@@ -10,16 +8,20 @@ const Fasilitas = sequelize.define('Fasilitas', {
     autoIncrement: true,
   },
   name: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(100),
     allowNull: false,
   },
   imageUrl: {
     type: DataTypes.STRING,
     allowNull: false,
+  },
+  imagePublicId: {  // untuk menyimpan public_id dari Cloudinary
+    type: DataTypes.STRING,
+    allowNull: true,
   }
 }, {
   tableName: 'fasilitas',
-  timestamps: true, // Akan menambahkan createdAt dan updatedAt secara otomatis
+  timestamps: true,
 });
 
 module.exports = Fasilitas;

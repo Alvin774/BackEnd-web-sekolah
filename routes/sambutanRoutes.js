@@ -1,34 +1,24 @@
-// routes/sambutanRoutes.js
-
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
-const path = require('path');
+
+// Gunakan memoryStorage agar file tersimpan dalam buffer untuk langsung diupload ke Cloudinary
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+
+// Import controller sambutan
 const sambutanController = require('../controllers/sambutanController');
 
-// Konfigurasi Multer untuk file upload
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    // Pastikan folder 'public/uploads/' ada dan dapat diakses
-    cb(null, 'public/uploads/');
-  },
-  filename: (req, file, cb) => {
-    // Buat nama file unik dengan menambahkan timestamp
-    cb(null, Date.now() + '-' + file.originalname);
-  }
-});
-const upload = multer({ storage: storage });
-
-// GET sambutan
+// GET: Mengambil sambutan terkini
 router.get('/', sambutanController.getSambutan);
 
-// POST sambutan (menambahkan sambutan baru)
+// POST: Menambahkan sambutan baru (dengan opsi upload gambar)
 router.post('/', upload.single('image'), sambutanController.addSambutan);
 
-// PUT sambutan (memperbarui sambutan berdasarkan ID)
+// PUT: Memperbarui sambutan berdasarkan ID (dengan opsi upload gambar baru)
 router.put('/:id', upload.single('image'), sambutanController.updateSambutan);
 
-// DELETE sambutan (menghapus sambutan berdasarkan ID)
+// DELETE: Menghapus sambutan berdasarkan ID
 router.delete('/:id', sambutanController.deleteSambutan);
 
 module.exports = router;

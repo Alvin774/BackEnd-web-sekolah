@@ -1,5 +1,3 @@
-// models/Prestasi.js
-
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
@@ -10,11 +8,11 @@ const Prestasi = sequelize.define('Prestasi', {
     autoIncrement: true,
   },
   title: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(255),
     allowNull: false,
   },
   pringkat: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(100),
     allowNull: false,
   },
   description: {
@@ -23,11 +21,15 @@ const Prestasi = sequelize.define('Prestasi', {
   },
   imageUrl: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
+  },
+  imagePublicId: {
+    type: DataTypes.STRING,
+    allowNull: true,
   }
 }, {
   tableName: 'prestasi',
-  timestamps: true, // otomatis menambahkan createdAt dan updatedAt
+  timestamps: true,
 });
 
 module.exports = Prestasi;

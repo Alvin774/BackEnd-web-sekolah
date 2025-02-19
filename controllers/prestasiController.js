@@ -1,10 +1,28 @@
-// controllers/prestasiController.js
-
 const Prestasi = require('../models/Prestasi');
-const fs = require('fs');
+const cloudinary = require('../config/cloudinary');
 const path = require('path');
 
-// GET /api/prestasi - Ambil semua data prestasi, diurutkan berdasarkan createdAt (terbaru dulu)
+// Helper: Fungsi untuk mengupload file buffer ke Cloudinary
+const uploadFromBuffer = (buffer, folder) => {
+  return new Promise((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      { folder },
+      (error, result) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(result);
+        }
+      }
+    );
+    stream.end(buffer);
+  });
+};
+
+/**
+ * GET /api/prestasi
+ * Ambil semua data prestasi, diurutkan berdasarkan createdAt (terbaru dulu)
+ */
 exports.getAllPrestasi = async (req, res) => {
   try {
     const prestasiList = await Prestasi.findAll({ order: [['createdAt', 'DESC']] });
@@ -15,7 +33,10 @@ exports.getAllPrestasi = async (req, res) => {
   }
 };
 
-// POST /api/prestasi - Tambah data prestasi baru (dengan upload gambar)
+/**
+ * POST /api/prestasi
+ * Tambah data prestasi baru (dengan upload gambar ke Cloudinary)
+ */
 exports.addPrestasi = async (req, res) => {
   try {
     const { title, pringkat, description } = req.body;
@@ -25,12 +46,17 @@ exports.addPrestasi = async (req, res) => {
     if (!req.file) {
       return res.status(400).json({ message: "Gambar wajib diupload." });
     }
-    const imageUrl = '/public/uploads/' + req.file.filename;
+    // Upload gambar ke Cloudinary pada folder 'prestasi'
+    const result = await uploadFromBuffer(req.file.buffer, 'prestasi');
+    const imageUrl = result.secure_url;
+    const imagePublicId = result.public_id;
+    
     const newPrestasi = await Prestasi.create({
       title,
       pringkat,
       description,
-      imageUrl
+      imageUrl,
+      imagePublicId
     });
     res.status(201).json({ message: "Prestasi berhasil ditambahkan", prestasi: newPrestasi });
   } catch (error) {
@@ -39,7 +65,11 @@ exports.addPrestasi = async (req, res) => {
   }
 };
 
-// PUT /api/prestasi/:id - Update data prestasi berdasarkan ID (jika ada gambar baru, hapus gambar lama)
+/**
+ * PUT /api/prestasi/:id
+ * Update data prestasi berdasarkan ID.
+ * Jika ada file baru yang diupload, gambar lama dihapus dari Cloudinary dan diganti dengan yang baru.
+ */
 exports.updatePrestasi = async (req, res) => {
   try {
     const { id } = req.params;
@@ -48,19 +78,26 @@ exports.updatePrestasi = async (req, res) => {
     if (!prestasi) {
       return res.status(404).json({ message: "Prestasi tidak ditemukan" });
     }
-    // Jika ada file baru diupload, hapus file gambar lama (jika ada)
+    
     if (req.file) {
-      if (prestasi.imageUrl) {
-        const oldPath = path.join(__dirname, '..', 'public', prestasi.imageUrl.substring(1));
-        fs.unlink(oldPath, (err) => {
-          if (err) console.error("Error deleting old image:", err);
-        });
+      // Jika ada file baru diupload, hapus gambar lama dari Cloudinary jika ada
+      if (prestasi.imagePublicId) {
+        try {
+          await cloudinary.uploader.destroy(prestasi.imagePublicId);
+          console.log("Old image deleted from Cloudinary");
+        } catch (err) {
+          console.error("Error deleting old image:", err);
+        }
       }
-      prestasi.imageUrl = '/public/uploads/' + req.file.filename;
+      const result = await uploadFromBuffer(req.file.buffer, 'prestasi');
+      prestasi.imageUrl = result.secure_url;
+      prestasi.imagePublicId = result.public_id;
     }
-    prestasi.title = title !== undefined ? title : prestasi.title;
-    prestasi.pringkat = pringkat !== undefined ? pringkat : prestasi.pringkat;
-    prestasi.description = description !== undefined ? description : prestasi.description;
+    
+    prestasi.title = title || prestasi.title;
+    prestasi.pringkat = pringkat || prestasi.pringkat;
+    prestasi.description = description || prestasi.description;
+    
     await prestasi.save();
     res.json({ message: "Prestasi berhasil diperbarui", prestasi });
   } catch (error) {
@@ -69,7 +106,10 @@ exports.updatePrestasi = async (req, res) => {
   }
 };
 
-// DELETE /api/prestasi/:id - Hapus data prestasi berdasarkan ID (serta hapus file gambarnya jika ada)
+/**
+ * DELETE /api/prestasi/:id
+ * Hapus data prestasi berdasarkan ID, serta hapus gambar dari Cloudinary jika ada.
+ */
 exports.deletePrestasi = async (req, res) => {
   try {
     const { id } = req.params;
@@ -77,11 +117,13 @@ exports.deletePrestasi = async (req, res) => {
     if (!prestasi) {
       return res.status(404).json({ message: "Prestasi tidak ditemukan" });
     }
-    if (prestasi.imageUrl) {
-      const filePath = path.join(__dirname, '..', 'public', prestasi.imageUrl.substring(1));
-      fs.unlink(filePath, (err) => {
-        if (err) console.error("Error deleting image:", err);
-      });
+    if (prestasi.imagePublicId) {
+      try {
+        await cloudinary.uploader.destroy(prestasi.imagePublicId);
+        console.log("Image deleted from Cloudinary");
+      } catch (err) {
+        console.error("Error deleting image:", err);
+      }
     }
     await prestasi.destroy();
     res.json({ message: "Prestasi berhasil dihapus" });

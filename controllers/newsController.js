@@ -1,10 +1,26 @@
-// controllers/newsController.js
-
-const fs = require('fs');
-const path = require('path');
 const News = require('../models/News');
+const cloudinary = require('../config/cloudinary');
+const path = require('path');
+
+// Helper: Fungsi untuk mengupload file buffer ke Cloudinary
+const uploadFromBuffer = (buffer, folder) => {
+  return new Promise((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      { folder: folder },
+      (error, result) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(result);
+        }
+      }
+    );
+    stream.end(buffer);
+  });
+};
 
 /**
+ * GET /api/news
  * Mengambil semua berita, diurutkan berdasarkan tanggal upload terbaru.
  */
 exports.getAllNews = async (req, res) => {
@@ -18,22 +34,24 @@ exports.getAllNews = async (req, res) => {
 };
 
 /**
+ * POST /api/news
  * Menambahkan berita baru.
  * Data yang diterima: title, description, uploadTime (dari req.body)
- * Jika ada file yang diupload (gambar), maka file tersebut diproses oleh Multer dan disimpan.
- * Pastikan endpoint di route menggunakan middleware: upload.single('image')
+ * Jika ada file yang diupload (gambar), file tersebut diupload ke Cloudinary.
  */
 exports.addNews = async (req, res) => {
   try {
     const { title, description, uploadTime } = req.body;
     let imageUrl = null;
+    let imagePublicId = null;
 
-    // Jika terdapat file yang diupload, simpan URL yang dapat diakses secara publik.
     if (req.file) {
-      imageUrl = '/public/uploads/' + req.file.filename;
+      const result = await uploadFromBuffer(req.file.buffer, 'news');
+      imageUrl = result.secure_url;
+      imagePublicId = result.public_id;
     }
 
-    const news = await News.create({ title, description, imageUrl, uploadTime });
+    const news = await News.create({ title, description, imageUrl, imagePublicId, uploadTime });
     res.status(201).json({ message: 'Berita berhasil ditambahkan', news });
   } catch (error) {
     console.error('Error menambahkan berita:', error);
@@ -42,8 +60,9 @@ exports.addNews = async (req, res) => {
 };
 
 /**
+ * DELETE /api/news/:id
  * Menghapus berita berdasarkan ID.
- * Jika berita memiliki file gambar, file tersebut juga akan dihapus dari disk.
+ * Jika berita memiliki file gambar, file tersebut dihapus dari Cloudinary.
  */
 exports.deleteNews = async (req, res) => {
   try {
@@ -54,17 +73,13 @@ exports.deleteNews = async (req, res) => {
       return res.status(404).json({ message: 'Berita tidak ditemukan' });
     }
 
-    // Hapus file gambar dari disk jika ada
-    if (news.imageUrl) {
-      // news.imageUrl disimpan dalam format "/uploads/filename.ext"
-      const filePath = path.join(__dirname, '..', 'public', news.imageUrl.substring(1));
-      fs.unlink(filePath, (err) => {
-        if (err) {
-          console.error('Gagal menghapus file gambar:', err);
-        } else {
-          console.log('File gambar berhasil dihapus:', filePath);
-        }
-      });
+    if (news.imagePublicId) {
+      try {
+        await cloudinary.uploader.destroy(news.imagePublicId);
+        console.log('Gambar berhasil dihapus dari Cloudinary');
+      } catch (error) {
+        console.error('Gagal menghapus gambar dari Cloudinary:', error);
+      }
     }
 
     await news.destroy();
@@ -76,8 +91,9 @@ exports.deleteNews = async (req, res) => {
 };
 
 /**
- * (Opsional) Memperbarui berita berdasarkan ID.
- * Jika ada file baru yang diupload, gambar lama akan dihapus dan diganti dengan yang baru.
+ * PUT /api/news/:id
+ * Memperbarui berita berdasarkan ID.
+ * Jika ada file baru yang diupload, gambar lama dihapus dari Cloudinary dan diganti dengan yang baru.
  */
 exports.updateNews = async (req, res) => {
   try {
@@ -89,22 +105,20 @@ exports.updateNews = async (req, res) => {
       return res.status(404).json({ message: 'Berita tidak ditemukan' });
     }
 
-    // Jika ada file baru yang diupload, hapus file gambar lama (jika ada)
     if (req.file) {
-      if (news.imageUrl) {
-        const oldFilePath = path.join(__dirname, '..', 'public', news.imageUrl.substring(1));
-        fs.unlink(oldFilePath, (err) => {
-          if (err) {
-            console.error('Gagal menghapus file gambar lama:', err);
-          } else {
-            console.log('File gambar lama berhasil dihapus:', oldFilePath);
-          }
-        });
+      if (news.imagePublicId) {
+        try {
+          await cloudinary.uploader.destroy(news.imagePublicId);
+          console.log('Gambar lama berhasil dihapus dari Cloudinary');
+        } catch (error) {
+          console.error('Gagal menghapus gambar lama dari Cloudinary:', error);
+        }
       }
-      news.imageUrl = '/public/uploads/' + req.file.filename;
+      const result = await uploadFromBuffer(req.file.buffer, 'news');
+      news.imageUrl = result.secure_url;
+      news.imagePublicId = result.public_id;
     }
 
-    // Perbarui field lainnya
     news.title = title || news.title;
     news.description = description || news.description;
     news.uploadTime = uploadTime || news.uploadTime;

@@ -1,14 +1,27 @@
-// controllers/sambutanController.js
-
 const Sambutan = require('../models/Sambutan');
-const fs = require('fs');
+const cloudinary = require('../config/cloudinary');
 const path = require('path');
+
+// Helper: Fungsi untuk mengupload file buffer ke Cloudinary
+const uploadFromBuffer = (buffer, folder) => {
+  return new Promise((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      { folder: folder },
+      (error, result) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(result);
+        }
+      }
+    );
+    stream.end(buffer);
+  });
+};
 
 /**
  * GET /api/sambutans
- * Mengambil data sambutan.
- * Jika hanya ada satu sambutan, kita bisa menggunakan findOne().
- * Di sini, saya menggunakan findOne() untuk mengambil sambutan terkini.
+ * Mengambil data sambutan terkini.
  */
 exports.getSambutan = async (req, res) => {
   try {
@@ -26,24 +39,33 @@ exports.getSambutan = async (req, res) => {
 /**
  * POST /api/sambutans
  * Menambahkan sambutan baru.
- * Mendukung upload file untuk foto (field 'image').
+ * Jika ada file yang diupload (field 'image'), file diunggah ke Cloudinary.
  */
 exports.addSambutan = async (req, res) => {
   try {
     const { title, content, principalName, principalTitle } = req.body;
     let imageUrl = null;
+    let imagePublicId = null;
+    
+    // Jika ada file upload, unggah ke Cloudinary
     if (req.file) {
-      imageUrl = '/public/uploads/' + req.file.filename;
+      const result = await uploadFromBuffer(req.file.buffer, 'sambutan');
+      imageUrl = result.secure_url;
+      imagePublicId = result.public_id;
     }
+    
+    // Validasi wajib: content dan principalName
     if (!content || !principalName) {
       return res.status(400).json({ message: "Content dan Principal Name wajib diisi." });
     }
+    
     const newSambutan = await Sambutan.create({
       title,
       content,
       principalName,
       principalTitle,
-      imageUrl
+      imageUrl,
+      imagePublicId
     });
     res.status(201).json({ message: "Sambutan berhasil ditambahkan", sambutan: newSambutan });
   } catch (error) {
@@ -55,7 +77,7 @@ exports.addSambutan = async (req, res) => {
 /**
  * PUT /api/sambutans/:id
  * Memperbarui sambutan berdasarkan ID.
- * Jika ada file baru yang diupload, hapus file gambar lama (jika ada).
+ * Jika ada file baru diupload, gambar lama dihapus dari Cloudinary dan diganti.
  */
 exports.updateSambutan = async (req, res) => {
   try {
@@ -66,22 +88,21 @@ exports.updateSambutan = async (req, res) => {
       return res.status(404).json({ message: "Sambutan tidak ditemukan" });
     }
     
-    // Jika ada file baru diupload, hapus file lama (jika ada)
+    // Jika ada file baru diupload, hapus gambar lama dari Cloudinary jika ada
     if (req.file) {
-      if (sambutan.imageUrl) {
-        const oldFilePath = path.join(__dirname, '..', 'public', sambutan.imageUrl.substring(1));
-        fs.unlink(oldFilePath, (err) => {
-          if (err) {
-            console.error("Error deleting old image:", err);
-          } else {
-            console.log("Old image deleted:", oldFilePath);
-          }
-        });
+      if (sambutan.imagePublicId) {
+        try {
+          await cloudinary.uploader.destroy(sambutan.imagePublicId);
+          console.log("Old image deleted from Cloudinary");
+        } catch (err) {
+          console.error("Error deleting old image from Cloudinary:", err);
+        }
       }
-      sambutan.imageUrl = '/public/uploads/' + req.file.filename;
+      const result = await uploadFromBuffer(req.file.buffer, 'sambutan');
+      sambutan.imageUrl = result.secure_url;
+      sambutan.imagePublicId = result.public_id;
     }
     
-    // Update field lainnya jika disediakan
     sambutan.title = title !== undefined ? title : sambutan.title;
     sambutan.content = content !== undefined ? content : sambutan.content;
     sambutan.principalName = principalName !== undefined ? principalName : sambutan.principalName;
@@ -97,7 +118,7 @@ exports.updateSambutan = async (req, res) => {
 
 /**
  * DELETE /api/sambutans/:id
- * Menghapus sambutan berdasarkan ID, serta menghapus file gambar terkait jika ada.
+ * Menghapus sambutan berdasarkan ID dan menghapus gambar terkait dari Cloudinary jika ada.
  */
 exports.deleteSambutan = async (req, res) => {
   try {
@@ -107,16 +128,13 @@ exports.deleteSambutan = async (req, res) => {
       return res.status(404).json({ message: "Sambutan tidak ditemukan" });
     }
     
-    // Jika ada gambar, hapus file dari disk
-    if (sambutan.imageUrl) {
-      const filePath = path.join(__dirname, '..', 'public', sambutan.imageUrl.substring(1));
-      fs.unlink(filePath, (err) => {
-        if (err) {
-          console.error("Error deleting image:", err);
-        } else {
-          console.log("Image deleted:", filePath);
-        }
-      });
+    if (sambutan.imagePublicId) {
+      try {
+        await cloudinary.uploader.destroy(sambutan.imagePublicId);
+        console.log("Image deleted from Cloudinary");
+      } catch (err) {
+        console.error("Error deleting image from Cloudinary:", err);
+      }
     }
     
     await sambutan.destroy();

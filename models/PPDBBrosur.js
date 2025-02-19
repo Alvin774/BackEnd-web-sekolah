@@ -1,5 +1,4 @@
 // models/PPDBBrosur.js
-
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
@@ -9,13 +8,16 @@ const PPDBBrosur = sequelize.define('PPDBBrosur', {
     primaryKey: true,
     autoIncrement: true,
   },
-  // URL gambar brosur PPDB (misalnya: "/uploads/poto-brosur-ppdb.jpg")
   imageUrl: {
     type: DataTypes.STRING,
     allowNull: false,
+  },
+  imagePublicId: {
+    type: DataTypes.STRING,
+    allowNull: true,
   }
 }, {
-  tableName: 'ppdb_brosurs',
+  tableName: 'ppdbbrosur',
   timestamps: true,
 });
 

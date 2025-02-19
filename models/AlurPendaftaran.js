@@ -1,5 +1,3 @@
-// models/AlurPendaftaran.js
-
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
@@ -9,23 +7,24 @@ const AlurPendaftaran = sequelize.define('AlurPendaftaran', {
     primaryKey: true,
     autoIncrement: true,
   },
-  // Nomor urut langkah pendaftaran
   stepNumber: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
-  // URL gambar untuk langkah pendaftaran
-  imageUrl: {
-    type: DataTypes.STRING,
+  description: {
+    type: DataTypes.STRING(255),
     allowNull: false,
   },
-  // Deskripsi langkah pendaftaran
-  description: {
-    type: DataTypes.TEXT,
-    allowNull: false,
+  imageUrl: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  imagePublicId: {  // Untuk menyimpan public_id dari Cloudinary
+    type: DataTypes.STRING,
+    allowNull: true,
   }
 }, {
-  tableName: 'alur_pendaftarans',
+  tableName: 'alurpendaftaran',
   timestamps: true,
 });
 

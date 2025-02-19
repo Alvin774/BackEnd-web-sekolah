@@ -1,34 +1,24 @@
-// routes/ppdbBrosurRoutes.js
-
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
-const path = require('path');
+
+// Gunakan memoryStorage agar file tersimpan dalam buffer untuk diupload ke Cloudinary
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+
+// Import controller PPDB Brosur
 const ppdbBrosurController = require('../controllers/ppdbBrosurController');
 
-// Konfigurasi Multer untuk file upload (field 'image')
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    // Pastikan folder 'public/uploads/' sudah ada
-    cb(null, 'public/uploads/');
-  },
-  filename: (req, file, cb) => {
-    // Nama file unik dengan timestamp
-    cb(null, Date.now() + '-' + file.originalname);
-  }
-});
-const upload = multer({ storage: storage });
-
-// GET semua data PPDB Brosur
+// GET: Mengambil semua data PPDB Brosur
 router.get('/', ppdbBrosurController.getAllPPDBBrosur);
 
-// POST menambahkan brosur baru (dengan upload file)
+// POST: Menambahkan data PPDB Brosur baru dengan opsi upload gambar (field 'image')
 router.post('/', upload.single('image'), ppdbBrosurController.addPPDBBrosur);
 
-// PUT memperbarui brosur berdasarkan ID (dengan upload file jika ada)
+// PUT: Memperbarui data PPDB Brosur berdasarkan ID dengan opsi upload gambar baru
 router.put('/:id', upload.single('image'), ppdbBrosurController.updatePPDBBrosur);
 
-// DELETE menghapus brosur berdasarkan ID
+// DELETE: Menghapus data PPDB Brosur berdasarkan ID
 router.delete('/:id', ppdbBrosurController.deletePPDBBrosur);
 
 module.exports = router;

@@ -1,12 +1,27 @@
-// controllers/guruController.js
-
 const Guru = require('../models/Guru');
-const fs = require('fs');
+const cloudinary = require('../config/cloudinary'); // Pastikan file ini sudah dikonfigurasi dengan benar
 const path = require('path');
+
+// Helper: Fungsi untuk mengupload file buffer ke Cloudinary
+const uploadFromBuffer = (buffer, folder) => {
+  return new Promise((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      { folder: folder },
+      (error, result) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(result);
+        }
+      }
+    );
+    stream.end(buffer);
+  });
+};
 
 /**
  * GET /api/guru
- * Mengambil semua data guru.
+ * Mengambil semua data guru, diurutkan berdasarkan waktu dibuat (terbaru pertama).
  */
 exports.getAllGuru = async (req, res) => {
   try {
@@ -21,19 +36,26 @@ exports.getAllGuru = async (req, res) => {
 /**
  * POST /api/guru
  * Menambahkan data guru baru.
- * Mendukung file upload untuk foto guru (field 'image').
+ * Mendukung file upload untuk foto guru (field 'image') ke Cloudinary.
  */
 exports.addGuru = async (req, res) => {
   try {
     const { name, nip } = req.body;
-    let imageUrl = null;
-    if (req.file) {
-      imageUrl = '/public/uploads/' + req.file.filename;
-    }
     if (!name) {
       return res.status(400).json({ message: "Name is required" });
     }
-    const guru = await Guru.create({ name, nip, imageUrl });
+    
+    let imageUrl = null;
+    let imagePublicId = null;
+    
+    if (req.file) {
+      // Upload file ke Cloudinary di folder 'guru'
+      const result = await uploadFromBuffer(req.file.buffer, 'guru');
+      imageUrl = result.secure_url;
+      imagePublicId = result.public_id;
+    }
+    
+    const guru = await Guru.create({ name, nip, imageUrl, imagePublicId });
     res.status(201).json({ message: "Guru added successfully", guru });
   } catch (error) {
     console.error("Error adding guru:", error);
@@ -44,7 +66,7 @@ exports.addGuru = async (req, res) => {
 /**
  * PUT /api/guru/:id
  * Memperbarui data guru berdasarkan ID.
- * Jika ada file baru diupload, file foto lama akan dihapus.
+ * Jika ada file baru diupload, gambar lama akan dihapus dari Cloudinary.
  */
 exports.updateGuru = async (req, res) => {
   try {
@@ -54,20 +76,22 @@ exports.updateGuru = async (req, res) => {
     if (!guru) {
       return res.status(404).json({ message: "Guru not found" });
     }
-    // Jika ada file baru diupload, hapus file lama jika ada
+    
     if (req.file) {
-      if (guru.imageUrl) {
-        const oldFilePath = path.join(__dirname, '..', 'public', guru.imageUrl.substring(1));
-        fs.unlink(oldFilePath, (err) => {
-          if (err) {
-            console.error("Error deleting old image:", err);
-          } else {
-            console.log("Old image deleted:", oldFilePath);
-          }
-        });
+      // Hapus gambar lama dari Cloudinary jika ada
+      if (guru.imagePublicId) {
+        try {
+          await cloudinary.uploader.destroy(guru.imagePublicId);
+          console.log("Old image deleted from Cloudinary");
+        } catch (err) {
+          console.error("Error deleting old image:", err);
+        }
       }
-      guru.imageUrl = '/public/uploads/' + req.file.filename;
+      const result = await uploadFromBuffer(req.file.buffer, 'guru');
+      guru.imageUrl = result.secure_url;
+      guru.imagePublicId = result.public_id;
     }
+    
     guru.name = name !== undefined ? name : guru.name;
     guru.nip = nip !== undefined ? nip : guru.nip;
     await guru.save();
@@ -80,7 +104,7 @@ exports.updateGuru = async (req, res) => {
 
 /**
  * DELETE /api/guru/:id
- * Menghapus data guru berdasarkan ID, serta menghapus file foto terkait jika ada.
+ * Menghapus data guru berdasarkan ID, serta menghapus file foto terkait dari Cloudinary jika ada.
  */
 exports.deleteGuru = async (req, res) => {
   try {
@@ -89,15 +113,13 @@ exports.deleteGuru = async (req, res) => {
     if (!guru) {
       return res.status(404).json({ message: "Guru not found" });
     }
-    if (guru.imageUrl) {
-      const imagePath = path.join(__dirname, '..', 'public', guru.imageUrl.substring(1));
-      fs.unlink(imagePath, (err) => {
-        if (err) {
-          console.error("Error deleting image:", err);
-        } else {
-          console.log("Image deleted:", imagePath);
-        }
-      });
+    if (guru.imagePublicId) {
+      try {
+        await cloudinary.uploader.destroy(guru.imagePublicId);
+        console.log("Image deleted from Cloudinary");
+      } catch (err) {
+        console.error("Error deleting image:", err);
+      }
     }
     await guru.destroy();
     res.json({ message: "Guru deleted successfully" });

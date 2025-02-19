@@ -1,34 +1,24 @@
-// routes/guruRoutes.js
-
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
-const path = require('path');
+
+// Gunakan memoryStorage untuk menyimpan file dalam buffer agar file bisa langsung diupload ke Cloudinary
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+
+// Import controller guru
 const guruController = require('../controllers/guruController');
 
-// Konfigurasi Multer untuk menangani file upload
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    // Pastikan folder 'public/uploads/' ada dan memiliki izin tulis
-    cb(null, 'public/uploads/');
-  },
-  filename: (req, file, cb) => {
-    // Buat nama file unik dengan menambahkan timestamp
-    cb(null, Date.now() + '-' + file.originalname);
-  }
-});
-const upload = multer({ storage: storage });
-
-// GET /api/guru - Mengambil semua data guru
+// GET: Ambil semua data guru
 router.get('/', guruController.getAllGuru);
 
-// POST /api/guru - Menambahkan guru baru (dengan dukungan file upload untuk foto)
+// POST: Tambah data guru baru, dengan opsi upload gambar (field 'image')
 router.post('/', upload.single('image'), guruController.addGuru);
 
-// PUT /api/guru/:id - Memperbarui data guru berdasarkan ID
+// PUT: Perbarui data guru berdasarkan ID, dengan opsi upload gambar baru
 router.put('/:id', upload.single('image'), guruController.updateGuru);
 
-// DELETE /api/guru/:id - Menghapus guru berdasarkan ID
+// DELETE: Hapus data guru berdasarkan ID
 router.delete('/:id', guruController.deleteGuru);
 
 module.exports = router;

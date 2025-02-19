@@ -1,8 +1,23 @@
-// controllers/extracurricularController.js
-
 const Extracurricular = require('../models/Extracurricular');
-const fs = require('fs');
+const cloudinary = require('../config/cloudinary');
 const path = require('path');
+
+// Helper function: Upload file buffer ke Cloudinary
+const uploadFromBuffer = (buffer, folder) => {
+  return new Promise((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      { folder },
+      (error, result) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(result);
+        }
+      }
+    );
+    stream.end(buffer);
+  });
+};
 
 /**
  * GET /api/extracurriculars
@@ -21,27 +36,30 @@ exports.getAllExtracurriculars = async (req, res) => {
 /**
  * POST /api/extracurriculars
  * Menambahkan data ekstrakurikuler baru.
- * Mendukung upload file untuk field image (dengan nama field 'image').
+ * Mendukung upload file untuk field 'image' ke Cloudinary.
  */
 exports.addExtracurricular = async (req, res) => {
   try {
     const { name, description } = req.body;
-    let imageUrl = null;
-    
-    // Validasi wajib: nama ekstrakurikuler
     if (!name) {
       return res.status(400).json({ message: "Nama ekstrakurikuler wajib diisi" });
     }
     
-    // Jika ada file yang diupload, simpan path-nya
+    let imageUrl = null;
+    let imagePublicId = null;
+    
     if (req.file) {
-      imageUrl = '/public/uploads/' + req.file.filename;
+      // Upload file ke Cloudinary di folder 'extracurricular'
+      const result = await uploadFromBuffer(req.file.buffer, 'extracurricular');
+      imageUrl = result.secure_url;
+      imagePublicId = result.public_id;
     }
     
     const newActivity = await Extracurricular.create({
       name,
+      description,
       imageUrl,
-      description
+      imagePublicId,
     });
     
     res.status(201).json({ message: "Data ekstrakurikuler berhasil ditambahkan", extracurricular: newActivity });
@@ -54,7 +72,7 @@ exports.addExtracurricular = async (req, res) => {
 /**
  * PUT /api/extracurriculars/:id
  * Memperbarui data ekstrakurikuler berdasarkan ID.
- * Jika ada file baru diupload, file gambar lama akan dihapus (jika ada).
+ * Jika ada file baru diupload, gambar lama akan dihapus dari Cloudinary.
  */
 exports.updateExtracurricular = async (req, res) => {
   try {
@@ -65,22 +83,21 @@ exports.updateExtracurricular = async (req, res) => {
       return res.status(404).json({ message: "Data ekstrakurikuler tidak ditemukan" });
     }
     
-    // Jika ada file baru, hapus file lama (jika ada) dan update imageUrl
     if (req.file) {
-      if (activity.imageUrl) {
-        const oldFilePath = path.join(__dirname, '..', 'public', activity.imageUrl.substring(1));
-        fs.unlink(oldFilePath, (err) => {
-          if (err) {
-            console.error("Error deleting old image:", err);
-          } else {
-            console.log("Old image deleted:", oldFilePath);
-          }
-        });
+      // Jika ada file baru, hapus gambar lama dari Cloudinary jika ada
+      if (activity.imagePublicId) {
+        try {
+          await cloudinary.uploader.destroy(activity.imagePublicId);
+          console.log("Old image deleted from Cloudinary");
+        } catch (err) {
+          console.error("Error deleting old image:", err);
+        }
       }
-      activity.imageUrl = '/public/uploads/' + req.file.filename;
+      const result = await uploadFromBuffer(req.file.buffer, 'extracurricular');
+      activity.imageUrl = result.secure_url;
+      activity.imagePublicId = result.public_id;
     }
     
-    // Update field lainnya
     activity.name = name !== undefined ? name : activity.name;
     activity.description = description !== undefined ? description : activity.description;
     
@@ -94,7 +111,7 @@ exports.updateExtracurricular = async (req, res) => {
 
 /**
  * DELETE /api/extracurriculars/:id
- * Menghapus data ekstrakurikuler berdasarkan ID, serta menghapus file gambar terkait jika ada.
+ * Menghapus data ekstrakurikuler berdasarkan ID, serta menghapus gambar dari Cloudinary jika ada.
  */
 exports.deleteExtracurricular = async (req, res) => {
   try {
@@ -104,16 +121,13 @@ exports.deleteExtracurricular = async (req, res) => {
       return res.status(404).json({ message: "Data ekstrakurikuler tidak ditemukan" });
     }
     
-    // Jika ada file gambar, hapus file tersebut
-    if (activity.imageUrl) {
-      const filePath = path.join(__dirname, '..', 'public', activity.imageUrl.substring(1));
-      fs.unlink(filePath, (err) => {
-        if (err) {
-          console.error("Error deleting image:", err);
-        } else {
-          console.log("Image deleted:", filePath);
-        }
-      });
+    if (activity.imagePublicId) {
+      try {
+        await cloudinary.uploader.destroy(activity.imagePublicId);
+        console.log("Image deleted from Cloudinary");
+      } catch (err) {
+        console.error("Error deleting image:", err);
+      }
     }
     
     await activity.destroy();

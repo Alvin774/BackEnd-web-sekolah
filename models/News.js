@@ -1,4 +1,3 @@
-// models/News.js
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
@@ -8,22 +7,29 @@ const News = sequelize.define('News', {
     primaryKey: true,
     autoIncrement: true,
   },
-  title: {  
-    type: DataTypes.STRING,
+  title: {
+    type: DataTypes.STRING(255),
     allowNull: false,
   },
-  description: {  
+  description: {
     type: DataTypes.TEXT,
     allowNull: false,
   },
-  imageUrl: {  
+  imageUrl: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  imagePublicId: { // Untuk menyimpan public_id dari Cloudinary
     type: DataTypes.STRING,
     allowNull: true,
   },
   uploadTime: {
     type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW,
-  },
+    allowNull: false,
+  }
+}, {
+  tableName: 'news',
+  timestamps: true,
 });
 
 module.exports = News;

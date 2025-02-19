@@ -1,5 +1,3 @@
-// models/Banner.js
-
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
@@ -11,15 +9,19 @@ const Banner = sequelize.define('Banner', {
   },
   imageUrl: {
     type: DataTypes.STRING,
-    allowNull: false, // Pastikan gambar wajib diisi ketika ditambahkan
+    allowNull: false,
+  },
+  imagePublicId: { // Menyimpan public_id dari Cloudinary
+    type: DataTypes.STRING,
+    allowNull: true,
   },
   linkUrl: {
     type: DataTypes.STRING,
-    allowNull: true,  // Opsional, sehingga boleh kosong
+    allowNull: true,
   },
 }, {
-  tableName: 'Banners', // Nama tabel di database
-  timestamps: true,     // Menyimpan createdAt dan updatedAt
+  tableName: 'banners',
+  timestamps: true,
 });
 
 module.exports = Banner;

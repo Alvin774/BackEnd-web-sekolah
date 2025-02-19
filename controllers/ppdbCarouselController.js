@@ -1,8 +1,23 @@
-// controllers/ppdbCarouselController.js
-
 const PPDBCarousel = require('../models/PPDBCarousel');
-const fs = require('fs');
+const cloudinary = require('../config/cloudinary');
 const path = require('path');
+
+// Helper: Fungsi untuk mengupload file buffer ke Cloudinary
+const uploadFromBuffer = (buffer, folder) => {
+  return new Promise((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      { folder: folder },
+      (error, result) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(result);
+        }
+      }
+    );
+    stream.end(buffer);
+  });
+};
 
 /**
  * GET /api/ppdbcarousel
@@ -21,30 +36,33 @@ exports.getAllCarousel = async (req, res) => {
 /**
  * POST /api/ppdbcarousel
  * Menambahkan data PPDB Carousel baru.
- * Mendukung upload file untuk gambar (field 'image').
+ * Menggunakan multer untuk upload file (field 'image') ke Cloudinary.
  */
 exports.addCarousel = async (req, res) => {
   try {
     const { captionTitle, captionDescription, linkUrl, order } = req.body;
-    let imageUrl = null;
     
-    // Validasi wajib: imageUrl, captionTitle, dan captionDescription
+    // Validasi wajib: captionTitle dan captionDescription
     if (!captionTitle || !captionDescription) {
       return res.status(400).json({ message: "Caption title dan description wajib diisi." });
     }
     
-    if (req.file) {
-      imageUrl = '/public/uploads/' + req.file.filename;
-    } else {
+    if (!req.file) {
       return res.status(400).json({ message: "Gambar untuk carousel wajib diupload." });
     }
     
+    // Upload file ke Cloudinary pada folder 'ppdbcarousel'
+    const result = await uploadFromBuffer(req.file.buffer, 'ppdbcarousel');
+    const imageUrl = result.secure_url;
+    const imagePublicId = result.public_id;
+    
     const newCarousel = await PPDBCarousel.create({
       imageUrl,
+      imagePublicId,
       captionTitle,
       captionDescription,
       linkUrl,
-      order: order || 0
+      order: order || 0,
     });
     
     res.status(201).json({ message: "PPDB Carousel berhasil ditambahkan", carousel: newCarousel });
@@ -57,7 +75,7 @@ exports.addCarousel = async (req, res) => {
 /**
  * PUT /api/ppdbcarousel/:id
  * Memperbarui data PPDB Carousel berdasarkan ID.
- * Jika ada file baru yang diupload, file gambar lama akan dihapus (jika ada).
+ * Jika ada file baru yang diupload, file gambar lama akan dihapus dari Cloudinary dan diganti dengan yang baru.
  */
 exports.updateCarousel = async (req, res) => {
   try {
@@ -69,19 +87,19 @@ exports.updateCarousel = async (req, res) => {
       return res.status(404).json({ message: "Data PPDB Carousel tidak ditemukan" });
     }
     
-    // Jika ada file baru, hapus file gambar lama dan update imageUrl
+    // Jika ada file baru yang diupload, hapus gambar lama dari Cloudinary jika ada
     if (req.file) {
-      if (carousel.imageUrl) {
-        const oldFilePath = path.join(__dirname, '..', 'public', carousel.imageUrl.substring(1));
-        fs.unlink(oldFilePath, (err) => {
-          if (err) {
-            console.error("Error deleting old image:", err);
-          } else {
-            console.log("Old image deleted:", oldFilePath);
-          }
-        });
+      if (carousel.imagePublicId) {
+        try {
+          await cloudinary.uploader.destroy(carousel.imagePublicId);
+          console.log("Old image deleted from Cloudinary");
+        } catch (err) {
+          console.error("Error deleting old image:", err);
+        }
       }
-      carousel.imageUrl = '/public/uploads/' + req.file.filename;
+      const result = await uploadFromBuffer(req.file.buffer, 'ppdbcarousel');
+      carousel.imageUrl = result.secure_url;
+      carousel.imagePublicId = result.public_id;
     }
     
     // Update field lainnya
@@ -100,7 +118,7 @@ exports.updateCarousel = async (req, res) => {
 
 /**
  * DELETE /api/ppdbcarousel/:id
- * Menghapus data PPDB Carousel berdasarkan ID, serta menghapus file gambar terkait jika ada.
+ * Menghapus data PPDB Carousel berdasarkan ID, serta menghapus file gambar terkait dari Cloudinary jika ada.
  */
 exports.deleteCarousel = async (req, res) => {
   try {
@@ -109,15 +127,13 @@ exports.deleteCarousel = async (req, res) => {
     if (!carousel) {
       return res.status(404).json({ message: "Data PPDB Carousel tidak ditemukan" });
     }
-    if (carousel.imageUrl) {
-      const filePath = path.join(__dirname, '..', 'public', carousel.imageUrl.substring(1));
-      fs.unlink(filePath, (err) => {
-        if (err) {
-          console.error("Error deleting image:", err);
-        } else {
-          console.log("Image deleted:", filePath);
-        }
-      });
+    if (carousel.imagePublicId) {
+      try {
+        await cloudinary.uploader.destroy(carousel.imagePublicId);
+        console.log("Image deleted from Cloudinary");
+      } catch (err) {
+        console.error("Error deleting image:", err);
+      }
     }
     await carousel.destroy();
     res.json({ message: "PPDB Carousel berhasil dihapus" });

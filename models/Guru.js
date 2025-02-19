@@ -1,4 +1,3 @@
-// models/Guru.js
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
@@ -8,20 +7,24 @@ const Guru = sequelize.define('Guru', {
     primaryKey: true,
     autoIncrement: true,
   },
-  name: { // Nama guru
-    type: DataTypes.STRING,
+  name: {
+    type: DataTypes.STRING(100),
     allowNull: false,
   },
-  nip: { // Nomor Induk Pegawai, opsional
+  nip: {
+    type: DataTypes.STRING(50),
+    allowNull: true,
+  },
+  imageUrl: {
     type: DataTypes.STRING,
     allowNull: true,
   },
-  imageUrl: { // URL foto guru, opsional
+  imagePublicId: {  // untuk menyimpan public_id dari Cloudinary
     type: DataTypes.STRING,
     allowNull: true,
   }
 }, {
-  tableName: 'gurus',
+  tableName: 'guru',
   timestamps: true,
 });
 

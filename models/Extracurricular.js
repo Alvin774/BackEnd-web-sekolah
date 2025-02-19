@@ -1,5 +1,3 @@
-// models/Extracurricular.js
-
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
@@ -10,20 +8,24 @@ const Extracurricular = sequelize.define('Extracurricular', {
     autoIncrement: true,
   },
   name: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  imageUrl: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(100),
     allowNull: false,
   },
   description: {
-    type: DataTypes.TEXT,
+    type: DataTypes.STRING(255),
     allowNull: true,
   },
+  imageUrl: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  imagePublicId: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  }
 }, {
   tableName: 'extracurriculars',
-  timestamps: true, // Akan menambahkan createdAt dan updatedAt secara otomatis
+  timestamps: true,
 });
 
 module.exports = Extracurricular;

@@ -1,8 +1,25 @@
 // controllers/alurPendaftaranController.js
 
 const AlurPendaftaran = require('../models/AlurPendaftaran');
-const fs = require('fs');
+const cloudinary = require('../config/cloudinary'); // Pastikan file ini sudah disiapkan
 const path = require('path');
+
+// Helper: Fungsi untuk mengupload buffer ke Cloudinary
+const uploadFromBuffer = (buffer, folder) => {
+  return new Promise((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      { folder: folder },
+      (error, result) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(result);
+        }
+      }
+    );
+    stream.end(buffer);
+  });
+};
 
 /**
  * GET /api/alurpendaftaran
@@ -21,7 +38,7 @@ exports.getAllAlurPendaftaran = async (req, res) => {
 /**
  * POST /api/alurpendaftaran
  * Menambahkan data alur pendaftaran baru.
- * Menggunakan multer untuk upload file (field 'image').
+ * Menggunakan multer untuk upload file (field 'image') ke Cloudinary.
  */
 exports.addAlurPendaftaran = async (req, res) => {
   try {
@@ -32,11 +49,17 @@ exports.addAlurPendaftaran = async (req, res) => {
     if (!req.file) {
       return res.status(400).json({ message: "Gambar untuk alur pendaftaran wajib diupload." });
     }
-    const imageUrl = '/public/uploads/' + req.file.filename;
+    
+    // Upload file ke Cloudinary
+    const result = await uploadFromBuffer(req.file.buffer, 'alurpendaftaran');
+    const imageUrl = result.secure_url;
+    const imagePublicId = result.public_id;
+    
     const newStep = await AlurPendaftaran.create({
       stepNumber,
       description,
-      imageUrl
+      imageUrl,
+      imagePublicId
     });
     res.status(201).json({ message: "Alur pendaftaran berhasil ditambahkan", step: newStep });
   } catch (error) {
@@ -48,7 +71,7 @@ exports.addAlurPendaftaran = async (req, res) => {
 /**
  * PUT /api/alurpendaftaran/:id
  * Memperbarui data alur pendaftaran berdasarkan ID.
- * Jika ada file baru diupload, gambar lama akan dihapus.
+ * Jika ada file baru diupload, gambar lama akan dihapus dari Cloudinary.
  */
 exports.updateAlurPendaftaran = async (req, res) => {
   try {
@@ -58,17 +81,26 @@ exports.updateAlurPendaftaran = async (req, res) => {
     if (!step) {
       return res.status(404).json({ message: "Alur pendaftaran tidak ditemukan" });
     }
+    
     if (req.file) {
-      if (step.imageUrl) {
-        const oldPath = path.join(__dirname, '..', 'public', step.imageUrl.substring(1));
-        fs.unlink(oldPath, err => {
-          if (err) console.error("Error deleting old image:", err);
-        });
+      // Jika ada imagePublicId sebelumnya, hapus gambar lama dari Cloudinary
+      if (step.imagePublicId) {
+        try {
+          await cloudinary.uploader.destroy(step.imagePublicId);
+          console.log("Old image deleted from Cloudinary");
+        } catch (err) {
+          console.error("Error deleting old image from Cloudinary:", err);
+        }
       }
-      step.imageUrl = '/public/uploads/' + req.file.filename;
+      const result = await uploadFromBuffer(req.file.buffer, 'alurpendaftaran');
+      step.imageUrl = result.secure_url;
+      step.imagePublicId = result.public_id;
     }
+    
+    // Perbarui field lainnya
     step.stepNumber = stepNumber !== undefined ? stepNumber : step.stepNumber;
     step.description = description !== undefined ? description : step.description;
+    
     await step.save();
     res.json({ message: "Alur pendaftaran berhasil diperbarui", step });
   } catch (error) {
@@ -79,7 +111,7 @@ exports.updateAlurPendaftaran = async (req, res) => {
 
 /**
  * DELETE /api/alurpendaftaran/:id
- * Menghapus data alur pendaftaran berdasarkan ID, serta menghapus file gambar terkait jika ada.
+ * Menghapus data alur pendaftaran berdasarkan ID, serta menghapus gambar dari Cloudinary jika ada.
  */
 exports.deleteAlurPendaftaran = async (req, res) => {
   try {
@@ -88,11 +120,13 @@ exports.deleteAlurPendaftaran = async (req, res) => {
     if (!step) {
       return res.status(404).json({ message: "Alur pendaftaran tidak ditemukan" });
     }
-    if (step.imageUrl) {
-      const filePath = path.join(__dirname, '..', 'public', step.imageUrl.substring(1));
-      fs.unlink(filePath, err => {
-        if (err) console.error("Error deleting image:", err);
-      });
+    if (step.imagePublicId) {
+      try {
+        await cloudinary.uploader.destroy(step.imagePublicId);
+        console.log("Image deleted from Cloudinary");
+      } catch (err) {
+        console.error("Error deleting image from Cloudinary:", err);
+      }
     }
     await step.destroy();
     res.json({ message: "Alur pendaftaran berhasil dihapus" });

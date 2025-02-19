@@ -1,5 +1,3 @@
-// models/PPDBCarousel.js
-
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
@@ -13,12 +11,16 @@ const PPDBCarousel = sequelize.define('PPDBCarousel', {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  imagePublicId: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
   captionTitle: {
     type: DataTypes.STRING,
     allowNull: false,
   },
   captionDescription: {
-    type: DataTypes.TEXT,
+    type: DataTypes.STRING,
     allowNull: false,
   },
   linkUrl: {
@@ -27,12 +29,12 @@ const PPDBCarousel = sequelize.define('PPDBCarousel', {
   },
   order: {
     type: DataTypes.INTEGER,
-    allowNull: true,
+    allowNull: false,
     defaultValue: 0,
   }
 }, {
-  tableName: 'ppdb_carousels',
-  timestamps: true, // Menyimpan createdAt dan updatedAt secara otomatis
+  tableName: 'ppdbcarousel',
+  timestamps: true,
 });
 
 module.exports = PPDBCarousel;

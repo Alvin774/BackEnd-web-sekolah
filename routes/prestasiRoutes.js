@@ -1,28 +1,24 @@
-// routes/prestasiRoutes.js
-
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
-const path = require('path');
-const prestasiController = require('../controllers/prestasiController');
 
-// Konfigurasi multer untuk menangani file upload pada field 'image'
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    // Pastikan folder 'public/uploads' sudah ada
-    cb(null, 'public/uploads/');
-  },
-  filename: (req, file, cb) => {
-    // Buat nama file unik dengan timestamp
-    cb(null, Date.now() + '-' + file.originalname);
-  }
-});
+// Gunakan memoryStorage untuk menyimpan file dalam buffer
+const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-// Routes
+// Import controller prestasi
+const prestasiController = require('../controllers/prestasiController');
+
+// GET: Ambil semua data prestasi
 router.get('/', prestasiController.getAllPrestasi);
+
+// POST: Tambah data prestasi baru dengan opsi upload gambar (field 'image')
 router.post('/', upload.single('image'), prestasiController.addPrestasi);
+
+// PUT: Perbarui data prestasi berdasarkan ID, dengan opsi upload gambar baru
 router.put('/:id', upload.single('image'), prestasiController.updatePrestasi);
+
+// DELETE: Hapus data prestasi berdasarkan ID
 router.delete('/:id', prestasiController.deletePrestasi);
 
 module.exports = router;
