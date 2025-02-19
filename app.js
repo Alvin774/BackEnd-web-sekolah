@@ -18,6 +18,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(cors());
 
+const uploadRoutes = require('./routes/uploadRoutes');
+app.use('/api', uploadRoutes);
 
 // Daftarkan routes prestasi
 const prestasiRoutes = require('./routes/prestasiRoutes');
