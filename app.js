@@ -16,22 +16,6 @@ app.use(express.json());
 app.use(morgan('dev'));
 app.use(helmet());
 
-app.set('views', path.join(__dirname, 'public/ProjectWebSekolah'));
-
-
-// Set static folder untuk front-end (misalnya, folder ProjectWebSekolah)
-app.use(express.static(path.join(__dirname, 'public/ProjectWebSekolah')));
-
-
-app.get('/', (req, res) => {
-  res.render('index'); // akan mencari file views/index.ejs
-});
-
-
-
-
-
-
 // Routes
 const uploadRoutes = require('./routes/uploadRoutes');
 app.use('/api', uploadRoutes);
@@ -93,6 +77,42 @@ app.use('/api/pendaftaran', pendaftaranRoutes);
 
 const statisticRoutes = require('./routes/statisticRoutes');
 app.use('/api/statistics', statisticRoutes);
+
+
+
+app.set('views', path.join(__dirname, 'public/ProjectWebSekolah'));
+
+
+// Set static folder untuk front-end (misalnya, folder ProjectWebSekolah)
+app.use(express.static(path.join(__dirname, 'public/ProjectWebSekolah')));
+
+
+app.get('/', (req, res) => {
+  res.render('index'); // akan mencari file views/index.ejs
+});
+
+app.get('/sambutan', (req, res) => {
+  res.render('sambutan'); // akan mencari file views/index.ejs
+});
+
+app.get('/', (req, res) => {
+  res.render('index'); // akan mencari file views/index.ejs
+});
+
+app.get('/', (req, res) => {
+  res.render('index'); // akan mencari file views/index.ejs
+});
+
+app.get('/', (req, res) => {
+  res.render('index'); // akan mencari file views/index.ejs
+});
+
+app.get('/', (req, res) => {
+  res.render('index'); // akan mencari file views/index.ejs
+});
+
+
+
 
 // Mulai server setelah database disinkronkan
 const PORT = process.env.PORT || 3000;
