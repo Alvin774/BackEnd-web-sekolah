@@ -128,6 +128,13 @@ app.get('/ppdb', (req, res) => {
   res.render('ppdb'); // akan mencari file views/index.ejs
 });
 
+app.get('/login', (req, res) => {
+  res.render('login'); // akan mencari file views/index.ejs
+});
+
+app.get('/register', (req, res) => {
+  res.render('/register'); // akan mencari file views/index.ejs
+});
 
 
 
