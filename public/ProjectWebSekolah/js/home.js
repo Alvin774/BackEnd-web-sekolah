@@ -111,7 +111,7 @@ function initCounters() {
 /* =================== Function to Load News =================== */
 async function loadNews() {
   try {
-    const response = await fetch('http://127.0.0.1:3307/api/news');
+    const response = await fetch('https://smpsaadatuddarainnw.up.railway.app/api/news');
     const newsList = await response.json();
     const newsContainer = document.querySelector('.berita-artikel .row');
     if (newsContainer) {
@@ -142,7 +142,7 @@ async function loadNews() {
 /* =================== Function to Load Banner =================== */
 async function loadBanner() {
   try {
-    const response = await fetch('https://smpsaadatuddarainnw.up.railway.app:3307/api/banner');
+    const response = await fetch('http://smpsaadatuddarainnw.up.railway.app/api/banner');
     const data = await response.json();
     const banner = Array.isArray(data) ? data[0] : data;
     if (banner && banner.imageUrl) {
@@ -170,7 +170,7 @@ async function loadBanner() {
 
 async function loadAnnouncements() {
   try {
-    const response = await fetch('https://smpsaadatuddarainnw.up.railway.app:3307/api/announcements');
+    const response = await fetch('https://smpsaadatuddarainnw.up.railway.app/api/announcements');
     if (!response.ok) {
       throw new Error('Failed to fetch announcements');
     }
