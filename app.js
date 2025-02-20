@@ -7,6 +7,8 @@ require('dotenv').config();
 
 const app = express();
 app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
 
 const helmet = require('helmet');
 
