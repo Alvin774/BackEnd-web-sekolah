@@ -214,6 +214,9 @@ app.get('/change-data-siswa', (req, res) => {
 });
 
 
+app.get('/admin-guru', (req, res) => {
+  res.render('admin-guru'); // akan mencari file views/index.ejs
+});
 
 
 
