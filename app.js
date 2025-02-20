@@ -219,6 +219,12 @@ app.get('/admin-guru', (req, res) => {
 });
 
 
+app.get('/admin-extrakurikuler', (req, res) => {
+  res.render('admin-extrakurikuler'); // akan mencari file views/index.ejs
+});
+
+
+
 
 // Mulai server setelah database disinkronkan
 const PORT = process.env.PORT || 3000;
