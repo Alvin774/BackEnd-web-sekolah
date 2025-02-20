@@ -374,14 +374,14 @@
         let response;
         if (dataSekolahId) {
           // Update (PUT)
-          response = await fetch(`http://127.0.0.1:3307/api/data-sekolah/${dataSekolahId}`, {
+          response = await fetch(`/api/data-sekolah/${dataSekolahId}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
           });
         } else {
           // Tambah data baru (POST)
-          response = await fetch('http://127.0.0.1:3307/api/data-sekolah', {
+          response = await fetch('/api/data-sekolah', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
@@ -404,7 +404,7 @@
       if (!confirm("Apakah Anda yakin ingin menghapus data sekolah ini?")) return;
       try {
         const dataSekolahId = document.getElementById('dataSekolahId').value;
-        const response = await fetch(`http://127.0.0.1:3307/api/data-sekolah/${dataSekolahId}`, {
+        const response = await fetch(`/api/data-sekolah/${dataSekolahId}`, {
           method: 'DELETE'
         });
         const result = await response.json();

@@ -22,7 +22,7 @@ document.getElementById('form-register').addEventListener('click', async functio
   
     try {
       // Pastikan URL mengarah ke server backend yang benar (misalnya port 3000)
-      const response = await fetch('http://127.0.0.1:3000/api/auth/register', {
+      const response = await fetch('/api/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

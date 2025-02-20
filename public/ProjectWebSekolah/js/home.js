@@ -142,7 +142,7 @@ async function loadNews() {
 /* =================== Function to Load Banner =================== */
 async function loadBanner() {
   try {
-    const response = await fetch('http://smpsaadatuddarainnw.up.railway.app/api/banner');
+    const response = await fetch('/api/banner');
     const data = await response.json();
     const banner = Array.isArray(data) ? data[0] : data;
     if (banner && banner.imageUrl) {
@@ -170,7 +170,7 @@ async function loadBanner() {
 
 async function loadAnnouncements() {
   try {
-    const response = await fetch('https://smpsaadatuddarainnw.up.railway.app/api/announcements');
+    const response = await fetch('/api/announcements');
     if (!response.ok) {
       throw new Error('Failed to fetch announcements');
     }
@@ -250,7 +250,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 async function loadStatistics() {
   try {
-    const response = await fetch('https://smpsaadatuddarainnw.up.railway.app:3307/api/statistics');
+    const response = await fetch('/api/statistics');
     if (!response.ok) {
       throw new Error('Failed to fetch statistics');
     }
@@ -278,7 +278,7 @@ document.addEventListener("DOMContentLoaded", loadStatistics);
 
 async function loadAlumniReviews() {
   try {
-    const response = await fetch('https://smpsaadatuddarainnw.up.railway.app:3307/api/alumniReview');
+    const response = await fetch('/api/alumniReview');
     if (!response.ok) {
       throw new Error('Failed to fetch alumni reviews');
     }
