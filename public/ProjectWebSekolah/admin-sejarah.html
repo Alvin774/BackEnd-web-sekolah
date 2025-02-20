@@ -59,7 +59,7 @@
     // Fungsi untuk mengambil data sejarah dari API
     async function loadSejarah() {
       try {
-        const response = await fetch('http://127.0.0.1:3000/api/sejarah');
+        const response = await fetch('/api/sejarah');
         if (response.ok) {
           const data = await response.json();
           document.getElementById('sejarahId').value = data.id;
@@ -85,13 +85,13 @@
       try {
         let response;
         if (id) {
-          response = await fetch(`http://127.0.0.1:3000/api/sejarah/${id}`, {
+          response = await fetch(`/api/sejarah/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ content })
           });
         } else {
-          response = await fetch('http://127.0.0.1:3000/api/sejarah', {
+          response = await fetch('/api/sejarah', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ content })
@@ -111,7 +111,7 @@
       const id = document.getElementById('sejarahId').value;
       if (!confirm("Apakah Anda yakin ingin menghapus data sejarah?")) return;
       try {
-        const response = await fetch(`http://127.0.0.1:3000/api/sejarah/${id}`, {
+        const response = await fetch(`/api/sejarah/${id}`, {
           method: 'DELETE'
         });
         const result = await response.json();

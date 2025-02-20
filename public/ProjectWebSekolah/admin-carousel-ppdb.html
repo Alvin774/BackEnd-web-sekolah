@@ -510,9 +510,6 @@
           document.getElementById('previewInfoText').innerText = data.infoText || "[Informasi Penting]";
           const startDate = data.registrationStart ? new Date(data.registrationStart).toLocaleDateString() : "-";
           const endDate = data.registrationEnd ? new Date(data.registrationEnd).toLocaleDateString() : "-";
-          document.getElementById('previewRegistrationStart').innerText = startDate;
-          document.getElementById('previewRegistrationEnd').innerText = endDate;
-
           // Tampilkan tombol hapus jika data ada
           document.getElementById('deletePPDBInfoBtn').style.display = "inline-block";
         }

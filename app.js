@@ -1,4 +1,5 @@
 const express = require('express');
+const helmet = require('helmet');
 const cors = require('cors');
 const morgan = require('morgan');
 const path = require('path');
@@ -6,18 +7,22 @@ const sequelize = require('./config/database');
 require('dotenv').config();
 
 const app = express();
+app.set('view engine', 'ejs');
+
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
 
+app.use(helmet());
+
 // Set static folder untuk front-end (misalnya, folder ProjectWebSekolah)
 app.use(express.static(path.join(__dirname, 'public/ProjectWebSekolah')));
 
 // Jika akses root ('/') maka kirim file index.html
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/ProjectWebSekolah', 'index.html'));
+  res.sendFile(path.join(__dirname, 'public/ProjectWebSekolah', 'index'));
 });
 
 // Routes
