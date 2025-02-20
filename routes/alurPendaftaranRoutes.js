@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const multer = require('multer');
 
-// Gunakan memoryStorage agar file tersimpan dalam buffer untuk diupload ke Cloudinary
+// Gunakan memoryStorage agar file tersimpan dalam buffer untuk langsung diupload ke Cloudinary
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
@@ -12,7 +12,7 @@ const alurPendaftaranController = require('../controllers/alurPendaftaranControl
 // GET: Ambil semua data alur pendaftaran (diurutkan berdasarkan stepNumber ascending)
 router.get('/', alurPendaftaranController.getAllAlurPendaftaran);
 
-// POST: Tambah data alur pendaftaran baru, dengan opsi upload gambar
+// POST: Tambah data alur pendaftaran baru, dengan opsi upload gambar (field 'image')
 router.post('/', upload.single('image'), alurPendaftaranController.addAlurPendaftaran);
 
 // PUT: Perbarui data alur pendaftaran berdasarkan ID, dengan opsi upload gambar baru

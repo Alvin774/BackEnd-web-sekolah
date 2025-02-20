@@ -1,10 +1,8 @@
-// controllers/alumniReviewController.js
-
 const AlumniReview = require('../models/AlumniReview');
 const cloudinary = require('../config/cloudinary');
 const path = require('path');
 
-// Helper: Fungsi untuk mengupload buffer ke Cloudinary
+// Helper: Fungsi untuk mengupload file buffer ke Cloudinary
 const uploadFromBuffer = (buffer, folder) => {
   return new Promise((resolve, reject) => {
     const stream = cloudinary.uploader.upload_stream(
@@ -38,27 +36,30 @@ exports.getAllAlumniReviews = async (req, res) => {
 /**
  * POST /api/alumniReviews
  * Menambahkan alumni review baru.
- * Jika ada file yang diupload (field 'image'), upload ke Cloudinary dan simpan URL-nya.
+ * Jika ada file yang diupload (field 'image'), upload ke Cloudinary dan simpan URL serta public_id-nya.
  */
 exports.addAlumniReview = async (req, res) => {
   try {
     const { review, alumniName, alumniYear } = req.body;
+    if (!review || !alumniName || !alumniYear) {
+      return res.status(400).json({ message: "Review, alumni name, and alumni year are required." });
+    }
+    
     let imageUrl = null;
     let imagePublicId = null;
-    
-    // Jika ada file yang diupload, gunakan Cloudinary
     if (req.file) {
       const result = await uploadFromBuffer(req.file.buffer, 'alumniReviews');
       imageUrl = result.secure_url;
       imagePublicId = result.public_id;
     }
     
-    // Validasi: Pastikan field wajib diisi
-    if (!review || !alumniName || !alumniYear) {
-      return res.status(400).json({ message: "Review, alumni name, and alumni year are required." });
-    }
-    
-    const newReview = await AlumniReview.create({ review, alumniName, alumniYear, imageUrl, imagePublicId });
+    const newReview = await AlumniReview.create({
+      review,
+      alumniName,
+      alumniYear,
+      imageUrl,
+      imagePublicId
+    });
     res.status(201).json({ message: "Alumni review added successfully", review: newReview });
   } catch (error) {
     console.error("Error adding alumni review:", error);
@@ -81,7 +82,6 @@ exports.updateAlumniReview = async (req, res) => {
       return res.status(404).json({ message: "Alumni review not found" });
     }
     
-    // Jika ada file baru diupload, upload ke Cloudinary
     if (req.file) {
       // Jika ada imagePublicId sebelumnya, hapus gambar lama dari Cloudinary
       if (alumniReview.imagePublicId) {
@@ -92,13 +92,11 @@ exports.updateAlumniReview = async (req, res) => {
           console.error("Error deleting old image from Cloudinary:", err);
         }
       }
-      
       const result = await uploadFromBuffer(req.file.buffer, 'alumniReviews');
       alumniReview.imageUrl = result.secure_url;
       alumniReview.imagePublicId = result.public_id;
     }
     
-    // Perbarui field lainnya
     alumniReview.review = review !== undefined ? review : alumniReview.review;
     alumniReview.alumniName = alumniName !== undefined ? alumniName : alumniReview.alumniName;
     alumniReview.alumniYear = alumniYear !== undefined ? alumniYear : alumniReview.alumniYear;
@@ -123,7 +121,6 @@ exports.deleteAlumniReview = async (req, res) => {
       return res.status(404).json({ message: "Alumni review not found" });
     }
     
-    // Jika ada imagePublicId, hapus gambar dari Cloudinary
     if (alumniReview.imagePublicId) {
       try {
         await cloudinary.uploader.destroy(alumniReview.imagePublicId);

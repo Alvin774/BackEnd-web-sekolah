@@ -1,10 +1,8 @@
-// controllers/alurPendaftaranController.js
-
 const AlurPendaftaran = require('../models/AlurPendaftaran');
-const cloudinary = require('../config/cloudinary'); // Pastikan file ini sudah disiapkan
+const cloudinary = require('../config/cloudinary');
 const path = require('path');
 
-// Helper: Fungsi untuk mengupload buffer ke Cloudinary
+// Helper: Fungsi untuk mengupload file buffer ke Cloudinary
 const uploadFromBuffer = (buffer, folder) => {
   return new Promise((resolve, reject) => {
     const stream = cloudinary.uploader.upload_stream(
@@ -50,7 +48,7 @@ exports.addAlurPendaftaran = async (req, res) => {
       return res.status(400).json({ message: "Gambar untuk alur pendaftaran wajib diupload." });
     }
     
-    // Upload file ke Cloudinary
+    // Upload file ke Cloudinary di folder 'alurpendaftaran'
     const result = await uploadFromBuffer(req.file.buffer, 'alurpendaftaran');
     const imageUrl = result.secure_url;
     const imagePublicId = result.public_id;
