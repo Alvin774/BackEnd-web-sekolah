@@ -95,7 +95,7 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
       if (data.role && data.role.toLowerCase() === 'admin') {
         window.location.href = "admin-dashbord.html";
       } else {
-        window.location.href = "pengumuman-akun-berhasil.html";
+        window.location.href = "form-pendaftaran.html";
       }
     } else {
       errorMessage.innerText = data.message || "Login gagal. Silakan periksa email dan password Anda.";
