@@ -94,20 +94,39 @@ app.get('/sambutan', (req, res) => {
   res.render('sambutan'); // akan mencari file views/index.ejs
 });
 
-app.get('/', (req, res) => {
-  res.render('index'); // akan mencari file views/index.ejs
+app.get('/dats-sekolah', (req, res) => {
+  res.render('data-sekolah'); // akan mencari file views/index.ejs
 });
 
-app.get('/', (req, res) => {
-  res.render('index'); // akan mencari file views/index.ejs
+app.get('/sejarah', (req, res) => {
+  res.render('sejarah'); // akan mencari file views/index.ejs
 });
 
-app.get('/', (req, res) => {
-  res.render('index'); // akan mencari file views/index.ejs
+app.get('/visi-misi', (req, res) => {
+  res.render('visi-misi-tujuan'); // akan mencari file views/index.ejs
 });
 
-app.get('/', (req, res) => {
-  res.render('index'); // akan mencari file views/index.ejs
+app.get('/struktur-organisasi', (req, res) => {
+  res.render('struktur-organisasi'); // akan mencari file views/index.ejs
+});
+
+app.get('/guru', (req, res) => {
+  res.render('guru'); // akan mencari file views/index.ejs
+});
+
+app.get('/fasilitas', (req, res) => {
+  res.render('fasilitas'); // akan mencari file views/index.ejs
+});
+app.get('/prestasi', (req, res) => {
+  res.render('prestasi'); // akan mencari file views/index.ejs
+});
+
+app.get('/extrakurikuler', (req, res) => {
+  res.render('extrakurikuler'); // akan mencari file views/index.ejs
+});
+
+app.get('/ppdb', (req, res) => {
+  res.render('ppdb'); // akan mencari file views/index.ejs
 });
 
 
