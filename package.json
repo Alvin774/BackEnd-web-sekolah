@@ -5,7 +5,7 @@
   "license": "ISC",
   "author": "alvin agustiar",
   "type": "commonjs",
-  "main": "./public/ProjectWebSekolah/index.html",
+  "main": "app.js",
   "scripts": {
         "start": "node app.js"
   },
