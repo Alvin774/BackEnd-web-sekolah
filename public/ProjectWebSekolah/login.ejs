@@ -66,7 +66,7 @@
       </div>
       <div id="errorMessage" class="text-danger"></div>
       <div class="d-grid">
-        <p>Belum punya akun?.           <a href="register.html" class="text-decoration-none">Register</a>
+        <p>Belum punya akun?.           <a href="register" class="text-decoration-none">Register</a>
         </p>
         <button type="submit" class="btn btn-success">Login</button>
       </div>
@@ -74,7 +74,7 @@
   </div>
 
   <script>
-document.getElementById("loginForm").addEventListener("submit", async function(e) {
+  document.getElementById("loginForm").addEventListener("submit", async function(e) {
   e.preventDefault();
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value;
@@ -93,7 +93,7 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
     if (response.ok) {
       // Jika role admin, redirect ke halaman admin, jika tidak, redirect ke halaman daftar
       if (data.role && data.role.toLowerCase() === 'admin') {
-        window.location.href = "/admin-dashbord";
+        window.location.href = "admin-dashbord";
       } else {
         window.location.href = "form-pendaftaran";
       }
