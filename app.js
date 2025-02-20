@@ -1,5 +1,4 @@
 const express = require('express');
-const helmet = require('helmet');
 const cors = require('cors');
 const morgan = require('morgan');
 const path = require('path');
@@ -15,36 +14,6 @@ app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
 app.use(helmet());
-
-
-
-app.use(
-  helmet.contentSecurityPolicy({
-    useDefaults: true,
-    directives: {
-      defaultSrc: ["'self'"],
-      scriptSrc: [
-        "'self'",
-        "https://cdn.jsdelivr.net",
-        "https://www.google.com"
-      ],
-      styleSrc: [
-        "'self'",
-        "https://cdn.jsdelivr.net",
-        "https://fonts.googleapis.com"
-      ],
-      imgSrc: [
-        "'self'",
-        "data:",
-        "https://res.cloudinary.com"
-      ],
-      connectSrc: ["'self'"],
-      frameSrc: ["'self'", "https://www.google.com"],
-      // Perhatikan bahwa upgradeInsecureRequests tidak memerlukan nilai, jadi gunakan [] atau hapus jika tidak diperlukan.
-      upgradeInsecureRequests: [],
-    },
-  })
-);
 
 // Routes
 const uploadRoutes = require('./routes/uploadRoutes');
