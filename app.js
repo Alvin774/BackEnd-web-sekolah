@@ -14,7 +14,6 @@ app.set('view engine', 'ejs');
 app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
-
 app.use(helmet());
 
 // Set static folder untuk front-end (misalnya, folder ProjectWebSekolah)
@@ -22,7 +21,7 @@ app.use(express.static(path.join(__dirname, 'public/ProjectWebSekolah')));
 
 // Jika akses root ('/') maka kirim file index.html
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/ProjectWebSekolah', 'index'));
+  res.sendFile(path.join(__dirname, 'public/ProjectWebSekolah', 'index.ejs'));
 });
 
 // Routes
