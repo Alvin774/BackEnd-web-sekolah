@@ -1,17 +1,19 @@
 // config/database.js
 const { Sequelize } = require('sequelize');
-require('dotenv').config();
 
-const sequelize = new Sequelize(
-  process.env.DB_NAME,     // Nama database
-  process.env.DB_USER,     // Username database
-  process.env.DB_PASSWORD, // Password database
-  {
-    host: process.env.DB_HOST,  // Host MySQL, misal "localhost"
-    port: process.env.PORT,
-    dialect: 'mysql',
-    logging: false,             // Nonaktifkan logging SQL (opsional)
+// Mengambil connection string dari environment variable
+const sequelize = new Sequelize(process.env.DATABASE_URL, {
+  dialect: 'mysql',
+  // Opsi tambahan jika diperlukan
+});
+
+// Contoh: Cek koneksi
+async function testConnection() {
+  try {
+    await sequelize.authenticate();
+    console.log('Koneksi berhasil.');
+  } catch (error) {
+    console.error('Koneksi gagal:', error);
   }
-);
-
-module.exports = sequelize;
+}
+testConnection();
