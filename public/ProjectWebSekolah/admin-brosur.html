@@ -199,7 +199,7 @@
     /* ---------- PPDB Info ---------- */
     async function loadPPDBInfo() {
       try {
-        const response = await fetch('http://127.0.0.1:3307/api/ppdbinfo');
+        const response = await fetch('/api/ppdbinfo');
         if (!response.ok) throw new Error('Gagal mengambil data PPDB Info');
         const dataArray = await response.json();
         // Asumsi hanya ada satu record
@@ -232,13 +232,13 @@
         let response;
         const id = document.getElementById('ppdbInfoId').value;
         if (id) {
-          response = await fetch(`http://127.0.0.1:3307/api/ppdbinfo/${id}`, {
+          response = await fetch(`/api/ppdbinfo/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
           });
         } else {
-          response = await fetch('http://127.0.0.1:3307/api/ppdbinfo', {
+          response = await fetch('/api/ppdbinfo', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
@@ -261,7 +261,7 @@
       if (!confirm("Apakah Anda yakin ingin menghapus data PPDB Info ini?")) return;
       try {
         const id = document.getElementById('ppdbInfoId').value;
-        const response = await fetch(`http://127.0.0.1:3307/api/ppdbinfo/${id}`, { method: 'DELETE' });
+        const response = await fetch(`/api/ppdbinfo/${id}`, { method: 'DELETE' });
         const result = await response.json();
         if (response.ok) {
           alert(result.message);
@@ -280,7 +280,7 @@
     /* ---------- PPDB Brosur ---------- */
     async function loadPPDBBrosur() {
       try {
-        const response = await fetch('http://127.0.0.1:3307/api/ppdbbrosur');
+        const response = await fetch('/api/ppdbbrosur');
         if (!response.ok) throw new Error('Gagal mengambil data PPDB Brosur');
         const dataArray = await response.json();
         const data = Array.isArray(dataArray) ? dataArray[0] : dataArray;
@@ -301,12 +301,12 @@
         let response;
         const id = document.getElementById('ppdbBrosurId').value;
         if (id) {
-          response = await fetch(`http://127.0.0.1:3307/api/ppdbbrosur/${id}`, {
+          response = await fetch(`/api/ppdbbrosur/${id}`, {
             method: 'PUT',
             body: formData
           });
         } else {
-          response = await fetch('http://127.0.0.1:3307/api/ppdbbrosur', {
+          response = await fetch('/api/ppdbbrosur', {
             method: 'POST',
             body: formData
           });
@@ -329,7 +329,7 @@
       if (!confirm("Apakah Anda yakin ingin menghapus data PPDB Brosur ini?")) return;
       try {
         const id = document.getElementById('ppdbBrosurId').value;
-        const response = await fetch(`http://127.0.0.1:3307/api/ppdbbrosur/${id}`, { method: 'DELETE' });
+        const response = await fetch(`/api/ppdbbrosur/${id}`, { method: 'DELETE' });
         const result = await response.json();
         if (response.ok) {
           alert(result.message);
@@ -348,7 +348,7 @@
     /* ---------- Alur Pendaftaran ---------- */
     async function loadAlurPendaftaran() {
       try {
-        const response = await fetch('http://127.0.0.1:3307/api/alurpendaftaran');
+        const response = await fetch('/api/alurpendaftaran');
         if (!response.ok) throw new Error('Gagal mengambil data alur pendaftaran');
         const steps = await response.json();
         const container = document.getElementById('alurList');
@@ -388,12 +388,12 @@
         let response;
         const id = document.getElementById('alurId').value;
         if (id) {
-          response = await fetch(`http://127.0.0.1:3307/api/alurpendaftaran/${id}`, {
+          response = await fetch(`/api/alurpendaftaran/${id}`, {
             method: 'PUT',
             body: formData
           });
         } else {
-          response = await fetch('http://127.0.0.1:3307/api/alurpendaftaran', {
+          response = await fetch('/api/alurpendaftaran', {
             method: 'POST',
             body: formData
           });
@@ -415,7 +415,7 @@
     async function deleteAlur(id) {
       if (!confirm("Apakah Anda yakin ingin menghapus langkah pendaftaran ini?")) return;
       try {
-        const response = await fetch(`http://127.0.0.1:3307/api/alurpendaftaran/${id}`, {
+        const response = await fetch(`/api/alurpendaftaran/${id}`, {
           method: 'DELETE'
         });
         const result = await response.json();

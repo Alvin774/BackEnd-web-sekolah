@@ -83,7 +83,7 @@
     // Fungsi untuk memuat data pendaftaran dari API
     async function loadPendaftaran() {
       try {
-        const response = await fetch('http://127.0.0.1:3307/api/pendaftaran');
+        const response = await fetch('/api/pendaftaran');
         if (!response.ok) throw new Error('Gagal mengambil data pendaftaran');
         const pendaftaranList = await response.json();
         const tbody = document.getElementById('pendaftaranBody');

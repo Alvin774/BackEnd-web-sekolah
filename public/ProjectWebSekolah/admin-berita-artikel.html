@@ -103,7 +103,7 @@
       async function loadAdminNews() {
         try {
           // Lakukan request GET ke endpoint untuk mengambil semua berita
-          const response = await fetch('http://127.0.0.1:3307/api/news');
+          const response = await fetch('/api/news');
           const newsList = await response.json();
 
           // Pastikan di HTML, <tbody> dari tabel memiliki id="newsTableBody"
@@ -148,7 +148,7 @@
       async function deleteNews(id) {
         if (!confirm('Apakah Anda yakin ingin menghapus berita ini?')) return;
         try {
-          const response = await fetch(`http://127.0.0.1:3307/api/news/${id}`, {
+          const response = await fetch(`/api/news/${id}`, {
             method: 'DELETE'
           });
           const result = await response.json();
@@ -286,7 +286,7 @@
     // Fungsi untuk memuat semua alumni reviews dari API
     async function loadAlumniReviews() {
       try {
-        const response = await fetch('http://127.0.0.1:3307/api/alumniReview');
+        const response = await fetch('/api/alumniReview');
         if (!response.ok) throw new Error('Failed to fetch alumni reviews');
         const reviews = await response.json();
         const container = document.getElementById('reviewsList');
@@ -325,13 +325,13 @@
         let response;
         if (reviewId) {
           // Update review
-          response = await fetch(`http://127.0.0.1:3307/api/alumniReview/${reviewId}`, {
+          response = await fetch(`/api/alumniReview/${reviewId}`, {
             method: 'PUT',
             body: formData
           });
         } else {
           // Tambah review baru
-          response = await fetch('http://127.0.0.1:3307/api/alumniReview', {
+          response = await fetch('/api/alumniReview', {
             method: 'POST',
             body: formData
           });
@@ -363,7 +363,7 @@
     async function editReview(id) {
       try {
         // Ambil semua review, kemudian cari berdasarkan id
-        const response = await fetch('http://127.0.0.1:3307/api/alumniReview');
+        const response = await fetch('/api/alumniReview');
         if (!response.ok) throw new Error("Failed to fetch alumni reviews");
         const reviews = await response.json();
         const review = reviews.find(r => r.id === id);
@@ -389,7 +389,7 @@
     async function deleteReview(id) {
       if (!confirm("Apakah Anda yakin ingin menghapus alumni review ini?")) return;
       try {
-        const response = await fetch(`http://127.0.0.1:3307/api/alumniReview/${id}`, {
+        const response = await fetch(`/api/alumniReview/${id}`, {
           method: 'DELETE'
         });
         const result = await response.json();

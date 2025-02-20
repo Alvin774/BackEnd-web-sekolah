@@ -451,7 +451,7 @@
   <script>
     async function loadPPDBCarousel() {
       try {
-        const response = await fetch('http://127.0.0.1:3307/api/ppdbcarousel');
+        const response = await fetch('/api/ppdbcarousel');
         if (!response.ok) {
           throw new Error('Gagal mengambil data PPDB Carousel');
         }
@@ -521,7 +521,7 @@
     // Fungsi untuk memuat PPDB Brosur
     async function loadPPDBBrosur() {
       try {
-        const response = await fetch('http://127.0.0.1:3307/api/ppdbbrosur');
+        const response = await fetch('/api/ppdbbrosur');
         if (!response.ok) throw new Error('Gagal mengambil data PPDB Brosur');
         const jsonData = await response.json();
         const data = Array.isArray(jsonData) ? jsonData[0] : jsonData;
@@ -536,7 +536,7 @@
     // Fungsi untuk memuat Alur Pendaftaran dan mencetaknya dengan forEach
     async function loadAlurPendaftaran() {
       try {
-        const response = await fetch('http://127.0.0.1:3307/api/alurpendaftaran');
+        const response = await fetch('/api/alurpendaftaran');
         if (!response.ok) throw new Error('Gagal mengambil data alur pendaftaran');
         const steps = await response.json();
         const container = document.getElementById('alurContainer');
@@ -572,7 +572,7 @@
         // Contoh fungsi load (jika API tersedia, gunakan fetch API)
         async function loadPPDBInfo() {
       try {
-        const response = await fetch('http://127.0.0.1:3307/api/ppdbinfo');
+        const response = await fetch('/api/ppdbinfo');
         if (!response.ok) throw new Error('Gagal mengambil data PPDB Info');
         const jsonData = await response.json();
         const data = Array.isArray(jsonData) ? jsonData[0] : jsonData;

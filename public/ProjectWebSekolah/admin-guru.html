@@ -268,7 +268,7 @@
     // Fungsi untuk memuat data guru dari API
     async function loadGuru() {
       try {
-        const response = await fetch('http://127.0.0.1:3307/api/guru');
+        const response = await fetch('/api/guru');
         if (!response.ok) throw new Error('Failed to fetch guru data');
         const gurus = await response.json();
         const container = document.getElementById('guruList');
@@ -307,13 +307,13 @@
         let response;
         if (guruId) {
           // Update guru
-          response = await fetch(`http://127.0.0.1:3307/api/guru/${guruId}`, {
+          response = await fetch(`/api/guru/${guruId}`, {
             method: 'PUT',
             body: formData
           });
         } else {
           // Tambah guru baru
-          response = await fetch('http://127.0.0.1:3307/api/guru', {
+          response = await fetch('/api/guru', {
             method: 'POST',
             body: formData
           });
@@ -335,7 +335,7 @@
     // Fungsi untuk mengisi form dengan data guru (mode edit)
     async function editGuru(id) {
       try {
-        const response = await fetch('http://127.0.0.1:3307/api/guru');
+        const response = await fetch('/api/guru');
         if (!response.ok) throw new Error("Failed to fetch guru data");
         const gurus = await response.json();
         const guru = gurus.find(g => g.id === id);
@@ -360,7 +360,7 @@
     async function deleteGuru(id) {
       if (!confirm("Apakah Anda yakin ingin menghapus data guru ini?")) return;
       try {
-        const response = await fetch(`http://127.0.0.1:3307/api/guru/${id}`, {
+        const response = await fetch(`/api/guru/${id}`, {
           method: 'DELETE'
         });
         const result = await response.json();

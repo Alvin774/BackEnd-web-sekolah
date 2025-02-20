@@ -274,7 +274,7 @@
   <script>
     async function loadDataSekolah() {
       try {
-        const response = await fetch('http://127.0.0.1:3307/api/data-sekolah');
+        const response = await fetch('/api/data-sekolah');
         if (!response.ok) throw new Error('Gagal mengambil data sekolah');
         const data = await response.json();
 

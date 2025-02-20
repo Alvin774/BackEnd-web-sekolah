@@ -121,7 +121,7 @@
     // Fungsi untuk memuat data struktur organisasi dari API
     async function loadStrukturOrganisasi() {
       try {
-        const response = await fetch('http://127.0.0.1:3307/api/strukturorganisasi');
+        const response = await fetch('/api/strukturorganisasi');
         if (!response.ok) throw new Error('Gagal mengambil data struktur organisasi');
         const data = await response.json();
         const tbody = document.getElementById('strukturList');
@@ -161,14 +161,14 @@
         let response;
         if (id) {
           // Update record
-          response = await fetch(`http://127.0.0.1:3307/api/strukturorganisasi/${id}`, {
+          response = await fetch(`/api/strukturorganisasi/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
           });
         } else {
           // Create new record
-          response = await fetch('http://127.0.0.1:3307/api/strukturorganisasi', {
+          response = await fetch('/api/strukturorganisasi', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
@@ -191,7 +191,7 @@
     // Fungsi untuk mengisi form dengan data yang akan diedit
     async function editStruktur(id) {
       try {
-        const response = await fetch('http://127.0.0.1:3307/api/strukturorganisasi');
+        const response = await fetch('/api/strukturorganisasi');
         if (!response.ok) throw new Error('Gagal mengambil data struktur organisasi');
         const data = await response.json();
         const record = data.find(item => item.id === id);
@@ -212,7 +212,7 @@
     async function deleteStruktur(id) {
       if (!confirm("Apakah Anda yakin ingin menghapus data ini?")) return;
       try {
-        const response = await fetch(`http://127.0.0.1:3307/api/strukturorganisasi/${id}`, {
+        const response = await fetch(`/api/strukturorganisasi/${id}`, {
           method: 'DELETE'
         });
         const result = await response.json();

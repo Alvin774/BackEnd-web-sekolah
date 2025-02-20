@@ -104,7 +104,7 @@
     // Fungsi untuk memuat data sambutan dari API dan mengisi preview & form
     async function loadSambutan() {
       try {
-        const response = await fetch('http://127.0.0.1:3307/api/sambutans');
+        const response = await fetch('/api/sambutans');
         if (!response.ok) {
           throw new Error('Gagal mengambil data sambutan');
         }
@@ -156,13 +156,13 @@
         let response;
         if (sambutanId) {
           // Update (PUT)
-          response = await fetch(`http://127.0.0.1:3307/api/sambutans/${sambutanId}`, {
+          response = await fetch(`/api/sambutans/${sambutanId}`, {
             method: 'PUT',
             body: formData
           });
         } else {
           // Tambah (POST)
-          response = await fetch('http://127.0.0.1:3307/api/sambutans', {
+          response = await fetch('/api/sambutans', {
             method: 'POST',
             body: formData
           });
