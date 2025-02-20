@@ -93,9 +93,9 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
     if (response.ok) {
       // Jika role admin, redirect ke halaman admin, jika tidak, redirect ke halaman daftar
       if (data.role && data.role.toLowerCase() === 'admin') {
-        window.location.href = "admin-dashbord.html";
+        window.location.href = "admin-dashbord";
       } else {
-        window.location.href = "form-pendaftaran.html";
+        window.location.href = "form-pendaftaran";
       }
     } else {
       errorMessage.innerText = data.message || "Login gagal. Silakan periksa email dan password Anda.";

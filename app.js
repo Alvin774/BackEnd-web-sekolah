@@ -153,7 +153,7 @@ app.get('/prestasi', (req, res) => {
 });
 
 app.get('/ekstrakurikuler', (req, res) => {
-  res.render('extrakurikuler'); // akan mencari file views/index.ejs
+  res.render('ekstrakurikuler'); // akan mencari file views/index.ejs
 });
 
 app.get('/ppdb', (req, res) => {
@@ -168,6 +168,20 @@ app.get('/register', (req, res) => {
   res.render('/register'); // akan mencari file views/index.ejs
 });
 
+app.get('/admin-dashbord', (req, res) => {
+  res.render('/admin-dashbord'); // akan mencari file views/index.ejs
+});
+
+app.get('/admin-berita-artikel', (req, res) => {
+  res.render('/admin-berita-artikel'); // akan mencari file views/index.ejs
+});
+app.get('/admin-carousel-ppdb', (req, res) => {
+  res.render('/admin-carousel-ppdb'); // akan mencari file views/index.ejs
+});
+
+app.get('/form-pendaftaran', (req, res) => {
+  res.render('/form-pendaftaran'); // akan mencari file views/index.ejs
+});
 
 
 // Mulai server setelah database disinkronkan
