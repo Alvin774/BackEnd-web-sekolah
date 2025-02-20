@@ -125,7 +125,7 @@ app.get('/sambutan', (req, res) => {
   res.render('sambutan'); // akan mencari file views/index.ejs
 });
 
-app.get('/dats-sekolah', (req, res) => {
+app.get('/data-sekolah', (req, res) => {
   res.render('data-sekolah'); // akan mencari file views/index.ejs
 });
 
