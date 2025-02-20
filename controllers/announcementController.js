@@ -1,5 +1,3 @@
-// controllers/announcementController.js
-
 const Announcement = require('../models/Announcement');
 
 /**
