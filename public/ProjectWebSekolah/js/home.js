@@ -170,7 +170,7 @@ async function loadBanner() {
 
 async function loadAnnouncements() {
   try {
-    const response = await fetch('http://127.0.0.1:3307/api/announcements');
+    const response = await fetch('https://smpsaadatuddarainnw.up.railway.app:3307/api/announcements');
     if (!response.ok) {
       throw new Error('Failed to fetch announcements');
     }
@@ -250,7 +250,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 async function loadStatistics() {
   try {
-    const response = await fetch('http://127.0.0.1:3307/api/statistics');
+    const response = await fetch('https://smpsaadatuddarainnw.up.railway.app:3307/api/statistics');
     if (!response.ok) {
       throw new Error('Failed to fetch statistics');
     }
@@ -278,7 +278,7 @@ document.addEventListener("DOMContentLoaded", loadStatistics);
 
 async function loadAlumniReviews() {
   try {
-    const response = await fetch('http://127.0.0.1:3307/api/alumniReview');
+    const response = await fetch('https://smpsaadatuddarainnw.up.railway.app:3307/sekolah_decidewho/api/alumniReview');
     if (!response.ok) {
       throw new Error('Failed to fetch alumni reviews');
     }

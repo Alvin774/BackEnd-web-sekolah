@@ -100,7 +100,7 @@ app.get('/', (req, res) => {
 const statisticRoutes = require('./routes/statisticRoutes');
 app.use('/api/statistics', statisticRoutes);
 // Sinkronisasi database dan jalankan server
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 sequelize.sync({ alter: true })
   .then(() => {
     console.log('Database terhubung');
