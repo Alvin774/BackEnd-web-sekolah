@@ -1,134 +1,84 @@
-const Prestasi = require('../models/Prestasi');
-const cloudinary = require('../config/cloudinary');
-const path = require('path');
-
-// Helper: Fungsi untuk mengupload file buffer ke Cloudinary
-const uploadFromBuffer = (buffer, folder) => {
-  return new Promise((resolve, reject) => {
-    const stream = cloudinary.uploader.upload_stream(
-      { folder },
-      (error, result) => {
-        if (error) {
-          reject(error);
-        } else {
-          resolve(result);
-        }
-      }
-    );
-    stream.end(buffer);
-  });
-};
+const Announcement = require('../models/Announcement');
 
 /**
- * GET /api/prestasi
- * Ambil semua data prestasi, diurutkan berdasarkan createdAt (terbaru dulu)
+ * GET /api/announcements
+ * Mengambil semua pengumuman/agenda, diurutkan berdasarkan eventDate secara descending.
  */
-exports.getAllPrestasi = async (req, res) => {
+exports.getAllAnnouncements = async (req, res) => {
   try {
-    const prestasiList = await Prestasi.findAll({ order: [['createdAt', 'DESC']] });
-    res.json(prestasiList);
+    const announcements = await Announcement.findAll({ order: [['eventDate', 'DESC']] });
+    res.json(announcements);
   } catch (error) {
-    console.error("Error retrieving prestasi:", error);
-    res.status(500).json({ message: "Error retrieving prestasi", error: error.message });
+    console.error("Error retrieving announcements:", error);
+    res.status(500).json({ message: "Error retrieving announcements", error: error.message });
   }
 };
 
 /**
- * POST /api/prestasi
- * Tambah data prestasi baru (dengan upload gambar ke Cloudinary)
+ * POST /api/announcements
+ * Menambahkan pengumuman/agenda baru.
+ * Pastikan field title, content, dan eventDate diisi.
  */
-exports.addPrestasi = async (req, res) => {
+exports.addAnnouncement = async (req, res) => {
   try {
-    const { title, pringkat, description } = req.body;
-    if (!title || !pringkat || !description) {
-      return res.status(400).json({ message: "Semua field (title, pringkat, description) wajib diisi." });
-    }
-    if (!req.file) {
-      return res.status(400).json({ message: "Gambar wajib diupload." });
-    }
-    // Upload gambar ke Cloudinary pada folder 'prestasi'
-    const result = await uploadFromBuffer(req.file.buffer, 'prestasi');
-    const imageUrl = result.secure_url;
-    const imagePublicId = result.public_id;
+    const { title, content, eventDate, eventTime } = req.body;
     
-    const newPrestasi = await Prestasi.create({
-      title,
-      pringkat,
-      description,
-      imageUrl,
-      imagePublicId
-    });
-    res.status(201).json({ message: "Prestasi berhasil ditambahkan", prestasi: newPrestasi });
+    if (!title || !content || !eventDate) {
+      return res.status(400).json({ message: "Title, content, and eventDate are required" });
+    }
+    
+    const announcement = await Announcement.create({ title, content, eventDate, eventTime });
+    res.status(201).json({ message: "Announcement added successfully", announcement });
   } catch (error) {
-    console.error("Error adding prestasi:", error);
-    res.status(500).json({ message: "Error adding prestasi", error: error.message });
+    console.error("Error adding announcement:", error);
+    res.status(500).json({ message: "Error adding announcement", error: error.message });
   }
 };
 
 /**
- * PUT /api/prestasi/:id
- * Update data prestasi berdasarkan ID.
- * Jika ada file baru yang diupload, gambar lama dihapus dari Cloudinary dan diganti dengan yang baru.
+ * PUT /api/announcements/:id
+ * Memperbarui pengumuman/agenda yang sudah ada.
  */
-exports.updatePrestasi = async (req, res) => {
+exports.updateAnnouncement = async (req, res) => {
   try {
     const { id } = req.params;
-    const { title, pringkat, description } = req.body;
-    const prestasi = await Prestasi.findByPk(id);
-    if (!prestasi) {
-      return res.status(404).json({ message: "Prestasi tidak ditemukan" });
+    const { title, content, eventDate, eventTime } = req.body;
+    const announcement = await Announcement.findByPk(id);
+    
+    if (!announcement) {
+      return res.status(404).json({ message: "Announcement not found" });
     }
     
-    if (req.file) {
-      // Jika ada file baru diupload, hapus gambar lama dari Cloudinary jika ada
-      if (prestasi.imagePublicId) {
-        try {
-          await cloudinary.uploader.destroy(prestasi.imagePublicId);
-          console.log("Old image deleted from Cloudinary");
-        } catch (err) {
-          console.error("Error deleting old image:", err);
-        }
-      }
-      const result = await uploadFromBuffer(req.file.buffer, 'prestasi');
-      prestasi.imageUrl = result.secure_url;
-      prestasi.imagePublicId = result.public_id;
-    }
+    announcement.title = title || announcement.title;
+    announcement.content = content || announcement.content;
+    announcement.eventDate = eventDate || announcement.eventDate;
+    announcement.eventTime = eventTime || announcement.eventTime;
     
-    prestasi.title = title || prestasi.title;
-    prestasi.pringkat = pringkat || prestasi.pringkat;
-    prestasi.description = description || prestasi.description;
-    
-    await prestasi.save();
-    res.json({ message: "Prestasi berhasil diperbarui", prestasi });
+    await announcement.save();
+    res.json({ message: "Announcement updated successfully", announcement });
   } catch (error) {
-    console.error("Error updating prestasi:", error);
-    res.status(500).json({ message: "Error updating prestasi", error: error.message });
+    console.error("Error updating announcement:", error);
+    res.status(500).json({ message: "Error updating announcement", error: error.message });
   }
 };
 
 /**
- * DELETE /api/prestasi/:id
- * Hapus data prestasi berdasarkan ID, serta hapus gambar dari Cloudinary jika ada.
+ * DELETE /api/announcements/:id
+ * Menghapus pengumuman/agenda berdasarkan ID.
  */
-exports.deletePrestasi = async (req, res) => {
+exports.deleteAnnouncement = async (req, res) => {
   try {
     const { id } = req.params;
-    const prestasi = await Prestasi.findByPk(id);
-    if (!prestasi) {
-      return res.status(404).json({ message: "Prestasi tidak ditemukan" });
+    const announcement = await Announcement.findByPk(id);
+    
+    if (!announcement) {
+      return res.status(404).json({ message: "Announcement not found" });
     }
-    if (prestasi.imagePublicId) {
-      try {
-        await cloudinary.uploader.destroy(prestasi.imagePublicId);
-        console.log("Image deleted from Cloudinary");
-      } catch (err) {
-        console.error("Error deleting image:", err);
-      }
-    }
-    await prestasi.destroy();
-    res.json({ message: "Prestasi berhasil dihapus" });
+    
+    await announcement.destroy();
+    res.json({ message: "Announcement deleted successfully" });
   } catch (error) {
-    console.error("Error deleting prestasi:", error);
-    res.status(500).json({ message: "Error deleting prestasi", error: error.message });
+    console.error("Error deleting announcement:", error);
+    res.status(500).json({ message: "Error deleting announcement", error: error.message });
   }
 };

@@ -24,6 +24,10 @@ app.get('/', (req, res) => {
 const uploadRoutes = require('./routes/uploadRoutes');
 app.use('/api', uploadRoutes);
 
+const sejarahRoutes = require('./routes/sejarahRoutes');
+app.use('/api/sejarah', sejarahRoutes);
+
+
 const prestasiRoutes = require('./routes/prestasiRoutes');
 app.use('/api/prestasi', prestasiRoutes);
 

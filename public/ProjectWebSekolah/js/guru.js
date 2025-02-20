@@ -3,7 +3,7 @@
 // Fungsi untuk memuat data guru dari API dan menampilkannya di halaman
 async function loadGuru() {
     try {
-      const response = await fetch('http://127.0.0.1:3307/api/guru');
+      const response = await fetch('/api/guru');
       if (!response.ok) {
         throw new Error('Failed to fetch guru data');
       }
