@@ -152,7 +152,7 @@ app.get('/prestasi', (req, res) => {
   res.render('prestasi'); // akan mencari file views/index.ejs
 });
 
-app.get('/extrakurikuler', (req, res) => {
+app.get('/ekstrakurikuler', (req, res) => {
   res.render('extrakurikuler'); // akan mencari file views/index.ejs
 });
 
