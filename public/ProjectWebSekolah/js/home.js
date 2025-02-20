@@ -142,7 +142,7 @@ async function loadNews() {
 /* =================== Function to Load Banner =================== */
 async function loadBanner() {
   try {
-    const response = await fetch('http://127.0.0.1:3307/api/banner');
+    const response = await fetch('https://smpsaadatuddarainnw.up.railway.app:3307/api/banner');
     const data = await response.json();
     const banner = Array.isArray(data) ? data[0] : data;
     if (banner && banner.imageUrl) {
@@ -278,7 +278,7 @@ document.addEventListener("DOMContentLoaded", loadStatistics);
 
 async function loadAlumniReviews() {
   try {
-    const response = await fetch('https://smpsaadatuddarainnw.up.railway.app:3307/sekolah_decidewho/api/alumniReview');
+    const response = await fetch('https://smpsaadatuddarainnw.up.railway.app:3307/api/alumniReview');
     if (!response.ok) {
       throw new Error('Failed to fetch alumni reviews');
     }

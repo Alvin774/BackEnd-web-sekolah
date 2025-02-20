@@ -17,8 +17,6 @@ app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public/ProjectWebSekolah')));
 
 
-app.use(express.json());
-app.use(cors());
 // Opsional: Jika kamu ingin memastikan saat akses root ('/')
 // mengirim file index.html, kamu bisa menambahkan route berikut:
 app.use('/', (req, res) => {
