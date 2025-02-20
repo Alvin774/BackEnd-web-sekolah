@@ -8,6 +8,38 @@ require('dotenv').config();
 const app = express();
 app.set('view engine', 'ejs');
 
+const helmet = require('helmet');
+
+app.use(
+  helmet.contentSecurityPolicy({
+    useDefaults: true,
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: [
+        "'self'",
+        "https://cdn.jsdelivr.net",
+        "https://www.google.com",
+        "'unsafe-inline'"  // Perhatian: penggunaan unsafe-inline mengurangi keamanan
+      ],
+      styleSrc: [
+        "'self'",
+        "https://cdn.jsdelivr.net",
+        "https://fonts.googleapis.com",
+        "'unsafe-inline'"  // Perhatian: penggunaan unsafe-inline mengurangi keamanan
+      ],
+      imgSrc: [
+        "'self'",
+        "data:",
+        "https://res.cloudinary.com",
+        "https://cdnjs.cloudflare.com"
+      ],
+      frameSrc: ["'self'", "https://www.google.com"],
+      // Anda bisa menghapus upgradeInsecureRequests atau biarkan kosong
+      upgradeInsecureRequests: []
+    }
+  })
+);
+
 
 // Middleware
 app.use(cors());
