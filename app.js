@@ -17,6 +17,7 @@ app.use(
       defaultSrc: ["'self'"],
       scriptSrc: [
         "'self'",
+        "https://cdnjs.cloudflare.com",
         "https://cdn.jsdelivr.net",
         "https://www.google.com",
         "'unsafe-inline'"  // Perhatian: penggunaan unsafe-inline mengurangi keamanan
@@ -24,6 +25,7 @@ app.use(
       styleSrc: [
         "'self'",
         "https://cdn.jsdelivr.net",
+        "https://cdnjs.cloudflare.com",
         "https://fonts.googleapis.com",
         "'unsafe-inline'"  // Perhatian: penggunaan unsafe-inline mengurangi keamanan
       ],
@@ -33,7 +35,7 @@ app.use(
         "https://res.cloudinary.com",
         "https://cdnjs.cloudflare.com"
       ],
-      frameSrc: ["'self'", "https://www.google.com"],
+      frameSrc: ["'self'", "https://www.google.com", "https://cdnjs.cloudflare.com"],
       // Anda bisa menghapus upgradeInsecureRequests atau biarkan kosong
       upgradeInsecureRequests: []
     }
@@ -182,6 +184,37 @@ app.get('/admin-carousel-ppdb', (req, res) => {
 app.get('/form-pendaftaran', (req, res) => {
   res.render('form-pendaftaran'); // akan mencari file views/index.ejs
 });
+
+app.get('/admin-add-berita-artikel', (req, res) => {
+  res.render('admin-add-berita-artikel'); // akan mencari file views/index.ejs
+});
+
+app.get('/admin-prestasi', (req, res) => {
+  res.render('admin-prestasi'); // akan mencari file views/index.ejs
+});
+
+app.get('/admin-sambutan', (req, res) => {
+  res.render('admin-sambutan'); // akan mencari file views/index.ejs
+});
+
+app.get('/admin-brosur', (req, res) => {
+  res.render('admin-brosur'); // akan mencari file views/index.ejs
+});
+
+app.get('/admin-data-siswa', (req, res) => {
+  res.render('admin-data-siswa'); // akan mencari file views/index.ejs
+});
+
+app.get('/admin-struktur-organisasi', (req, res) => {
+  res.render('admin-struktur-organisasi'); // akan mencari file views/index.ejs
+});
+
+app.get('/change-data-siswa', (req, res) => {
+  res.render('change-data-siswa'); // akan mencari file views/index.ejs
+});
+
+
+
 
 
 // Mulai server setelah database disinkronkan
