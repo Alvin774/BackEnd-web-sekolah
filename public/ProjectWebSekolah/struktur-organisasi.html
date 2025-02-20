@@ -391,7 +391,7 @@
       // Fungsi untuk mengambil data dari API dan merender tree
       async function loadStrukturOrganisasi() {
         try {
-          const response = await fetch("http://127.0.0.1:3307/api/strukturorganisasi");
+          const response = await fetch("/api/strukturorganisasi");
           if (!response.ok)
             throw new Error("Gagal mengambil data struktur organisasi");
           const data = await response.json();

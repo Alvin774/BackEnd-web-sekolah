@@ -211,7 +211,7 @@
       // Fungsi untuk memuat data sambutan dari API dan mengisi preview & form
       async function loadSambutan() {
         try {
-          const response = await fetch("http://127.0.0.1:3307/api/sambutans");
+          const response = await fetch("/api/sambutans");
           if (!response.ok) {
             throw new Error("Gagal mengambil data sambutan");
           }
