@@ -194,6 +194,9 @@ app.get('/admin-fasilitas', (req, res) => {
   res.render('admin-fasilitas')
 });
 
+app.get('/admin-pengumuman', (req, res) => {
+  res.render('admin-pengumuman')
+});
 
 
 
