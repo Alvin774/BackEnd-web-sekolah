@@ -32,7 +32,7 @@
         <!-- Tombol Kembali -->
         <div class="mb-3">
           <button class="btn btn-secondary" onclick="window.history.back();">
-            <i class="fas fa-arrow-left"></i> Kembali
+            <i class="fas fa-arrow-left"></i> <a href="admin-berita-artikel">Kembali</a>
           </button>
         </div>
 
@@ -119,7 +119,7 @@
       if (response.ok) {
         alert(result.message); // Contoh: "Berita berhasil ditambahkan"
         // Setelah sukses, alihkan kembali ke halaman listing admin
-        window.location.href = 'admin-berita-artikel.html';
+        window.location.href = 'admin-berita-artikel';
       } else {
         alert(result.message || 'Error menambahkan berita.');
       }
@@ -149,8 +149,6 @@
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-      crossorigin="anonymous"
     ></script>
   </body>
 </html>
