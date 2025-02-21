@@ -168,21 +168,26 @@ app.get('/admin-data-siswa', (req, res) => {
   res.render('admin-data-siswa'); 
 });
 
-app.get('/admin-guru', (req, res) => {
-  res.render('admin-guru')
-});
-
-app.get('/admin-extrakurikuler', (req, res) => {
-  res.render('admin-extrakurikuler'); 
-});
-
 app.get('/admin-struktur-organisasi', (req, res) => {
   res.render('admin-struktur-organisasi');
 });
 
 app.get('/change-data-siswa', (req, res) => {
-  res.render('change-data-siswa');
+  res.render('change-data-siswa'); // akan mencari file views/index.ejs
 });
+
+
+app.get('/admin-guru', (req, res) => {
+  res.render('admin-guru'); // akan mencari file views/index.ejs
+});
+
+
+app.get('/admin-extrakurikuler', (req, res) => {
+  res.render('admin-extrakurikuler'); // akan mencari file views/index.ejs
+});
+
+
+
 
 // Mulai server setelah database disinkronkan
 const PORT = process.env.PORT || 3000;

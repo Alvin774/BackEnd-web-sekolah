@@ -262,6 +262,15 @@
         </div>
       </div>
 
+      <!-- Tombol Update, Print & Kembali -->
+      <div class="btn-group d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary me-2">Perbarui Data</button>
+        <button type="button" id="printButton" class="btn btn-warning me-2">Print PDF</button>
+        <a href="admin-data-siswa" class="btn btn-secondary">Kembali ke Daftar</a>
+      </div>
+    </form>
+  </div>
+
   <!-- jsPDF dan AutoTable -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
@@ -455,7 +464,7 @@
         ["Pindahan Kelas", document.getElementById("pindahanKelas").value],
         ["No HP", document.getElementById("noHp").value],
         ["Email", document.getElementById("kontakEmail").value],
-        
+        ["Registered By", document.getElementById("registeredBy").value],
       ];
       
       // Gunakan AutoTable untuk membuat tabel PDF
