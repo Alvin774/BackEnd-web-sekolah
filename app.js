@@ -98,6 +98,10 @@ app.get('/sejarah', (req, res) => {
   res.render('sejarah'); // akan mencari file views/index.ejs
 });
 
+app.get('/admin-sejarah', (req, res) => {
+  res.render('admin-sejarah')
+});
+
 app.get('/visi-misi', (req, res) => {
   res.render('visi-misi-tujuan'); // akan mencari file views/index.ejs
 });
@@ -184,6 +188,10 @@ app.get('/admin-guru', (req, res) => {
 
 app.get('/admin-extrakurikuler', (req, res) => {
   res.render('admin-extrakurikuler'); // akan mencari file views/index.ejs
+});
+
+app.get('/admin-fasilitas', (req, res) => {
+  res.render('admin-fasilitas')
 });
 
 
