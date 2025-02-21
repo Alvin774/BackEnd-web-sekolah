@@ -1,150 +1,592 @@
 <!DOCTYPE html>
 <html lang="id">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Admin Dashboard</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="admincss/admin-dashbord.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Biryani:wght@200;300;400;600;700;800;900&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Candal&family=Capriola&family=Lexend+Deca:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rethink+Sans:ital,wght@0,400..800;1,400..800&family=Roboto+Slab:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Trocchi&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
-      rel="stylesheet"
-    />
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="admincss/admin-dashbord.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
-    <style>
-      body {
-        padding-top: 20px;
+  <style>
+    :root {
+      --primary-color: #4e73df;
+      --secondary-color: #1cc88a;
+      --danger-color: #e74a3b;
+      --dark-color: #2a3f54;
+      --light-color: #f8f9fc;
+      --sidebar-width: 280px;
+      --header-height: 70px;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #f0f2f5;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    /* Sidebar Styles */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: var(--sidebar-width);
+      height: 100vh;
+      background: var(--dark-color);
+      color: white;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      transition: all 0.3s ease;
+      overflow-y: auto;
+    }
+
+    .sidebar-collapsed {
+      width: 70px;
+    }
+
+    .logo-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 15px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .logo-container img {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      margin-bottom: 10px;
+      transition: all 0.3s ease;
+      border-radius: 50%;
+      background-color: white;
+      padding: 5px;
+    }
+
+    .logo-container h5 {
+      font-size: 14px;
+      text-align: center;
+      margin-top: 10px;
+      transition: opacity 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .sidebar-collapsed .logo-container h5 {
+      opacity: 0;
+      display: none;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      padding: 15px 20px;
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border-left: 3px solid transparent;
+      margin-bottom: 5px;
+    }
+
+    .nav-item:hover, .nav-item.active {
+      background-color: rgba(255, 255, 255, 0.05);
+      color: white;
+      border-left: 3px solid var(--secondary-color);
+    }
+
+    .nav-item i {
+      font-size: 18px;
+      margin-right: 15px;
+      width: 20px;
+      text-align: center;
+    }
+
+    .nav-item span {
+      transition: opacity 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .sidebar-collapsed .nav-item span {
+      opacity: 0;
+      display: none;
+    }
+
+    .sidebar-footer {
+      padding: 15px 20px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      position: sticky;
+      bottom: 0;
+      background: var(--dark-color);
+    }
+
+    .nav-group-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: rgba(255, 255, 255, 0.4);
+      padding: 20px 20px 10px;
+      font-weight: 600;
+    }
+
+    /* Navbar Styles */
+    .main-content {
+      margin-left: var(--sidebar-width);
+      transition: all 0.3s ease;
+    }
+
+    .main-content-expanded {
+      margin-left: 70px;
+    }
+
+    .top-navbar {
+      background-color: white;
+      height: var(--header-height);
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: var(--sidebar-width);
+      z-index: 999;
+      transition: all 0.3s ease;
+    }
+
+    .navbar-expanded {
+      left: 70px;
+    }
+
+    .toggle-sidebar-btn {
+      background: none;
+      border: none;
+      color: var(--dark-color);
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+    }
+
+    .toggle-sidebar-btn:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+
+    .search-form {
+      display: flex;
+      align-items: center;
+      background-color: #f8f9fc;
+      border-radius: 30px;
+      padding: 5px 15px;
+      margin-left: 20px;
+    }
+
+    .search-form input {
+      border: none;
+      background: transparent;
+      padding: 8px;
+      outline: none;
+      width: 300px;
+    }
+
+    .search-form button {
+      background: none;
+      border: none;
+      color: #858796;
+      cursor: pointer;
+    }
+
+    .navbar-items {
+      display: flex;
+      align-items: center;
+      margin-left: auto;
+    }
+
+    .navbar-item {
+      position: relative;
+      margin-left: 20px;
+    }
+
+    .notification-badge {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      width: 18px;
+      height: 18px;
+      background-color: var(--danger-color);
+      color: white;
+      font-size: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+
+    .navbar-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #858796;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .navbar-icon:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+      color: var(--primary-color);
+    }
+
+    .vertical-divider {
+      height: 40px;
+      width: 1px;
+      background-color: #eaecf4;
+      margin: 0 20px;
+    }
+
+    .user-profile {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 10px;
+      border: 2px solid #eaecf4;
+    }
+
+    .user-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .user-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: #5a5c69;
+    }
+
+    .user-role {
+      font-size: 12px;
+      color: #858796;
+    }
+
+    /* Mobile styles */
+    @media (max-width: 768px) {
+      .sidebar {
+        transform: translateX(-100%);
       }
-      .container {
-        max-width: 600px;
+      
+      .main-content {
+        margin-left: 0;
       }
-      #bannerPreview {
-        max-width: 100%;
-        height: auto;
-        margin-bottom: 15px;
+      
+      .top-navbar {
+        left: 0;
       }
-    </style>
-      <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <div class="container-fluid">
-      <div class="row">
-        <!-- Sidebar Start -->
-        <nav
-          class="col-md-3 col-lg-2 d-md-block sidebar d-none d-md-flex flex-column p-3"
-        >
-          <div class="text-center logo">
-            <img src="img/logo SMP.png" alt="Logo Sekolah" class="img-fluid" />
-            <h5>Admin SMP Islam Sa'adatuddarain NW Majuet</h5>
-          </div>
-          <a href="admin-dashbord.html" class="nav-item"
-            ><i class="fas fa-home"></i> Dashboard</a
-          >
-          <a href="admin-berita-artikel.html" class="nav-item"
-            ><i class="fas fa-newspaper"></i> Berita/Artikel</a
-          >
-          <a href="admin-pengumuman.html" class="nav-item"
-            ><i class="fas fa-bullhorn"></i> Pengumuman</a
-          >
-          <a href="admin-guru.html" class="nav-item"
-            ><i class="fas fa-user-tie"></i> Guru</a
-          >
-          <a href="login.html" class="nav-item logout"
-            ><i class="fas fa-sign-out-alt"></i> Logout</a
-          >
-        </nav>
-        <!-- Sidebar End -->
+      
+      .mobile-menu-btn {
+        display: block;
+      }
+      
+      .search-form {
+        display: none;
+      }
+    }
 
-        <!-- Offcanvas Sidebar untuk Mobile Start -->
-        <div class="d-md-none">
-          <button
-            class="btn btn-pro m-3"
-            type="button"
-            data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasSidebar"
-          >
-            ☰ Menu
-          </button>
-          <div class="offcanvas offcanvas-start sidebar" id="offcanvasSidebar">
-            <div class="offcanvas-header">
-              <h5 class="text-white">Menu</h5>
-              <button
-                type="button"
-                class="btn-close btn-close-white"
-                data-bs-dismiss="offcanvas"
-              ></button>
-            </div>
-            <div class="text-center logo">
-              <img
-                src="img/logo SMP.png"
-                alt="Logo Sekolah"
-                class="img-fluid"
-              />
-              <h5>Admin SMP Islam Sa'adatuddarain NW Majuet</h5>
-            </div>
-            <div class="offcanvas-body">
-              <a href="admin-dashbord" class="nav-item"
-                ><i class="fas fa-home"></i> Dashboard</a
-              >
-              <a href="admin-berita-artikel" class="nav-item"
-                ><i class="fas fa-newspaper"></i> Berita/Artikel</a
-              >
-              <a href="admin-pengumuman" class="nav-item"
-                ><i class="fas fa-bullhorn"></i> Pengumuman</a
-              >
-              <a href="admin-guru" class="nav-item"
-                ><i class="fas fa-user-tie"></i> Guru</a
-              >
+    .offcanvas.sidebar {
+      width: 280px;
+    }
 
-              <a href="admin-brosur" class="nav-item"
-              ><i class="fas fa-bullhorn"></i> brosur</a
-            >
-            <a href="admin-carousel-ppdb" class="nav-item"
-              ><i class="fas fa-user-tie"></i> carousel ppdb</a
-            >
-            <a href="admin-data-siswa" class="nav-item logout"
-              ><i class="fas fa-sign-out-alt"></i>Data Siswa</a
-            >
+    /* Content area */
+    .content-wrapper {
+      padding: calc(var(--header-height) + 20px) 20px 20px;
+      min-height: 100vh;
+    }
 
-            <a href="admin-extrakurikuler" class="nav-item"
-              ><i class="fas fa-bullhorn"></i>extrakurikuler</a
-            >
-            <a href="admin-fasilitas" class="nav-item"
-              ><i class="fas fa-user-tie"></i>fasilitas</a
-            >
-            <a href="admin-prestasi" class="nav-item logout"
-              ><i class="fas fa-sign-out-alt"></i>Prestasi</a
-            >
+    /* Dropdown menus */
+    .dropdown-menu {
+      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.175);
+      border: none;
+      border-radius: 0.35rem;
+    }
 
-            <a href="admin-sambutan" class="nav-item"
-            ><i class="fas fa-bullhorn"></i>Sambutan</a
-          >
-          <a href="admin-sejarah" class="nav-item"
-            ><i class="fas fa-user-tie"></i>Sejarah</a
-          >
-          <a href="admin-struktur-organis">Struktur Organisasi</a
-          >
+    .dropdown-item {
+      display: flex;
+      align-items: center;
+      padding: 0.5rem 1rem;
+    }
 
-          <a href="/" class="nav-item logout"
-          ><i class="fas fa-sign-out-alt"></i> Logout</a
-        >
-            </div>
+    .dropdown-item i {
+      margin-right: 10px;
+      font-size: 0.85rem;
+      width: 20px;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Sidebar -->
+  <nav class="sidebar" id="sidebar">
+    <div class="logo-container">
+      <img src="img/logo SMP.png" alt="Logo Sekolah" />
+      <h5>SMP Islam Sa'adatuddarain NW Majuet</h5>
+    </div>
+
+    <div class="nav-group-title">MENU UTAMA</div>
+    <a href="admin-dashbord.html" class="nav-item active">
+      <i class="fas fa-tachometer-alt"></i>
+      <span>Dashboard</span>
+    </a>
+    <a href="admin-berita-artikel.html" class="nav-item">
+      <i class="fas fa-newspaper"></i>
+      <span>Berita/Artikel</span>
+    </a>
+    <a href="admin-pengumuman.html" class="nav-item">
+      <i class="fas fa-bullhorn"></i>
+      <span>Pengumuman</span>
+    </a>
+    <a href="admin-guru.html" class="nav-item">
+      <i class="fas fa-chalkboard-teacher"></i>
+      <span>Guru</span>
+    </a>
+
+    <div class="nav-group-title">KELOLA LANJUTAN</div>
+    <a href="admin-brosur" class="nav-item">
+      <i class="fas fa-file-alt"></i>
+      <span>Brosur</span>
+    </a>
+    <a href="admin-carousel-ppdb" class="nav-item">
+      <i class="fas fa-images"></i>
+      <span>Carousel PPDB</span>
+    </a>
+    <a href="admin-data-siswa" class="nav-item">
+      <i class="fas fa-user-graduate"></i>
+      <span>Data Siswa</span>
+    </a>
+    <a href="admin-extrakurikuler" class="nav-item">
+      <i class="fas fa-futbol"></i>
+      <span>Ekstrakurikuler</span>
+    </a>
+    <a href="admin-fasilitas" class="nav-item">
+      <i class="fas fa-building"></i>
+      <span>Fasilitas</span>
+    </a>
+    <a href="admin-prestasi" class="nav-item">
+      <i class="fas fa-trophy"></i>
+      <span>Prestasi</span>
+    </a>
+
+    <div class="nav-group-title">PROFIL SEKOLAH</div>
+    <a href="admin-sambutan" class="nav-item">
+      <i class="fas fa-comment-dots"></i>
+      <span>Sambutan</span>
+    </a>
+    <a href="admin-sejarah" class="nav-item">
+      <i class="fas fa-history"></i>
+      <span>Sejarah</span>
+    </a>
+    <a href="admin-struktur-organis" class="nav-item">
+      <i class="fas fa-sitemap"></i>
+      <span>Struktur Organisasi</span>
+    </a>
+
+    <div class="sidebar-footer">
+      <a href="/" class="nav-item logout">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Mobile Sidebar Toggle Button -->
+  <div class="d-md-none position-fixed" style="top: 10px; left: 10px; z-index: 1005;">
+    <button class="btn btn-primary rounded-circle shadow" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar">
+      <i class="fas fa-bars"></i>
+    </button>
+  </div>
+
+  <!-- Offcanvas Sidebar for Mobile -->
+  <div class="offcanvas offcanvas-start sidebar" id="offcanvasSidebar" tabindex="-1">
+    <div class="offcanvas-header border-bottom">
+      <h5 class="text-white m-0">Menu Admin</h5>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body p-0">
+      <div class="logo-container">
+        <img src="img/logo SMP.png" alt="Logo Sekolah" />
+        <h5>SMP Islam Sa'adatuddarain NW Majuet</h5>
+      </div>
+
+      <div class="nav-group-title">MENU UTAMA</div>
+      <a href="admin-dashbord.html" class="nav-item active">
+        <i class="fas fa-tachometer-alt"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="admin-berita-artikel.html" class="nav-item">
+        <i class="fas fa-newspaper"></i>
+        <span>Berita/Artikel</span>
+      </a>
+      <a href="admin-pengumuman.html" class="nav-item">
+        <i class="fas fa-bullhorn"></i>
+        <span>Pengumuman</span>
+      </a>
+      <a href="admin-guru.html" class="nav-item">
+        <i class="fas fa-chalkboard-teacher"></i>
+        <span>Guru</span>
+      </a>
+
+      <div class="nav-group-title">KELOLA LANJUTAN</div>
+      <a href="admin-brosur" class="nav-item">
+        <i class="fas fa-file-alt"></i>
+        <span>Brosur</span>
+      </a>
+      <a href="admin-carousel-ppdb" class="nav-item">
+        <i class="fas fa-images"></i>
+        <span>Carousel PPDB</span>
+      </a>
+      <a href="admin-data-siswa" class="nav-item">
+        <i class="fas fa-user-graduate"></i>
+        <span>Data Siswa</span>
+      </a>
+      <a href="admin-extrakurikuler" class="nav-item">
+        <i class="fas fa-futbol"></i>
+        <span>Ekstrakurikuler</span>
+      </a>
+      <a href="admin-fasilitas" class="nav-item">
+        <i class="fas fa-building"></i>
+        <span>Fasilitas</span>
+      </a>
+      <a href="admin-prestasi" class="nav-item">
+        <i class="fas fa-trophy"></i>
+        <span>Prestasi</span>
+      </a>
+
+      <div class="nav-group-title">PROFIL SEKOLAH</div>
+      <a href="admin-sambutan" class="nav-item">
+        <i class="fas fa-comment-dots"></i>
+        <span>Sambutan</span>
+      </a>
+      <a href="admin-sejarah" class="nav-item">
+        <i class="fas fa-history"></i>
+        <span>Sejarah</span>
+      </a>
+      <a href="admin-struktur-organis" class="nav-item">
+        <i class="fas fa-sitemap"></i>
+        <span>Struktur Organisasi</span>
+      </a>
+
+      <div class="nav-group-title">AKUN</div>
+      <a href="/" class="nav-item logout">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content" id="mainContent">
+    <!-- Top Navbar -->
+    <div class="top-navbar" id="topNavbar">
+      <button id="toggleSidebarBtn" class="toggle-sidebar-btn">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <div class="search-form">
+        <input type="text" placeholder="Cari..." />
+        <button type="submit">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+
+      <div class="navbar-items">
+        <div class="navbar-item">
+          <div class="navbar-icon">
+            <i class="fas fa-bell"></i>
+            <div class="notification-badge">3</div>
           </div>
         </div>
-        <!-- Offcanvas Sidebar untuk Mobile End -->
+
+        <div class="navbar-item">
+          <div class="navbar-icon">
+            <i class="fas fa-envelope"></i>
+            <div class="notification-badge">7</div>
+          </div>
+        </div>
+
+        <div class="vertical-divider"></div>
+
+        <div class="navbar-item dropdown">
+          <div class="user-profile" data-bs-toggle="dropdown">
+            <img src="https://ui-avatars.com/api/?name=Admin+User&background=4e73df&color=fff" alt="Admin User" class="user-avatar" />
+            <div class="user-info d-none d-md-flex">
+              <span class="user-name">Admin User</span>
+              <span class="user-role">Administrator</span>
+            </div>
+            <i class="fas fa-chevron-down ms-2 d-none d-md-block" style="font-size: 12px;"></i>
+          </div>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i> Profil</a></li>
+            <li><a class="dropdown-item" href="#"><i class="fas fa-cog"></i> Pengaturan</a></li>
+            <li><a class="dropdown-item" href="#"><i class="fas fa-list"></i> Log Aktivitas</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="/"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Page Content -->
+    <div class="content-wrapper">
+      <!-- Your page content goes here -->
+      <div class="container-fluid">
+        <h1 class="h3 mb-4 text-gray-800">Dashboard</h1>
+        <!-- Content goes here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const sidebar = document.getElementById('sidebar');
+      const mainContent = document.getElementById('mainContent');
+      const topNavbar = document.getElementById('topNavbar');
+      const toggleSidebarBtn = document.getElementById('toggleSidebarBtn');
+
+      // Toggle sidebar
+      toggleSidebarBtn.addEventListener('click', function() {
+        sidebar.classList.toggle('sidebar-collapsed');
+        mainContent.classList.toggle('main-content-expanded');
+        topNavbar.classList.toggle('navbar-expanded');
+      });
+
+      // Active menu item
+      const currentLocation = window.location.href;
+      const menuItems = document.querySelectorAll('.nav-item');
+      menuItems.forEach(item => {
+        if (currentLocation.includes(item.getAttribute('href'))) {
+          item.classList.add('active');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
