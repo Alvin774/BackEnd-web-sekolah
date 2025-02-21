@@ -43,7 +43,20 @@
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
       z-index: 1000;
       transition: all 0.3s ease;
-      overflow-y: auto;
+      overflow: hidden; /* Menghilangkan scrollbar */
+    }
+
+    .sidebar-inner {
+      height: 100%;
+      overflow-y: auto; /* Scroll internal */
+      padding-right: 17px; /* Menyembunyikan scrollbar */
+      box-sizing: content-box; /* Memastikan padding tidak mengubah lebar */
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE and Edge */
+    }
+
+    .sidebar-inner::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera */
     }
 
     .sidebar-collapsed {
@@ -59,8 +72,8 @@
     }
 
     .logo-container img {
-      width: 80px;
-      height: 80px;
+      width: 60px;
+      height: 60px;
       object-fit: contain;
       margin-bottom: 10px;
       transition: all 0.3s ease;
@@ -70,9 +83,9 @@
     }
 
     .logo-container h5 {
-      font-size: 14px;
+      font-size: 13px;
       text-align: center;
-      margin-top: 10px;
+      margin-top: 8px;
       transition: opacity 0.3s ease;
       white-space: nowrap;
     }
@@ -85,12 +98,12 @@
     .nav-item {
       display: flex;
       align-items: center;
-      padding: 15px 20px;
+      padding: 12px 20px;
       color: rgba(255, 255, 255, 0.8);
       text-decoration: none;
       transition: all 0.3s ease;
       border-left: 3px solid transparent;
-      margin-bottom: 5px;
+      margin-bottom: 2px;
     }
 
     .nav-item:hover, .nav-item.active {
@@ -100,7 +113,7 @@
     }
 
     .nav-item i {
-      font-size: 18px;
+      font-size: 16px;
       margin-right: 15px;
       width: 20px;
       text-align: center;
@@ -109,6 +122,7 @@
     .nav-item span {
       transition: opacity 0.3s ease;
       white-space: nowrap;
+      font-size: 14px;
     }
 
     .sidebar-collapsed .nav-item span {
@@ -125,11 +139,11 @@
     }
 
     .nav-group-title {
-      font-size: 11px;
+      font-size: 10px;
       text-transform: uppercase;
       letter-spacing: 0.5px;
       color: rgba(255, 255, 255, 0.4);
-      padding: 20px 20px 10px;
+      padding: 15px 20px 5px;
       font-weight: 600;
     }
 
@@ -166,13 +180,13 @@
       background: none;
       border: none;
       color: var(--dark-color);
-      font-size: 20px;
+      font-size: 18px;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 40px;
-      height: 40px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
       transition: all 0.3s ease;
     }
@@ -185,17 +199,18 @@
       display: flex;
       align-items: center;
       background-color: #f8f9fc;
-      border-radius: 30px;
-      padding: 5px 15px;
-      margin-left: 20px;
+      border-radius: 24px;
+      padding: 4px 15px;
+      margin-left: 16px;
     }
 
     .search-form input {
       border: none;
       background: transparent;
-      padding: 8px;
+      padding: 6px;
       outline: none;
-      width: 300px;
+      width: 240px;
+      font-size: 14px;
     }
 
     .search-form button {
@@ -213,18 +228,18 @@
 
     .navbar-item {
       position: relative;
-      margin-left: 20px;
+      margin-left: 16px;
     }
 
     .notification-badge {
       position: absolute;
       top: -5px;
       right: -5px;
-      width: 18px;
-      height: 18px;
+      width: 16px;
+      height: 16px;
       background-color: var(--danger-color);
       color: white;
-      font-size: 10px;
+      font-size: 9px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -232,8 +247,8 @@
     }
 
     .navbar-icon {
-      width: 40px;
-      height: 40px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -249,10 +264,10 @@
     }
 
     .vertical-divider {
-      height: 40px;
+      height: 36px;
       width: 1px;
       background-color: #eaecf4;
-      margin: 0 20px;
+      margin: 0 16px;
     }
 
     .user-profile {
@@ -262,8 +277,8 @@
     }
 
     .user-avatar {
-      width: 40px;
-      height: 40px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
       object-fit: cover;
       margin-right: 10px;
@@ -276,13 +291,13 @@
     }
 
     .user-name {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 600;
       color: #5a5c69;
     }
 
     .user-role {
-      font-size: 12px;
+      font-size: 11px;
       color: #858796;
     }
 
@@ -330,6 +345,7 @@
       display: flex;
       align-items: center;
       padding: 0.5rem 1rem;
+      font-size: 13px;
     }
 
     .dropdown-item i {
@@ -344,91 +360,7 @@
 <body>
   <!-- Sidebar -->
   <nav class="sidebar" id="sidebar">
-    <div class="logo-container">
-      <img src="img/logo SMP.png" alt="Logo Sekolah" />
-      <h5>SMP Islam Sa'adatuddarain NW Majuet</h5>
-    </div>
-
-    <div class="nav-group-title">MENU UTAMA</div>
-    <a href="admin-dashbord.html" class="nav-item active">
-      <i class="fas fa-tachometer-alt"></i>
-      <span>Dashboard</span>
-    </a>
-    <a href="admin-berita-artikel.html" class="nav-item">
-      <i class="fas fa-newspaper"></i>
-      <span>Berita/Artikel</span>
-    </a>
-    <a href="admin-pengumuman.html" class="nav-item">
-      <i class="fas fa-bullhorn"></i>
-      <span>Pengumuman</span>
-    </a>
-    <a href="admin-guru.html" class="nav-item">
-      <i class="fas fa-chalkboard-teacher"></i>
-      <span>Guru</span>
-    </a>
-
-    <div class="nav-group-title">KELOLA LANJUTAN</div>
-    <a href="admin-brosur" class="nav-item">
-      <i class="fas fa-file-alt"></i>
-      <span>Brosur</span>
-    </a>
-    <a href="admin-carousel-ppdb" class="nav-item">
-      <i class="fas fa-images"></i>
-      <span>Carousel PPDB</span>
-    </a>
-    <a href="admin-data-siswa" class="nav-item">
-      <i class="fas fa-user-graduate"></i>
-      <span>Data Siswa</span>
-    </a>
-    <a href="admin-extrakurikuler" class="nav-item">
-      <i class="fas fa-futbol"></i>
-      <span>Ekstrakurikuler</span>
-    </a>
-    <a href="admin-fasilitas" class="nav-item">
-      <i class="fas fa-building"></i>
-      <span>Fasilitas</span>
-    </a>
-    <a href="admin-prestasi" class="nav-item">
-      <i class="fas fa-trophy"></i>
-      <span>Prestasi</span>
-    </a>
-
-    <div class="nav-group-title">PROFIL SEKOLAH</div>
-    <a href="admin-sambutan" class="nav-item">
-      <i class="fas fa-comment-dots"></i>
-      <span>Sambutan</span>
-    </a>
-    <a href="admin-sejarah" class="nav-item">
-      <i class="fas fa-history"></i>
-      <span>Sejarah</span>
-    </a>
-    <a href="admin-struktur-organis" class="nav-item">
-      <i class="fas fa-sitemap"></i>
-      <span>Struktur Organisasi</span>
-    </a>
-
-    <div class="sidebar-footer">
-      <a href="/" class="nav-item logout">
-        <i class="fas fa-sign-out-alt"></i>
-        <span>Logout</span>
-      </a>
-    </div>
-  </nav>
-
-  <!-- Mobile Sidebar Toggle Button -->
-  <div class="d-md-none position-fixed" style="top: 10px; left: 10px; z-index: 1005;">
-    <button class="btn btn-primary rounded-circle shadow" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar">
-      <i class="fas fa-bars"></i>
-    </button>
-  </div>
-
-  <!-- Offcanvas Sidebar for Mobile -->
-  <div class="offcanvas offcanvas-start sidebar" id="offcanvasSidebar" tabindex="-1">
-    <div class="offcanvas-header border-bottom">
-      <h5 class="text-white m-0">Menu Admin</h5>
-      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body p-0">
+    <div class="sidebar-inner">
       <div class="logo-container">
         <img src="img/logo SMP.png" alt="Logo Sekolah" />
         <h5>SMP Islam Sa'adatuddarain NW Majuet</h5>
@@ -492,11 +424,99 @@
         <span>Struktur Organisasi</span>
       </a>
 
-      <div class="nav-group-title">AKUN</div>
-      <a href="/" class="nav-item logout">
-        <i class="fas fa-sign-out-alt"></i>
-        <span>Logout</span>
-      </a>
+      <div class="sidebar-footer">
+        <a href="/" class="nav-item logout">
+          <i class="fas fa-sign-out-alt"></i>
+          <span>Logout</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Sidebar Toggle Button -->
+  <div class="d-md-none position-fixed" style="top: 10px; left: 10px; z-index: 1005;">
+    <button class="btn btn-primary rounded-circle shadow" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar">
+      <i class="fas fa-bars"></i>
+    </button>
+  </div>
+
+  <!-- Offcanvas Sidebar for Mobile -->
+  <div class="offcanvas offcanvas-start sidebar" id="offcanvasSidebar" tabindex="-1">
+    <div class="offcanvas-header border-bottom">
+      <h5 class="text-white m-0">Menu Admin</h5>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body p-0">
+      <div class="sidebar-inner">
+        <div class="logo-container">
+          <img src="img/logo SMP.png" alt="Logo Sekolah" />
+          <h5>SMP Islam Sa'adatuddarain NW Majuet</h5>
+        </div>
+
+        <div class="nav-group-title">MENU UTAMA</div>
+        <a href="admin-dashbord" class="nav-item active">
+          <i class="fas fa-tachometer-alt"></i>
+          <span>Dashboard</span>
+        </a>
+        <a href="admin-berita-artikel" class="nav-item">
+          <i class="fas fa-newspaper"></i>
+          <span>Berita/Artikel</span>
+        </a>
+        <a href="admin-pengumuman" class="nav-item">
+          <i class="fas fa-bullhorn"></i>
+          <span>Pengumuman</span>
+        </a>
+        <a href="admin-guru" class="nav-item">
+          <i class="fas fa-chalkboard-teacher"></i>
+          <span>Guru</span>
+        </a>
+
+        <div class="nav-group-title">KELOLA LANJUTAN</div>
+        <a href="admin-brosur" class="nav-item">
+          <i class="fas fa-file-alt"></i>
+          <span>Brosur</span>
+        </a>
+        <a href="admin-carousel-ppdb" class="nav-item">
+          <i class="fas fa-images"></i>
+          <span>Carousel PPDB</span>
+        </a>
+        <a href="admin-data-siswa" class="nav-item">
+          <i class="fas fa-user-graduate"></i>
+          <span>Data Siswa</span>
+        </a>
+        <a href="admin-extrakurikuler" class="nav-item">
+          <i class="fas fa-futbol"></i>
+          <span>Ekstrakurikuler</span>
+        </a>
+        <a href="admin-fasilitas" class="nav-item">
+          <i class="fas fa-building"></i>
+          <span>Fasilitas</span>
+        </a>
+        <a href="admin-prestasi" class="nav-item">
+          <i class="fas fa-trophy"></i>
+          <span>Prestasi</span>
+        </a>
+
+        <div class="nav-group-title">PROFIL SEKOLAH</div>
+        <a href="admin-sambutan" class="nav-item">
+          <i class="fas fa-comment-dots"></i>
+          <span>Sambutan</span>
+        </a>
+        <a href="admin-sejarah" class="nav-item">
+          <i class="fas fa-history"></i>
+          <span>Sejarah</span>
+        </a>
+        <a href="admin-struktur-organisi" class="nav-item">
+          <i class="fas fa-sitemap"></i>
+          <span>Struktur Organisasi</span>
+        </a>
+
+        <div class="nav-group-title">AKUN</div>
+        <a href="/" class="nav-item logout">
+          <i class="fas fa-sign-out-alt"></i>
+          <span>Logout</span>
+        </a>
+      </div>
     </div>
   </div>
 
@@ -539,7 +559,7 @@
               <span class="user-name">Admin User</span>
               <span class="user-role">Administrator</span>
             </div>
-            <i class="fas fa-chevron-down ms-2 d-none d-md-block" style="font-size: 12px;"></i>
+            <i class="fas fa-chevron-down ms-2 d-none d-md-block" style="font-size: 10px;"></i>
           </div>
           <ul class="dropdown-menu dropdown-menu-end">
             <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i> Profil</a></li>
@@ -551,16 +571,6 @@
         </div>
       </div>
     </div>
-
-    <!-- Page Content -->
-    <div class="content-wrapper">
-      <!-- Your page content goes here -->
-      <div class="container-fluid">
-        <h1 class="h3 mb-4 text-gray-800">Dashboard</h1>
-        <!-- Content goes here -->
-      </div>
-    </div>
-  </div>
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -588,5 +598,3 @@
       });
     });
   </script>
-</body>
-</html>
