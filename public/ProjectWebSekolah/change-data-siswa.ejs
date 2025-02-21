@@ -37,7 +37,13 @@
       color: #27ae60;
     }
     .form-section {
-      margin-bottom: 20px;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #ddd;
+    }
+    .form-section h4 {
+      margin-bottom: 15px;
+      color: #4e73df;
     }
     .btn-group {
       margin-top: 20px;
@@ -50,7 +56,24 @@
     <form id="updateForm">
       <!-- Hidden input untuk ID -->
       <input type="hidden" id="id" name="id">
-      
+
+      <!-- Informasi Pendaftaran -->
+      <div class="form-section">
+        <h4>Informasi Pendaftaran</h4>
+        <div class="mb-3">
+          <label for="taPendaftaran" class="form-label">Tahun Pendaftaran</label>
+          <input type="text" id="taPendaftaran" name="taPendaftaran" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="jalurPendaftaran" class="form-label">Jalur Pendaftaran</label>
+          <input type="text" id="jalurPendaftaran" name="jalurPendaftaran" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="program" class="form-label">Program</label>
+          <input type="text" id="program" name="program" class="form-control" required>
+        </div>
+      </div>
+
       <!-- Data Siswa -->
       <div class="form-section">
         <h4>Data Siswa</h4>
@@ -63,7 +86,15 @@
           <input type="text" id="namaPanggilan" name="namaPanggilan" class="form-control" required>
         </div>
         <div class="mb-3">
-          <label for="nik" class="form-label">NIK/No. KIA</label>
+          <label for="nisn" class="form-label">NISN</label>
+          <input type="text" id="nisn" name="nisn" class="form-control">
+        </div>
+        <div class="mb-3">
+          <label for="nis" class="form-label">NIS</label>
+          <input type="text" id="nis" name="nis" class="form-control">
+        </div>
+        <div class="mb-3">
+          <label for="nik" class="form-label">NIK / No. KIA</label>
           <input type="text" id="nik" name="nik" class="form-control" required>
         </div>
         <div class="mb-3">
@@ -97,21 +128,121 @@
         </div>
         <div class="mb-3">
           <label for="alamatSiswa" class="form-label">Alamat Siswa</label>
-          <input type="text" id="alamatSiswa" name="alamatSiswa" class="form-control" required>
+          <textarea id="alamatSiswa" name="alamatSiswa" class="form-control" rows="2" required></textarea>
         </div>
       </div>
 
-      <!-- Data Orang Tua & Kontak -->
+      <!-- Alamat Lengkap Siswa -->
       <div class="form-section">
-        <h4>Data Orang Tua & Kontak</h4>
+        <h4>Alamat Lengkap Siswa</h4>
+        <div class="mb-3">
+          <label for="rt" class="form-label">RT</label>
+          <input type="text" id="rt" name="rt" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="rw" class="form-label">RW</label>
+          <input type="text" id="rw" name="rw" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="desa" class="form-label">Desa</label>
+          <input type="text" id="desa" name="desa" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="kecamatan" class="form-label">Kecamatan</label>
+          <input type="text" id="kecamatan" name="kecamatan" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="kabupaten" class="form-label">Kabupaten</label>
+          <input type="text" id="kabupaten" name="kabupaten" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="provinsi" class="form-label">Provinsi</label>
+          <input type="text" id="provinsi" name="provinsi" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="kodePos" class="form-label">Kode Pos</label>
+          <input type="text" id="kodePos" name="kodePos" class="form-control" required>
+        </div>
+      </div>
+
+      <!-- Data Orang Tua -->
+      <div class="form-section">
+        <h4>Data Orang Tua</h4>
         <div class="mb-3">
           <label for="namaAyah" class="form-label">Nama Ayah</label>
           <input type="text" id="namaAyah" name="namaAyah" class="form-control" required>
         </div>
         <div class="mb-3">
+          <label for="pekerjaanAyah" class="form-label">Pekerjaan Ayah</label>
+          <input type="text" id="pekerjaanAyah" name="pekerjaanAyah" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="pendidikanAyah" class="form-label">Pendidikan Ayah</label>
+          <input type="text" id="pendidikanAyah" name="pendidikanAyah" class="form-control" required>
+        </div>
+        <div class="mb-3">
           <label for="namaIbu" class="form-label">Nama Ibu</label>
           <input type="text" id="namaIbu" name="namaIbu" class="form-control" required>
         </div>
+        <div class="mb-3">
+          <label for="pekerjaanIbu" class="form-label">Pekerjaan Ibu</label>
+          <input type="text" id="pekerjaanIbu" name="pekerjaanIbu" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="pendidikanIbu" class="form-label">Pendidikan Ibu</label>
+          <input type="text" id="pendidikanIbu" name="pendidikanIbu" class="form-control" required>
+        </div>
+      </div>
+
+      <!-- Data Wali (Opsional) -->
+      <div class="form-section">
+        <h4>Data Wali (Opsional)</h4>
+        <div class="mb-3">
+          <label for="hubunganWali" class="form-label">Hubungan Wali</label>
+          <input type="text" id="hubunganWali" name="hubunganWali" class="form-control">
+        </div>
+        <div class="mb-3">
+          <label for="namaWali" class="form-label">Nama Wali</label>
+          <input type="text" id="namaWali" name="namaWali" class="form-control">
+        </div>
+        <div class="mb-3">
+          <label for="pekerjaanWali" class="form-label">Pekerjaan Wali</label>
+          <input type="text" id="pekerjaanWali" name="pekerjaanWali" class="form-control">
+        </div>
+        <div class="mb-3">
+          <label for="pendidikanWali" class="form-label">Pendidikan Wali</label>
+          <input type="text" id="pendidikanWali" name="pendidikanWali" class="form-control">
+        </div>
+      </div>
+
+      <!-- Data Sekolah Asal -->
+      <div class="form-section">
+        <h4>Data Sekolah Asal</h4>
+        <div class="mb-3">
+          <label for="jenisPendaftaran" class="form-label">Jenis Pendaftaran</label>
+          <select id="jenisPendaftaran" name="jenisPendaftaran" class="form-select" required>
+            <option value="">Pilih</option>
+            <option value="Peserta Didik Baru">Peserta Didik Baru</option>
+            <option value="Peserta Didik Pindahan">Peserta Didik Pindahan</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="namaSekolah" class="form-label">Nama Sekolah</label>
+          <input type="text" id="namaSekolah" name="namaSekolah" class="form-control">
+        </div>
+        <div class="mb-3">
+          <label for="alamatSekolah" class="form-label">Alamat Sekolah</label>
+          <textarea id="alamatSekolah" name="alamatSekolah" class="form-control" rows="2"></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="pindahanKelas" class="form-label">Pindahan Kelas</label>
+          <input type="text" id="pindahanKelas" name="pindahanKelas" class="form-control">
+        </div>
+      </div>
+
+      <!-- Kontak -->
+      <div class="form-section">
+        <h4>Kontak</h4>
         <div class="mb-3">
           <label for="noHp" class="form-label">No HP / WA</label>
           <input type="text" id="noHp" name="noHp" class="form-control" required>
@@ -122,7 +253,16 @@
         </div>
       </div>
 
-      <!-- Tombol Update & Print -->
+      <!-- Registered By -->
+      <div class="form-section">
+        <h4>Registered By</h4>
+        <div class="mb-3">
+          <label for="registeredBy" class="form-label">Registered By</label>
+          <input type="text" id="registeredBy" name="registeredBy" class="form-control" required>
+        </div>
+      </div>
+
+      <!-- Tombol Update, Print & Kembali -->
       <div class="btn-group d-flex justify-content-center">
         <button type="submit" class="btn btn-primary me-2">Perbarui Data</button>
         <button type="button" id="printButton" class="btn btn-warning me-2">Print PDF</button>
@@ -159,20 +299,54 @@
         const response = await fetch(`/api/pendaftaran/${id}`);
         if (!response.ok) throw new Error('Gagal mengambil data pendaftaran');
         const data = await response.json();
-        // Isi form dengan data yang diambil
+
+        // Isi setiap field dengan data yang diambil
         document.getElementById('id').value = data.id;
+        // Informasi Pendaftaran
+        document.getElementById('taPendaftaran').value = data.taPendaftaran;
+        document.getElementById('jalurPendaftaran').value = data.jalurPendaftaran;
+        document.getElementById('program').value = data.program;
+        // Data Siswa
         document.getElementById('namaLengkap').value = data.namaLengkap;
         document.getElementById('namaPanggilan').value = data.namaPanggilan;
+        document.getElementById('nisn').value = data.nisn || '';
+        document.getElementById('nis').value = data.nis || '';
         document.getElementById('nik').value = data.nik;
         document.getElementById('tempatLahir').value = data.tempatLahir;
         document.getElementById('tanggalLahir').value = data.tanggalLahir;
         document.getElementById('jenisKelamin').value = data.jenisKelamin;
         document.getElementById('agama').value = data.agama;
         document.getElementById('alamatSiswa').value = data.alamatSiswa;
+        // Alamat Lengkap Siswa
+        document.getElementById('rt').value = data.rt;
+        document.getElementById('rw').value = data.rw;
+        document.getElementById('desa').value = data.desa;
+        document.getElementById('kecamatan').value = data.kecamatan;
+        document.getElementById('kabupaten').value = data.kabupaten;
+        document.getElementById('provinsi').value = data.provinsi;
+        document.getElementById('kodePos').value = data.kodePos;
+        // Data Orang Tua
         document.getElementById('namaAyah').value = data.namaAyah;
+        document.getElementById('pekerjaanAyah').value = data.pekerjaanAyah;
+        document.getElementById('pendidikanAyah').value = data.pendidikanAyah;
         document.getElementById('namaIbu').value = data.namaIbu;
+        document.getElementById('pekerjaanIbu').value = data.pekerjaanIbu;
+        document.getElementById('pendidikanIbu').value = data.pendidikanIbu;
+        // Data Wali (Opsional)
+        document.getElementById('hubunganWali').value = data.hubunganWali || '';
+        document.getElementById('namaWali').value = data.namaWali || '';
+        document.getElementById('pekerjaanWali').value = data.pekerjaanWali || '';
+        document.getElementById('pendidikanWali').value = data.pendidikanWali || '';
+        // Data Sekolah Asal
+        document.getElementById('jenisPendaftaran').value = data.jenisPendaftaran;
+        document.getElementById('namaSekolah').value = data.namaSekolah || '';
+        document.getElementById('alamatSekolah').value = data.alamatSekolah || '';
+        document.getElementById('pindahanKelas').value = data.pindahanKelas || '';
+        // Kontak
         document.getElementById('noHp').value = data.noHp;
         document.getElementById('kontakEmail').value = data.kontakEmail;
+        // Registered By
+        document.getElementById('registeredBy').value = data.registeredBy;
       } catch (error) {
         console.error("Error loading data siswa:", error);
         alert("Terjadi kesalahan saat memuat data siswa.");
@@ -186,18 +360,43 @@
       e.preventDefault();
       const id = document.getElementById('id').value;
       const formData = {
+        taPendaftaran: document.getElementById('taPendaftaran').value,
+        jalurPendaftaran: document.getElementById('jalurPendaftaran').value,
+        program: document.getElementById('program').value,
         namaLengkap: document.getElementById('namaLengkap').value,
         namaPanggilan: document.getElementById('namaPanggilan').value,
+        nisn: document.getElementById('nisn').value,
+        nis: document.getElementById('nis').value,
         nik: document.getElementById('nik').value,
         tempatLahir: document.getElementById('tempatLahir').value,
         tanggalLahir: document.getElementById('tanggalLahir').value,
         jenisKelamin: document.getElementById('jenisKelamin').value,
         agama: document.getElementById('agama').value,
         alamatSiswa: document.getElementById('alamatSiswa').value,
+        rt: document.getElementById('rt').value,
+        rw: document.getElementById('rw').value,
+        desa: document.getElementById('desa').value,
+        kecamatan: document.getElementById('kecamatan').value,
+        kabupaten: document.getElementById('kabupaten').value,
+        provinsi: document.getElementById('provinsi').value,
+        kodePos: document.getElementById('kodePos').value,
         namaAyah: document.getElementById('namaAyah').value,
+        pekerjaanAyah: document.getElementById('pekerjaanAyah').value,
+        pendidikanAyah: document.getElementById('pendidikanAyah').value,
         namaIbu: document.getElementById('namaIbu').value,
+        pekerjaanIbu: document.getElementById('pekerjaanIbu').value,
+        pendidikanIbu: document.getElementById('pendidikanIbu').value,
+        hubunganWali: document.getElementById('hubunganWali').value,
+        namaWali: document.getElementById('namaWali').value,
+        pekerjaanWali: document.getElementById('pekerjaanWali').value,
+        pendidikanWali: document.getElementById('pendidikanWali').value,
+        jenisPendaftaran: document.getElementById('jenisPendaftaran').value,
+        namaSekolah: document.getElementById('namaSekolah').value,
+        alamatSekolah: document.getElementById('alamatSekolah').value,
+        pindahanKelas: document.getElementById('pindahanKelas').value,
         noHp: document.getElementById('noHp').value,
         kontakEmail: document.getElementById('kontakEmail').value,
+        registeredBy: document.getElementById('registeredBy').value
       };
 
       try {
@@ -227,20 +426,45 @@
       doc.setFont("helvetica", "bold");
       doc.text("Detail Data Siswa", 14, 20);
       
-      // Siapkan data untuk dicetak
+      // Siapkan data untuk dicetak (mencakup semua field)
       const fields = [
+        ["Tahun Pendaftaran", document.getElementById("taPendaftaran").value],
+        ["Jalur Pendaftaran", document.getElementById("jalurPendaftaran").value],
+        ["Program", document.getElementById("program").value],
         ["Nama Lengkap", document.getElementById("namaLengkap").value],
         ["Nama Panggilan", document.getElementById("namaPanggilan").value],
-        ["NIK/No. KIA", document.getElementById("nik").value],
+        ["NISN", document.getElementById("nisn").value],
+        ["NIS", document.getElementById("nis").value],
+        ["NIK / No. KIA", document.getElementById("nik").value],
         ["Tempat Lahir", document.getElementById("tempatLahir").value],
         ["Tanggal Lahir", document.getElementById("tanggalLahir").value],
         ["Jenis Kelamin", document.getElementById("jenisKelamin").value],
         ["Agama", document.getElementById("agama").value],
         ["Alamat Siswa", document.getElementById("alamatSiswa").value],
+        ["RT", document.getElementById("rt").value],
+        ["RW", document.getElementById("rw").value],
+        ["Desa", document.getElementById("desa").value],
+        ["Kecamatan", document.getElementById("kecamatan").value],
+        ["Kabupaten", document.getElementById("kabupaten").value],
+        ["Provinsi", document.getElementById("provinsi").value],
+        ["Kode Pos", document.getElementById("kodePos").value],
         ["Nama Ayah", document.getElementById("namaAyah").value],
+        ["Pekerjaan Ayah", document.getElementById("pekerjaanAyah").value],
+        ["Pendidikan Ayah", document.getElementById("pendidikanAyah").value],
         ["Nama Ibu", document.getElementById("namaIbu").value],
+        ["Pekerjaan Ibu", document.getElementById("pekerjaanIbu").value],
+        ["Pendidikan Ibu", document.getElementById("pendidikanIbu").value],
+        ["Hubungan Wali", document.getElementById("hubunganWali").value],
+        ["Nama Wali", document.getElementById("namaWali").value],
+        ["Pekerjaan Wali", document.getElementById("pekerjaanWali").value],
+        ["Pendidikan Wali", document.getElementById("pendidikanWali").value],
+        ["Jenis Pendaftaran (Sekolah Asal)", document.getElementById("jenisPendaftaran").value],
+        ["Nama Sekolah", document.getElementById("namaSekolah").value],
+        ["Alamat Sekolah", document.getElementById("alamatSekolah").value],
+        ["Pindahan Kelas", document.getElementById("pindahanKelas").value],
         ["No HP", document.getElementById("noHp").value],
         ["Email", document.getElementById("kontakEmail").value],
+        ["Registered By", document.getElementById("registeredBy").value],
       ];
       
       // Gunakan AutoTable untuk membuat tabel PDF

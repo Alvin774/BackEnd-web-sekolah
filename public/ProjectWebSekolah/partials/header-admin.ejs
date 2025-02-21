@@ -22,7 +22,6 @@
       --sidebar-width: 280px;
       --header-height: 70px;
     }
-
     body {
       font-family: 'Poppins', sans-serif;
       background-color: #f0f2f5;
@@ -30,7 +29,6 @@
       padding: 0;
       overflow-x: hidden;
     }
-
     /* Sidebar Styles */
     .sidebar {
       position: fixed;
@@ -43,26 +41,22 @@
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
       z-index: 1000;
       transition: all 0.3s ease;
-      overflow: hidden; /* Menghilangkan scrollbar */
+      overflow: hidden; /* Hilangkan scrollbar */
     }
-
     .sidebar-inner {
       height: 100%;
-      overflow-y: auto; /* Scroll internal */
-      padding-right: 17px; /* Menyembunyikan scrollbar */
-      box-sizing: content-box; /* Memastikan padding tidak mengubah lebar */
+      overflow-y: auto;
+      padding-right: 17px; /* Sembunyikan scrollbar */
+      box-sizing: content-box;
       scrollbar-width: none; /* Firefox */
       -ms-overflow-style: none; /* IE and Edge */
     }
-
     .sidebar-inner::-webkit-scrollbar {
       display: none; /* Chrome, Safari, Opera */
     }
-
     .sidebar-collapsed {
       width: 70px;
     }
-
     .logo-container {
       display: flex;
       flex-direction: column;
@@ -70,7 +64,6 @@
       padding: 20px 15px;
       border-bottom: 1px solid rgba(255,255,255,0.1);
     }
-
     .logo-container img {
       width: 60px;
       height: 60px;
@@ -81,7 +74,6 @@
       background-color: white;
       padding: 5px;
     }
-
     .logo-container h5 {
       font-size: 13px;
       text-align: center;
@@ -89,12 +81,10 @@
       transition: opacity 0.3s ease;
       white-space: nowrap;
     }
-
     .sidebar-collapsed .logo-container h5 {
       opacity: 0;
       display: none;
     }
-
     .nav-item {
       display: flex;
       align-items: center;
@@ -105,31 +95,26 @@
       border-left: 3px solid transparent;
       margin-bottom: 2px;
     }
-
     .nav-item:hover, .nav-item.active {
       background-color: rgba(255, 255, 255, 0.05);
       color: white;
       border-left: 3px solid var(--secondary-color);
     }
-
     .nav-item i {
       font-size: 16px;
       margin-right: 15px;
       width: 20px;
       text-align: center;
     }
-
     .nav-item span {
       transition: opacity 0.3s ease;
       white-space: nowrap;
       font-size: 14px;
     }
-
     .sidebar-collapsed .nav-item span {
       opacity: 0;
       display: none;
     }
-
     .sidebar-footer {
       padding: 15px 20px;
       border-top: 1px solid rgba(255,255,255,0.1);
@@ -137,7 +122,6 @@
       bottom: 0;
       background: var(--dark-color);
     }
-
     .nav-group-title {
       font-size: 10px;
       text-transform: uppercase;
@@ -146,17 +130,14 @@
       padding: 15px 20px 5px;
       font-weight: 600;
     }
-
     /* Navbar Styles */
     .main-content {
       margin-left: var(--sidebar-width);
       transition: all 0.3s ease;
     }
-
     .main-content-expanded {
       margin-left: 70px;
     }
-
     .top-navbar {
       background-color: white;
       height: var(--header-height);
@@ -171,12 +152,11 @@
       z-index: 999;
       transition: all 0.3s ease;
     }
-
     .navbar-expanded {
       left: 70px;
     }
-
-    .toggle-sidebar-btn {
+    /* Tombol Toggle: Desktop (tidak ada offcanvas) */
+    .toggle-sidebar-btn-desktop {
       background: none;
       border: none;
       color: var(--dark-color);
@@ -190,11 +170,27 @@
       border-radius: 50%;
       transition: all 0.3s ease;
     }
-
-    .toggle-sidebar-btn:hover {
+    .toggle-sidebar-btn-desktop:hover {
       background-color: rgba(0, 0, 0, 0.05);
     }
-
+    /* Tombol Toggle: Mobile (menggunakan offcanvas) */
+    .toggle-sidebar-btn-mobile {
+      background: none;
+      border: none;
+      color: var(--dark-color);
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+    }
+    .toggle-sidebar-btn-mobile:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
     .search-form {
       display: flex;
       align-items: center;
@@ -203,7 +199,6 @@
       padding: 4px 15px;
       margin-left: 16px;
     }
-
     .search-form input {
       border: none;
       background: transparent;
@@ -212,25 +207,21 @@
       width: 240px;
       font-size: 14px;
     }
-
     .search-form button {
       background: none;
       border: none;
       color: #858796;
       cursor: pointer;
     }
-
     .navbar-items {
       display: flex;
       align-items: center;
       margin-left: auto;
     }
-
     .navbar-item {
       position: relative;
       margin-left: 16px;
     }
-
     .notification-badge {
       position: absolute;
       top: -5px;
@@ -245,7 +236,6 @@
       justify-content: center;
       border-radius: 50%;
     }
-
     .navbar-icon {
       width: 36px;
       height: 36px;
@@ -257,25 +247,21 @@
       cursor: pointer;
       transition: all 0.3s ease;
     }
-
     .navbar-icon:hover {
       background-color: rgba(0, 0, 0, 0.05);
       color: var(--primary-color);
     }
-
     .vertical-divider {
       height: 36px;
       width: 1px;
       background-color: #eaecf4;
       margin: 0 16px;
     }
-
     .user-profile {
       display: flex;
       align-items: center;
       cursor: pointer;
     }
-
     .user-avatar {
       width: 36px;
       height: 36px;
@@ -284,70 +270,55 @@
       margin-right: 10px;
       border: 2px solid #eaecf4;
     }
-
     .user-info {
       display: flex;
       flex-direction: column;
     }
-
     .user-name {
       font-size: 13px;
       font-weight: 600;
       color: #5a5c69;
     }
-
     .user-role {
       font-size: 11px;
       color: #858796;
     }
-
-    /* Mobile styles */
+    /* Mobile Styles */
     @media (max-width: 768px) {
       .sidebar {
         transform: translateX(-100%);
       }
-      
       .main-content {
         margin-left: 0;
       }
-      
       .top-navbar {
         left: 0;
       }
-      
-      .mobile-menu-btn {
-        display: block;
-      }
-      
       .search-form {
         display: none;
       }
     }
-
+    /* Offcanvas Sidebar untuk Mobile */
     .offcanvas.sidebar {
       width: 280px;
     }
-
-    /* Content area */
+    /* Content Area */
     .content-wrapper {
       padding: calc(var(--header-height) + 20px) 20px 20px;
       min-height: 100vh;
     }
-
-    /* Dropdown menus */
+    /* Dropdown Menus */
     .dropdown-menu {
       box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.175);
       border: none;
       border-radius: 0.35rem;
     }
-
     .dropdown-item {
       display: flex;
       align-items: center;
       padding: 0.5rem 1rem;
       font-size: 13px;
     }
-
     .dropdown-item i {
       margin-right: 10px;
       font-size: 0.85rem;
@@ -356,16 +327,14 @@
     }
   </style>
 </head>
-
 <body>
-  <!-- Sidebar -->
+  <!-- Sidebar (Desktop) -->
   <nav class="sidebar" id="sidebar">
     <div class="sidebar-inner">
       <div class="logo-container">
         <img src="img/logo SMP.png" alt="Logo Sekolah" />
-        <h5>SMP Islam Sa'adatuddarain NW Majuet</h5>
+        <h5>SMP Islam <br>Sa'adatuddarain NW Majuet</h5>
       </div>
-
       <div class="nav-group-title">MENU UTAMA</div>
       <a href="admin-dashbord" class="nav-item active">
         <i class="fas fa-tachometer-alt"></i>
@@ -383,7 +352,6 @@
         <i class="fas fa-chalkboard-teacher"></i>
         <span>Guru</span>
       </a>
-
       <div class="nav-group-title">KELOLA LANJUTAN</div>
       <a href="admin-brosur" class="nav-item">
         <i class="fas fa-file-alt"></i>
@@ -409,7 +377,6 @@
         <i class="fas fa-trophy"></i>
         <span>Prestasi</span>
       </a>
-
       <div class="nav-group-title">PROFIL SEKOLAH</div>
       <a href="admin-sambutan" class="nav-item">
         <i class="fas fa-comment-dots"></i>
@@ -423,7 +390,6 @@
         <i class="fas fa-sitemap"></i>
         <span>Struktur Organisasi</span>
       </a>
-
       <div class="sidebar-footer">
         <a href="/" class="nav-item logout">
           <i class="fas fa-sign-out-alt"></i>
@@ -433,15 +399,8 @@
     </div>
   </nav>
 
-  <!-- Mobile Sidebar Toggle Button -->
-  <div class="d-md-none position-fixed" style="top: 10px; left: 10px; z-index: 1005;">
-    <button class="btn btn-primary rounded-circle shadow" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar">
-      <i class="fas fa-bars"></i>
-    </button>
-  </div>
-
-  <!-- Offcanvas Sidebar for Mobile -->
-  <div class="offcanvas offcanvas-start sidebar" id="offcanvasSidebar" tabindex="-1">
+  <!-- Offcanvas Sidebar untuk Mobile -->
+  <div class="offcanvas offcanvas-start sidebar" id="offcanvasSidebar" tabindex="-1" data-bs-backdrop="false">
     <div class="offcanvas-header border-bottom">
       <h5 class="text-white m-0">Menu Admin</h5>
       <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -450,9 +409,8 @@
       <div class="sidebar-inner">
         <div class="logo-container">
           <img src="img/logo SMP.png" alt="Logo Sekolah" />
-          <h5>SMP Islam Sa'adatuddarain NW Majuet</h5>
+          <h5>SMP Islam <br>Sa'adatuddarain NW Majuet</h5>
         </div>
-
         <div class="nav-group-title">MENU UTAMA</div>
         <a href="admin-dashbord" class="nav-item active">
           <i class="fas fa-tachometer-alt"></i>
@@ -470,7 +428,6 @@
           <i class="fas fa-chalkboard-teacher"></i>
           <span>Guru</span>
         </a>
-
         <div class="nav-group-title">KELOLA LANJUTAN</div>
         <a href="admin-brosur" class="nav-item">
           <i class="fas fa-file-alt"></i>
@@ -496,7 +453,6 @@
           <i class="fas fa-trophy"></i>
           <span>Prestasi</span>
         </a>
-
         <div class="nav-group-title">PROFIL SEKOLAH</div>
         <a href="admin-sambutan" class="nav-item">
           <i class="fas fa-comment-dots"></i>
@@ -506,11 +462,10 @@
           <i class="fas fa-history"></i>
           <span>Sejarah</span>
         </a>
-        <a href="admin-struktur-organisi" class="nav-item">
+        <a href="admin-struktur-organisasi" class="nav-item">
           <i class="fas fa-sitemap"></i>
           <span>Struktur Organisasi</span>
         </a>
-
         <div class="nav-group-title">AKUN</div>
         <a href="/" class="nav-item logout">
           <i class="fas fa-sign-out-alt"></i>
@@ -520,38 +475,30 @@
     </div>
   </div>
 
-  <!-- Main Content -->
+  <!-- Main Content & Top Navbar -->
   <div class="main-content" id="mainContent">
     <!-- Top Navbar -->
     <div class="top-navbar" id="topNavbar">
-      <button id="toggleSidebarBtn" class="toggle-sidebar-btn">
+      <!-- Tombol Toggle Desktop (hanya muncul di layar besar) -->
+      <button id="toggleSidebarBtnDesktop" class="toggle-sidebar-btn-desktop d-none d-md-block" type="button">
         <i class="fas fa-bars"></i>
       </button>
-
-      <div class="search-form">
-        <input type="text" placeholder="Cari..." />
-        <button type="submit">
-          <i class="fas fa-search"></i>
-        </button>
-      </div>
-
+      <!-- Tombol Toggle Mobile (hanya muncul di layar kecil) -->
+      <button id="toggleSidebarBtnMobile" class="toggle-sidebar-btn-mobile d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar">
+        <i class="fas fa-bars"></i>
+      </button>
       <div class="navbar-items">
         <div class="navbar-item">
           <div class="navbar-icon">
             <i class="fas fa-bell"></i>
-            <div class="notification-badge">3</div>
           </div>
         </div>
-
         <div class="navbar-item">
           <div class="navbar-icon">
             <i class="fas fa-envelope"></i>
-            <div class="notification-badge">7</div>
           </div>
         </div>
-
         <div class="vertical-divider"></div>
-
         <div class="navbar-item dropdown">
           <div class="user-profile" data-bs-toggle="dropdown">
             <img src="https://ui-avatars.com/api/?name=Admin+User&background=4e73df&color=fff" alt="Admin User" class="user-avatar" />
@@ -571,24 +518,39 @@
         </div>
       </div>
     </div>
+    
+    <!-- Konten Utama Halaman Admin -->
+    <div class="content-wrapper">
+      <h2>Selamat datang di Dashboard Admin</h2>
+      <!-- Tempat konten lainnya -->
+    </div>
+  </div>
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
+      // Toggle untuk desktop (hanya tombol desktop yang aktif)
+      const toggleDesktopBtn = document.getElementById('toggleSidebarBtnDesktop');
       const sidebar = document.getElementById('sidebar');
       const mainContent = document.getElementById('mainContent');
       const topNavbar = document.getElementById('topNavbar');
-      const toggleSidebarBtn = document.getElementById('toggleSidebarBtn');
 
-      // Toggle sidebar
-      toggleSidebarBtn.addEventListener('click', function() {
+      toggleDesktopBtn.addEventListener('click', function() {
         sidebar.classList.toggle('sidebar-collapsed');
         mainContent.classList.toggle('main-content-expanded');
         topNavbar.classList.toggle('navbar-expanded');
       });
 
-      // Active menu item
+      // Event listener untuk offcanvas mobile (mencegah penutupan jika diklik pada .nav-item, jika diperlukan)
+      const offcanvasSidebar = document.getElementById('offcanvasSidebar');
+      offcanvasSidebar.addEventListener('hide.bs.offcanvas', function(event) {
+        if (event.clickEvent && event.clickEvent.target.closest('.nav-item')) {
+          event.preventDefault();
+        }
+      });
+
+      // Set active menu item berdasarkan URL
       const currentLocation = window.location.href;
       const menuItems = document.querySelectorAll('.nav-item');
       menuItems.forEach(item => {
