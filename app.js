@@ -7,42 +7,6 @@ require('dotenv').config();
 
 const app = express();
 app.set('view engine', 'ejs');
-
-const helmet = require('helmet');
-
-app.use(
-  helmet.contentSecurityPolicy({
-    useDefaults: true,
-    directives: {
-      defaultSrc: ["'self'"],
-      scriptSrc: [
-        "'self'",
-        "https://cdnjs.cloudflare.com",
-        "https://cdn.jsdelivr.net",
-        "https://www.google.com",
-        "'unsafe-inline'"  // Perhatian: penggunaan unsafe-inline mengurangi keamanan
-      ],
-      styleSrc: [
-        "'self'",
-        "https://cdn.jsdelivr.net",
-        "https://cdnjs.cloudflare.com",
-        "https://fonts.googleapis.com",
-        "'unsafe-inline'"  // Perhatian: penggunaan unsafe-inline mengurangi keamanan
-      ],
-      imgSrc: [
-        "'self'",
-        "data:",
-        "https://res.cloudinary.com",
-        "https://cdnjs.cloudflare.com"
-      ],
-      frameSrc: ["'self'", "https://www.google.com", "https://cdnjs.cloudflare.com"],
-      // Anda bisa menghapus upgradeInsecureRequests atau biarkan kosong
-      upgradeInsecureRequests: []
-    }
-  })
-);
-
-
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -115,7 +79,6 @@ app.use('/api/statistics', statisticRoutes);
 app.set('views', path.join(__dirname, 'public/ProjectWebSekolah'));
 
 
-// Set static folder untuk front-end (misalnya, folder ProjectWebSekolah)
 app.use(express.static(path.join(__dirname, 'public/ProjectWebSekolah')));
 
 
@@ -168,7 +131,7 @@ app.get('/login', (req, res) => {
 
 app.get('/register', (req, res) => {
   res.render('register'); // akan mencari file views/index.ejs
-});
+})
 
 app.get('/admin-dashbord', (req, res) => {
   res.render('admin-dashbord'); // akan mencari file views/index.ejs
@@ -202,11 +165,11 @@ app.get('/admin-brosur', (req, res) => {
 });
 
 app.get('/admin-data-siswa', (req, res) => {
-  res.render('admin-data-siswa'); // akan mencari file views/index.ejs
+  res.render('admin-data-siswa'); 
 });
 
 app.get('/admin-struktur-organisasi', (req, res) => {
-  res.render('admin-struktur-organisasi'); // akan mencari file views/index.ejs
+  res.render('admin-struktur-organisasi');
 });
 
 app.get('/change-data-siswa', (req, res) => {
@@ -223,15 +186,7 @@ app.get('/admin-extrakurikuler', (req, res) => {
   res.render('admin-extrakurikuler'); // akan mencari file views/index.ejs
 });
 
-app.get('/admin-pengumuman', (req, res) => {
-  res.render('admin-pengumuman'); // akan mencari file views/index.ejs
-});
-app.get('/admin-fasilitas', (req, res) => {
-  res.render('admin-fasilitas'); // akan mencari file views/index.ejs
-});
-app.get('/admin-sejarah', (req, res) => {
-  res.render('admin-sejarah'); // akan mencari file views/index.ejs
-});
+
 
 
 // Mulai server setelah database disinkronkan
