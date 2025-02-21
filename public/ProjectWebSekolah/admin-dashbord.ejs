@@ -36,10 +36,14 @@
     background-color: var(--dark-green);
     border-color: var(--dark-green);
   }
-</style>
-
-  <div>
-    <form id="statisticForm" class="pt-8">
+</style>    
+  <div class="container">
+    <h2 class="text-center">Kelola Statistik Sekolah</h2>
+    <form id="statisticForm">
+      <div class="mb-3">
+        <label for="siswa" class="form-label">Jumlah Siswa</label>
+        <input type="number" class="form-control" id="siswa" name="siswa" required>
+      </div>
       <div class="mb-3">
         <label for="gedung" class="form-label">Jumlah Gedung</label>
         <input type="number" class="form-control" id="gedung" name="gedung" required>
