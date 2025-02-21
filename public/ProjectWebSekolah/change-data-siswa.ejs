@@ -253,20 +253,11 @@
         </div>
       </div>
 
-      <!-- Registered By -->
-      <div class="form-section">
-        <h4>Registered By</h4>
-        <div class="mb-3">
-          <label for="registeredBy" class="form-label">Registered By</label>
-          <input type="text" id="registeredBy" name="registeredBy" class="form-control" required>
-        </div>
-      </div>
-
       <!-- Tombol Update, Print & Kembali -->
       <div class="btn-group d-flex justify-content-center">
         <button type="submit" class="btn btn-primary me-2">Perbarui Data</button>
         <button type="button" id="printButton" class="btn btn-warning me-2">Print PDF</button>
-        <a href="admin-data-siswa.html" class="btn btn-secondary">Kembali ke Daftar</a>
+        <a href="admin-data-siswa" class="btn btn-secondary">Kembali ke Daftar</a>
       </div>
     </form>
   </div>
@@ -275,7 +266,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
   <!-- Bootstrap JS Bundle -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="></script>
 
   <script>
     // Fungsi untuk mengambil parameter dari URL
@@ -463,8 +454,7 @@
         ["Alamat Sekolah", document.getElementById("alamatSekolah").value],
         ["Pindahan Kelas", document.getElementById("pindahanKelas").value],
         ["No HP", document.getElementById("noHp").value],
-        ["Email", document.getElementById("kontakEmail").value],
-        ["Registered By", document.getElementById("registeredBy").value],
+        ["Email", document.getElementById("kontakEmail").value]
       ];
       
       // Gunakan AutoTable untuk membuat tabel PDF
