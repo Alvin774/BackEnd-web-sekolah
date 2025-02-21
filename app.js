@@ -223,7 +223,15 @@ app.get('/admin-extrakurikuler', (req, res) => {
   res.render('admin-extrakurikuler'); // akan mencari file views/index.ejs
 });
 
-
+app.get('/admin-pengumuman', (req, res) => {
+  res.render('admin-pengumuman'); // akan mencari file views/index.ejs
+});
+app.get('/admin-fasilitas', (req, res) => {
+  res.render('admin-fasilitas'); // akan mencari file views/index.ejs
+});
+app.get('/admin-sejarah', (req, res) => {
+  res.render('admin-sejarah'); // akan mencari file views/index.ejs
+});
 
 
 // Mulai server setelah database disinkronkan
