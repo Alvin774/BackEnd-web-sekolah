@@ -199,6 +199,12 @@ app.get('/admin-pengumuman', (req, res) => {
 });
 
 
+app.get('/admin-data-sekolah', (req, res) => {
+  res.render('admin-data-sekolah')
+});
+
+
+
 
 // Mulai server setelah database disinkronkan
 const PORT = process.env.PORT || 3000;
