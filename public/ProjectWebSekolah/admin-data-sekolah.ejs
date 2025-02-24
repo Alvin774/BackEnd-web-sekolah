@@ -244,32 +244,7 @@ Custom CSS (bisa juga disimpan di file css/data-sekolah.css) -->
         document.getElementById('kurikulum').value = data.kurikulum || "";
         document.getElementById('waktu').value = data.waktu || "";
 
-        // Update preview sidebar
-        document.getElementById('previewNPSN').innerText = data.npsn || "-";
-        document.getElementById('previewStatus').innerText = data.status || "-";
-        document.getElementById('previewBentuk').innerText = data.bentukPendidikan || "-";
-        document.getElementById('previewKepemilikan').innerText = data.statusKepemilikan || "-";
-        document.getElementById('previewSKPendirian').innerText = data.skPendirian || "-";
-        document.getElementById('previewTanggalSKPendirian').innerText = data.tanggalSkPendirian || "-";
-        document.getElementById('previewSKIzinOperasional').innerText = data.skIzinOperasional || "-";
-        document.getElementById('previewTanggalSKIzinOperasional').innerText = data.tanggalSkIzinOperasional || "-";
-        document.getElementById('previewKebutuhan').innerText = data.kebutuhanKhusus || "-";
-        document.getElementById('previewNamaBank').innerText = data.namaBank || "-";
-        document.getElementById('previewCabang').innerText = data.cabang || "-";
-        document.getElementById('previewRekening').innerText = data.rekeningAtasNama || "-";
-        document.getElementById('previewStatusBOS').innerText = data.statusBOS || "-";
-        document.getElementById('previewWaktuPenyelenggaraan').innerText = data.waktuPenyelenggaraan || "-";
-        document.getElementById('previewISO').innerText = data.sertifikasiISO || "-";
-        document.getElementById('previewSumberListrik').innerText = data.sumberListrik || "-";
-        document.getElementById('previewDayaListrik').innerText = data.dayaListrik || "-";
-        document.getElementById('previewKecepatan').innerText = data.kecepatanInternet || "-";
-
-        // Update preview untuk data tambahan
-        document.getElementById('kepsekField').innerText = data.kepsek || "-";
-        document.getElementById('operatorField').innerText = data.operator || "-";
-        document.getElementById('akreditasiField').innerText = data.akreditasi || "-";
-        document.getElementById('kurikulumField').innerText = data.kurikulum || "-";
-        document.getElementById('waktuField').innerText = data.waktu || "-";
+     
 
         // Tampilkan tombol delete jika data tersedia
         document.getElementById('deleteBtn').style.display = "inline-block";
@@ -361,33 +336,6 @@ Custom CSS (bisa juga disimpan di file css/data-sekolah.css) -->
     function resetDataSekolahForm() {
       document.getElementById('dataSekolahForm').reset();
       document.getElementById('dataSekolahId').value = "";
-      // Reset preview
-      document.getElementById('previewNPSN').innerText = "-";
-      document.getElementById('previewStatus').innerText = "-";
-      document.getElementById('previewBentuk').innerText = "-";
-      document.getElementById('previewKepemilikan').innerText = "-";
-      document.getElementById('previewSKPendirian').innerText = "-";
-      document.getElementById('previewTanggalSKPendirian').innerText = "-";
-      document.getElementById('previewSKIzinOperasional').innerText = "-";
-      document.getElementById('previewTanggalSKIzinOperasional').innerText = "-";
-      document.getElementById('previewKebutuhan').innerText = "-";
-      document.getElementById('previewNamaBank').innerText = "-";
-      document.getElementById('previewCabang').innerText = "-";
-      document.getElementById('previewRekening').innerText = "-";
-      document.getElementById('previewStatusBOS').innerText = "-";
-      document.getElementById('previewWaktuPenyelenggaraan').innerText = "-";
-      document.getElementById('previewISO').innerText = "-";
-      document.getElementById('previewSumberListrik').innerText = "-";
-      document.getElementById('previewDayaListrik').innerText = "-";
-      document.getElementById('previewKecepatan').innerText = "-";
-
-      // Reset preview untuk data tambahan
-      document.getElementById('kepsekField').innerText = "-";
-      document.getElementById('operatorField').innerText = "-";
-      document.getElementById('akreditasiField').innerText = "-";
-      document.getElementById('kurikulumField').innerText = "-";
-      document.getElementById('waktuField').innerText = "-";
-
       // Sembunyikan tombol delete
       document.getElementById('deleteBtn').style.display = "none";
     }
