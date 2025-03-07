@@ -16,7 +16,6 @@ const User = sequelize.define('User', {
   email: {
     type: DataTypes.STRING(50),
     allowNull: false,
-    unique: true,
     validate: {
       isEmail: {
         msg: "Format email tidak valid"
