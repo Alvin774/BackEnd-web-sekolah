@@ -8,7 +8,7 @@ const Fasilitas = sequelize.define('Fasilitas', {
     autoIncrement: true,
   },
   name: {
-    type: DataTypes.STRING(100),
+    type: DataTypes.STRING(50),
     allowNull: false,
   },
   imageUrl: {

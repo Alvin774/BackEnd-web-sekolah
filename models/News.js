@@ -8,11 +8,11 @@ const News = sequelize.define('News', {
     autoIncrement: true,
   },
   title: {
-    type: DataTypes.STRING(255),
+    type: DataTypes.STRING(50),
     allowNull: false,
   },
   description: {
-    type: DataTypes.TEXT,
+    type: DataTypes.TEXT(200),
     allowNull: false,
   },
   imageUrl: {

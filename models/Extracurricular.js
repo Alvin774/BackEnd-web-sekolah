@@ -12,7 +12,7 @@ const Extracurricular = sequelize.define('Extracurricular', {
     allowNull: false,
   },
   description: {
-    type: DataTypes.STRING(255),
+    type: DataTypes.STRING(200),
     allowNull: true,
   },
   imageUrl: {

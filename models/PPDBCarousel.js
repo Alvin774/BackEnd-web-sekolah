@@ -16,11 +16,11 @@ const PPDBCarousel = sequelize.define('PPDBCarousel', {
     allowNull: true,
   },
   captionTitle: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(50),
     allowNull: false,
   },
   captionDescription: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(255),
     allowNull: false,
   },
   linkUrl: {

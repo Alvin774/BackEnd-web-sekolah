@@ -10,11 +10,11 @@ const User = sequelize.define('User', {
     autoIncrement: true,
   },
   name: {  // Menggunakan 'name' sesuai dengan input register
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(50),
     allowNull: false,
   },
   email: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(50),
     allowNull: false,
     unique: true,
     validate: {
