@@ -8,7 +8,7 @@ const Prestasi = sequelize.define('Prestasi', {
     autoIncrement: true,
   },
   title: {
-    type: DataTypes.STRING(255),
+    type: DataTypes.STRING(50),
     allowNull: false,
   },
   pringkat: {

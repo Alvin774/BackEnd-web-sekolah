@@ -10,7 +10,7 @@ const Announcement = sequelize.define('Announcement', {
     autoIncrement: true,
   },
   title: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(50),
     allowNull: false,
   },
   content: {

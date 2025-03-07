@@ -9,7 +9,7 @@ const Sambutan = sequelize.define('Sambutan', {
     autoIncrement: true,
   },
   title: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(50),
     allowNull: true, // Opsional, karena controller tidak mewajibkan title
   },
   content: {
