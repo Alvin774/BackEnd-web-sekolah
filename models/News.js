@@ -8,7 +8,7 @@ const News = sequelize.define('News', {
     autoIncrement: true,
   },
   title: {
-    type: DataTypes.STRING(40),
+    type: DataTypes.STRING,
     allowNull: false,
   },
   description: {
