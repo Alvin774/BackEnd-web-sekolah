@@ -13,7 +13,7 @@ const Sambutan = sequelize.define('Sambutan', {
     allowNull: true, // Opsional, karena controller tidak mewajibkan title
   },
   content: {
-    type: DataTypes.TEXT(150),
+    type: DataTypes.TEXT,
     allowNull: false, // Wajib diisi
   },
   principalName: {
